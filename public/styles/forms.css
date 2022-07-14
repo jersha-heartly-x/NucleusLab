@@ -1,0 +1,24 @@
+body{
+    background-color: #ECECF9;
+}
+
+.main{
+    border-radius: 10px;
+    background-color: white;
+    margin: 50px;
+    padding: 10px 50px 40px 50px;
+    box-shadow: 2px 5px 20px rgba(0,0,0,0.1);
+}
+.request{
+    border-radius: 5px;
+    padding: 10px 50px;
+    font-weight: bold;
+    background-color: #5853BC;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+
+.request:hover{
+    background-color: #3d3a83;
+}
