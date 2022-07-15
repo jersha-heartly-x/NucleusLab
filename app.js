@@ -15,6 +15,10 @@ app.get("/login_request", (req, res)=>{
     res.render("login_request");
 })
 
+app.get("/regular_schedule", (req, res)=>{
+    res.render("regular_schedule");
+})
+
 app.post("/login_request", (req, res)=>{
     console.log(req.body);
     res.send("Request processing");
