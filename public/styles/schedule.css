@@ -1,0 +1,33 @@
+body{
+    background-color: #ECECF9;
+}
+
+.schedule{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 2px 5px 20px rgba(0,0,0,0.1);
+}
+
+
+.schedule thead{
+    background-color: #d7d7f8;
+}
+
+.daychoicebtn{
+    background-color: #5853BC;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 27px;
+    font-weight: bold;
+}
+
+.daychoicebtn:hover,
+.daychoicebtn:active,
+.daychoicebtn:focus{
+    background-color: #3d3a83;
+    color: white;
+}
+
+.dropdown-item:active{
+    background-color: #5853BC;
+}
