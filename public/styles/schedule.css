@@ -8,10 +8,12 @@ body{
     box-shadow: 2px 5px 20px rgba(0,0,0,0.1);
 }
 
-
-.schedule thead{
-    background-color: #d7d7f8;
+.schedule thead,
+.schedule .rhead{
+    background-color: #5853BC;
+    color: white !important;
 }
+
 
 .daychoicebtn{
     background-color: #5853BC;
