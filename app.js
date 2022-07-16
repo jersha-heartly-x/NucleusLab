@@ -8,8 +8,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res)=>{
-    res.sendFile(__dirname + "/index.html");
+    // res.sendFile(__dirname + "/index.html");
+    res.render("index");
 })
+
 
 app.get("/login_request", (req, res)=>{
     res.render("login_request");
