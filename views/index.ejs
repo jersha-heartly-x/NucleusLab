@@ -5,52 +5,154 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Lab booking</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/dashboard.css">
-
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-
 </head>
 
 <body id="body-pd">
 
     <header class="header" id="header">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
+        <div class="header_img"> <img src="images/nucleus.png" alt="nucleus"> </div>
     </header>
+
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> 
-                <span class="nav_logo-name">BBBootstrap</span> </a>
+            <div>
+                <a href="#" class="csl_logo" id="csl_logo">
+                    <img class="csl" src="images/csl_logo.png" alt="csl">
+                    <i class='bx bx-chevron-left bx-sm leftarrow' id="leftarrow"></i>
+                </a>
+
                 <div class="nav_list">
-                    <a href="#" class="nav_link active"> <i class='bx bxs-grid bx-sm'></i> <span
-                            class="nav_name">Dashboard</span> </a>
-                    <a href="#" class="nav_link"> <i class='bx bx-fingerprint bx-sm'></i> <span
-                            class="nav_name">Biometric</span> </a>
-                    <a href="#" class="nav_link"> <i class='bx bx-laptop bx-sm'></i> <span class="nav_name">Lab
-                            Booking</span> </a>
-                    <a href="#" class="nav_link"> <i class='bx bx-log-in-circle bx-sm'></i> <span class="nav_name">Login
-                            Request</span> </a>
-                    <a class="nav_link collapsed text-truncate" href="#submenu1" data-bs-toggle="collapse"
-                        data-bs-target="#submenu1" id="dropd-toggle"><i class='bx bx-sad bx-sm'></i><span
-                            class="d-flex"><span class="nav_name pe-5">Complaint</span><i
-                                class='bx bx-chevron-down bx-sm'></i></span></a>
+
+                    <a href="#" class="nav_link active">
+                        <i class='bx bxs-grid bx-sm'></i>
+                        <span class="nav_name">Dashboard</span>
+                    </a>
+
+                    <a href="#" class="nav_link">
+                        <i class='bx bx-fingerprint bx-sm'></i>
+                        <span class="nav_name">Biometric</span>
+                    </a>
+
+                    <a class="nav_link collapsed text-truncate" href="#submenu1" data-bs-toggle="collapse" 
+                        data-bs-target="#submenu1" id="dropd-toggle">
+                        
+                        <i class='bx bx-laptop bx-sm'></i>
+                        
+                        <span class="d-flex">
+                            <span class="nav_name pe-4">Lab Booking</span>
+                            <i id="uparrow" class='bx bx-chevron-down bx-sm'></i>
+                        </span>
+                    </a>
+
                     <div class="collapse" id="submenu1" aria-expanded="false">
                         <ul class="list-group">
-                            <li class=""><a href="#" class="nav_link active"> <i
-                                        class='bx bx-grid-alt nav_icon'></i><span class="nav_name">Dashboard</span> </a>
+                            
+                            <li class="">
+                                <a href="#" class="nav_link active">
+                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
+                                    <span class="nav_name">Regular Schedule</span>
+                                </a>
                             </li>
-                            <li><a href="#" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i><span
-                                        class="nav_name">Dashboard</span> </a> </li>
+                            
+                            <li>
+                                <a href="#" class="nav_link active">
+                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
+                                    <span class="nav_name">Check Availability</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="nav_link active">
+                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
+                                    <span class="nav_name">To Book</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="nav_link active">
+                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
+                                    <span class="nav_name">View Booking</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="nav_link active">
+                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
+                                    <span class="nav_name">Cancel Booking</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
-                    </li>
 
-                    <a href="#" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span
-                            class="nav_name">Files</span> </a>
+                    <a class="nav_link collapsed text-truncate" href="#submenu2" data-bs-toggle="collapse" 
+                        data-bs-target="#submenu2" id="dropd-toggle">
+
+                        <i class='bx bx-log-in-circle bx-sm'></i>
+                        
+                        <span class="d-flex">
+                            <span class="nav_name pe-2">Login Request</span>
+                            <i id="uparrow" class='bx bx-chevron-down bx-sm'></i>
+                        </span>
+                    </a>
+
+                    <div class="collapse" id="submenu2" aria-expanded="false">
+                        <ul class="list-group">
+                            
+                            <li class="">
+                                <a href="#" class="nav_link active">
+                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
+                                    <span class="nav_name">Create Request</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="#" class="nav_link active">
+                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
+                                    <span class="nav_name">View Request</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <a class="nav_link collapsed text-truncate" href="#submenu3" data-bs-toggle="collapse"
+                        data-bs-target="#submenu3" id="dropd-toggle">
+
+                        <i class='bx bx-sad bx-sm'></i>
+                        
+                        <span class="d-flex">
+                            <span class="nav_name pe-4">Complaints</span>
+                            <i id="uparrow" class='bx bx-chevron-down bx-sm'></i>
+                        </span>
+                    </a>
+                    
+                    <div class="collapse" id="submenu3" aria-expanded="false">
+                        <ul class="list-group">
+                            
+                            <li class="">
+                                <a href="#" class="nav_link active">
+                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
+                                    <span class="nav_name">Create Complaint</span>
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a href="#" class="nav_link active">
+                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
+                                    <span class="nav_name">View Complaint</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
 
                 </div>
             </div>
@@ -70,21 +172,25 @@
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
 
-            const showNavbar = (toggleId, navId, bodyId, headerId, dropd) => {
+            const showNavbar = (toggleId, navId, bodyId, headerId, dropd, submenuId) => {
                 const toggle = document.getElementById(toggleId),
                     nav = document.getElementById(navId),
                     bodypd = document.getElementById(bodyId),
                     headerpd = document.getElementById(headerId),
-                    dropdpd = document.getElementById(dropd);
-                submenupd = document.getElementById('submenu1');
+                    dropdown = document.getElementById(dropd),
+                    
+                    submenupd = document.getElementById(submenuId),
+                    cslLogo = document.getElementById('csl_logo'),
+                    leftarr = document.getElementById('leftarrow'),
+                    uparr = document.getElementById('uparrow');
 
                 // Validate that all variables exist
-                if (toggle && nav && bodypd && headerpd && dropdpd) {
+                if (toggle && nav && bodypd && headerpd && dropdown) {
                     toggle.addEventListener('click', () => {
                         // show navbar
                         nav.classList.toggle('show')
                         // change icon
-                        toggle.classList.toggle('bx-x')
+                        toggle.classList.toggle('d-none')
                         // add padding to body
                         bodypd.classList.toggle('body-pd')
                         // add padding to header
@@ -93,25 +199,60 @@
                         if (submenupd.classList.contains('show')) {
                             submenupd.classList.toggle('show')
                         }
+
+                        if(cslLogo.classList.contains('csl_logo')) {
+                            cslLogo.classList.remove('csl_logo');
+                            cslLogo.classList.add('csl_logo_toggle');
+                        }
                     })
 
-                    dropdpd.addEventListener('click', () => {
+                    leftarr.addEventListener('click', () => {
+                        // show navbar
+                        nav.classList.toggle('show')
+                        // change icon
+                        toggle.className = "bx bx-menu";
+                        // add padding to body
+                        bodypd.classList.toggle('body-pd')
+                        // add padding to header
+                        headerpd.classList.toggle('body-pd')
+
+                        if (submenupd.classList.contains('show')) {
+                            submenupd.classList.toggle('show')
+                        }
+
+                        if(cslLogo.classList.contains('csl_logo_toggle')) {
+                            cslLogo.classList.remove('csl_logo_toggle');
+                            cslLogo.classList.add('csl_logo');
+                        }
+                    })
+
+                    dropdown.addEventListener('click', () => {
                         // show navbar
                         if (!nav.classList.contains('show')) {
                             nav.classList.toggle('show')
                             // change icon
-                            toggle.classList.toggle('bx-x')
+                            toggle.classList.toggle('d-none')
                             // add padding to body
                             bodypd.classList.toggle('body-pd')
                             // add padding to header
                             headerpd.classList.toggle('body-pd')
+
+                            if(cslLogo.classList.contains('csl_logo')) {
+                                cslLogo.classList.remove('csl_logo');
+                                cslLogo.classList.add('csl_logo_toggle');
+                            }
+                        }
+
+                        if (uparr.className == "bx bx-chevron-up bx-sm") {
+                            uparr.className = "bx bx-chevron-down bx-sm";
+                        } else {
+                            uparr.className = "bx bx-chevron-up bx-sm";
                         }
                     })
-
                 }
             }
 
-            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header', 'dropd-toggle')
+            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header', 'dropd-toggle', 'submenu1')
 
             /*===== LINK ACTIVE =====*/
             const linkColor = document.querySelectorAll('.nav_link')
@@ -128,4 +269,3 @@
         });
     </script>
 </body>
-
