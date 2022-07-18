@@ -33,6 +33,7 @@ app.get("/biometric", (req, res)=>{
 app.get("/complaint", (req, res)=>{
     res.render("complaint");
 })
+
 app.listen(3000, ()=>{
     console.log("App running on port 3000");
 })

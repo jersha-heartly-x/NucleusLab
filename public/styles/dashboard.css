@@ -23,7 +23,7 @@ body {
     padding: 0 1rem;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
-    transition: .5s
+    transition: .3s
 }
 
 a {
@@ -42,7 +42,7 @@ a {
     padding: 0 1rem;
     background-color: var(--white-color);
     z-index: var(--z-fixed);
-    transition: .5s
+    transition: .3s
 }
 
 .header_toggle {
@@ -72,7 +72,7 @@ a {
     height: 100vh;
     background-color: var(--first-color);
     padding: .5rem 1rem 0 0;
-    transition: .5s;
+    transition: .3s;
     z-index: var(--z-fixed)
 }
 
@@ -97,6 +97,26 @@ a {
     margin-bottom: 2rem
 }
 
+.csl_logo {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    padding: .5rem 0 .5rem 1rem;
+    margin-bottom: 2rem;
+}
+
+.csl_logo_toggle {
+    display: flex;
+    align-items: center;
+    padding: .5rem 0rem .5rem 4.3rem;
+    margin-bottom: 1rem;
+}
+
+.csl_logo_toggle .csl {
+    width: 80px;
+    height: 60px;
+}
+
 .nav_logo-icon {
     font-size: 1.25rem;
     color: var(--white-color)
@@ -111,7 +131,7 @@ a {
     position: relative;
     color: var(--first-color-light);
     margin-bottom: 1.5rem;
-    transition: .3s
+    transition: .2s
 }
 
 .nav_link:hover {
@@ -119,17 +139,13 @@ a {
 }
 
 .nav_icon {
-    font-size: 1.25rem
+    color: var(--first-color);
 }
 
 .show {
     left: 0;
     width: calc(var(--nav-width) + 156px); 
 }
-
-/* .body-pd {
-    padding-left: calc(var(--nav-width) + 1rem)
-} */
 
 .active {
     color: var(--white-color)
@@ -181,3 +197,13 @@ a {
         padding-left: calc(var(--nav-width) + 188px)
     }
 } 
+
+.csl {
+    width: 44px;
+    height: 30px;
+}
+
+.leftarrow {
+    color: var(--white-color);
+    padding-left: 30px;
+}
