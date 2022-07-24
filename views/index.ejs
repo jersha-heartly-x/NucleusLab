@@ -26,7 +26,7 @@
         <nav class="nav">
             <div>
                 <a href="#" class="csl_logo" id="csl_logo">
-                    <img class="csl" src="images/csl_logo.png" alt="csl">
+                    <img class="csl w-80" src="images/csl_logo.png" alt="csl">
                     <i class='bx bx-chevron-left bx-sm leftarrow' id="leftarrow"></i>
                 </a>
 
@@ -42,7 +42,7 @@
                         <span class="nav_name">Biometric</span>
                     </a>
 
-                    <a class="nav_link collapsed text-truncate" href="#submenu1" data-bs-toggle="collapse" 
+                    <a class="nav_link collapsed text-truncate dropd-class" href="#submenu1" data-bs-toggle="collapse" 
                         data-bs-target="#submenu1" id="dropd-toggle">
                         
                         <i class='bx bx-laptop bx-sm'></i>
@@ -51,9 +51,10 @@
                             <span class="nav_name pe-4">Lab Booking</span>
                             <i id="uparrow" class='bx bx-chevron-down bx-sm'></i>
                         </span>
+                        
                     </a>
 
-                    <div class="collapse" id="submenu1" aria-expanded="false">
+                    <div class="collapse submenu" id="submenu1" aria-expanded="false">
                         <ul class="list-group">
                             
                             <li class="">
@@ -93,7 +94,7 @@
                         </ul>
                     </div>
 
-                    <a class="nav_link collapsed text-truncate" href="#submenu2" data-bs-toggle="collapse" 
+                    <a class="nav_link collapsed text-truncate dropd-class" href="#submenu2" data-bs-toggle="collapse" 
                         data-bs-target="#submenu2" id="dropd-toggle">
 
                         <i class='bx bx-log-in-circle bx-sm'></i>
@@ -102,9 +103,10 @@
                             <span class="nav_name pe-2">Login Request</span>
                             <i id="uparrow" class='bx bx-chevron-down bx-sm'></i>
                         </span>
+
                     </a>
 
-                    <div class="collapse" id="submenu2" aria-expanded="false">
+                    <div class="collapse submenu" id="submenu2" aria-expanded="false">
                         <ul class="list-group">
                             
                             <li class="">
@@ -124,7 +126,7 @@
                         </ul>
                     </div>
 
-                    <a class="nav_link collapsed text-truncate" href="#submenu3" data-bs-toggle="collapse"
+                    <a class="nav_link collapsed text-truncate dropd-class d-flex" href="#submenu3" data-bs-toggle="collapse"
                         data-bs-target="#submenu3" id="dropd-toggle">
 
                         <i class='bx bx-sad bx-sm'></i>
@@ -133,9 +135,10 @@
                             <span class="nav_name pe-4">Complaints</span>
                             <i id="uparrow" class='bx bx-chevron-down bx-sm'></i>
                         </span>
+
                     </a>
                     
-                    <div class="collapse" id="submenu3" aria-expanded="false">
+                    <div class="collapse submenu" id="submenu3" aria-expanded="false">
                         <ul class="list-group">
                             
                             <li class="">
@@ -283,20 +286,20 @@
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
 
-            const showNavbar = (toggleId, navId, bodyId, headerId, dropd, submenuId) => {
+            const showNavbar = (toggleId, navId, bodyId, headerId) => {
                 const toggle = document.getElementById(toggleId),
                     nav = document.getElementById(navId),
                     bodypd = document.getElementById(bodyId),
                     headerpd = document.getElementById(headerId),
-                    dropdown = document.getElementById(dropd),
-                    
-                    submenupd = document.getElementById(submenuId),
+                    //dropdown = document.getElementById(dropd),
+                    dropdowns = document.querySelectorAll('.dropd-class'),
+                    submenus = document.querySelectorAll('.submenu'),
                     cslLogo = document.getElementById('csl_logo'),
-                    leftarr = document.getElementById('leftarrow'),
-                    uparr = document.getElementById('uparrow');
+                    leftarr = document.getElementById('leftarrow');
+                    // uparr = document.getElementById('uparrow');
 
                 // Validate that all variables exist
-                if (toggle && nav && bodypd && headerpd && dropdown) {
+                if (toggle && leftarr && nav && bodypd && headerpd && dropdowns) {
                     toggle.addEventListener('click', () => {
                         // show navbar
                         nav.classList.toggle('show')
@@ -306,10 +309,6 @@
                         bodypd.classList.toggle('body-pd')
                         // add padding to header
                         headerpd.classList.toggle('body-pd')
-
-                        if (submenupd.classList.contains('show')) {
-                            submenupd.classList.toggle('show')
-                        }
 
                         if(cslLogo.classList.contains('csl_logo')) {
                             cslLogo.classList.remove('csl_logo');
@@ -327,43 +326,56 @@
                         // add padding to header
                         headerpd.classList.toggle('body-pd')
 
-                        if (submenupd.classList.contains('show')) {
-                            submenupd.classList.toggle('show')
-                        }
-
                         if(cslLogo.classList.contains('csl_logo_toggle')) {
                             cslLogo.classList.remove('csl_logo_toggle');
                             cslLogo.classList.add('csl_logo');
                         }
+
+                        submenus.forEach(submenu => {
+                            if (submenu.classList.contains('show')) {
+                                submenu.classList.toggle('show')
+                            }
+                        })
+
+                        dropdowns.forEach(dropdown => {
+                            const uparr = dropdown.getElementsByTagName('i')[1];
+                            if (uparr.className == "bx bx-chevron-up bx-sm") {
+                                uparr.className = "bx bx-chevron-down bx-sm";
+                            }
+                        })
                     })
 
-                    dropdown.addEventListener('click', () => {
-                        // show navbar
-                        if (!nav.classList.contains('show')) {
-                            nav.classList.toggle('show')
-                            // change icon
-                            toggle.classList.toggle('d-none')
-                            // add padding to body
-                            bodypd.classList.toggle('body-pd')
-                            // add padding to header
-                            headerpd.classList.toggle('body-pd')
+                    dropdowns.forEach(dropdown => {
+                        const uparr = dropdown.getElementsByTagName('i')[1];
+                        //console.log(uparr);
+                        dropdown.addEventListener('click', () => {
+                            // show navbar
+                            if (!nav.classList.contains('show')) {
+                                nav.classList.toggle('show')
+                                // change icon
+                                toggle.classList.toggle('d-none')
+                                // add padding to body
+                                bodypd.classList.toggle('body-pd')
+                                // add padding to header
+                                headerpd.classList.toggle('body-pd')
 
-                            if(cslLogo.classList.contains('csl_logo')) {
-                                cslLogo.classList.remove('csl_logo');
-                                cslLogo.classList.add('csl_logo_toggle');
+                                if(cslLogo.classList.contains('csl_logo')) {
+                                    cslLogo.classList.remove('csl_logo');
+                                    cslLogo.classList.add('csl_logo_toggle');
+                                }
                             }
-                        }
 
-                        if (uparr.className == "bx bx-chevron-up bx-sm") {
-                            uparr.className = "bx bx-chevron-down bx-sm";
-                        } else {
-                            uparr.className = "bx bx-chevron-up bx-sm";
-                        }
+                            if (uparr.className == "bx bx-chevron-up bx-sm") {
+                                uparr.className = "bx bx-chevron-down bx-sm";
+                            } else {
+                                uparr.className = "bx bx-chevron-up bx-sm";
+                            }
+                        })
                     })
                 }
             }
 
-            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header', 'dropd-toggle', 'submenu1')
+            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
 
             /*===== LINK ACTIVE =====*/
             const linkColor = document.querySelectorAll('.nav_link')

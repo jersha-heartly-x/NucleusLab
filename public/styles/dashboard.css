@@ -84,7 +84,7 @@ a {
     background-color: var(--first-color);
     padding: .5rem 1rem 0 0;
     transition: .3s;
-    z-index: var(--z-fixed)
+    z-index: var(--z-fixed);
 }
 
 .nav {
@@ -199,7 +199,7 @@ a {
 
     .l-navbar {
         left: 0;
-        padding: 1rem 1rem 0 0
+        padding: 1rem 1rem 0 0;
     }
 
     .show {
