@@ -8,7 +8,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res)=>{
-    res.render("index");
+    res.redirect("/dashboard");
+})
+app.get("/dashboard", (req, res)=>{
+    res.render("dashboard");
 })
 
 app.get("/login_request", (req, res)=>{
@@ -28,8 +31,8 @@ app.get("/biometric", (req, res)=>{
     res.render("biometric");
 })
 
-app.get("/complaint", (req, res)=>{
-    res.render("complaint");
+app.get("/register_complaint", (req, res)=>{
+    res.render("register_complaint");
 })
 
 app.listen(3000, ()=>{
