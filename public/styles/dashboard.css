@@ -1,10 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
 :root {
+    
     --header-height: 3rem;
     --nav-width: 73px;
     --first-color: #5853BC;
     --first-color-light: #AFA5D9;
+    --background-light: #ECECF9;
     --white-color: white;
     --body-font: 'Nunito', sans-serif;
     --normal-font-size: 1rem;
@@ -18,12 +20,20 @@
 }
 
 body {
+    background-color: var(--background-light);
     position: relative;
     margin: var(--header-height) 0 0 0;
-    padding: 0 1rem;
+    padding: 1rem;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     transition: .3s
+}
+
+.text-purple{
+    color: var(--first-color);
+}
+.bg-purple{
+    background-color: #5853BC;
 }
 
 a {
@@ -40,9 +50,10 @@ a {
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
-    background-color: var(--white-color);
+    background-color: var(--background-light);
     z-index: var(--z-fixed);
-    transition: .3s
+    transition: .3s;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 }
 
 .header_toggle {
@@ -81,7 +92,7 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .nav_logo,
@@ -98,6 +109,7 @@ a {
 }
 
 .csl_logo {
+    transition: .3s;
     display: grid;
     grid-template-columns: max-content max-content;
     align-items: center;
@@ -113,6 +125,7 @@ a {
 }
 
 .csl_logo_toggle .csl {
+    transition: .3s;
     width: 80px;
     height: 60px;
 }
@@ -166,7 +179,7 @@ a {
 
 @media screen and (min-width: 768px) {
     body {
-        margin: calc(var(--header-height) + 1rem) 0 0 0;
+        margin: calc(var(--header-height) + 2rem) 0 0 0;
         padding-left: calc(var(--nav-width) + 2rem)
     }
 
