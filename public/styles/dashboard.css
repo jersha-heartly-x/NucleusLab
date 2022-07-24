@@ -1,6 +1,4 @@
-
 :root {
-    
     --header-height: 3rem;
     --nav-width: 73px;
     --first-color: #5853BC;
@@ -32,7 +30,7 @@ body {
     color: var(--first-color);
 }
 .bg-purple{
-    background-color: #5853BC;
+    background-color: var(--first-color);
 }
 
 a {
@@ -94,20 +92,10 @@ a {
     overflow: hidden;
     overflow-y: auto;
 }
-
+ 
 #nav::-webkit-scrollbar {
-    width: 3px;
-}
-
-#nav::-webkit-scrollbar-track {
-    background: var(--first-color);
-    border-radius: 5px;
-}
-
-#nav::-webkit-scrollbar-thumb {
-    background: var(--background-light);
-    border-radius: 5px;
-}
+    width: 0;
+} 
 
 .nav_logo,
 .nav_link {
@@ -156,13 +144,14 @@ a {
 
 .nav_link {
     position: relative;
-    color: var(--first-color-light);
+    color: var(--white-color);
     margin-bottom: 1.5rem;
-    transition: .2s
+    transition: .2s;
 }
 
 .nav_link:hover {
-    color: var(--white-color)
+    color: var(--white-color);
+    background-color: #544fb8;
 }
 
 .nav_icon {
@@ -175,7 +164,7 @@ a {
 }
 
 .active {
-    color: var(--white-color)
+    color: var(--white-color);
 }
 
 .active::before {
