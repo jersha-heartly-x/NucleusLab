@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab booking</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/schedule.css">
+
+</head>
+
+<body>
+    <div class="schedule p-3 m-5">
+        <div class="my-5 row">
+            <div class="mb-3 col-sm-6"><h4 class="text-center float-sm-start">Monday</h4></div>
+            <div class="mb-3 col-sm-6 ms-auto">
+                <div class="dropdown text-center float-sm-end">
+                    <button class="btn dropdown-toggle daychoicebtn" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Choose day
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Monday</a></li>
+                        <li><a class="dropdown-item" href="#">Tuesday</a></li>
+                        <li><a class="dropdown-item" href="#">Wednesday</a></li>
+                        <li><a class="dropdown-item" href="#">Thursday</a></li>
+                        <li><a class="dropdown-item" href="#">Friday</a></li>
+                        <li><a class="dropdown-item" href="#">Saturday</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Lab | Period</th>
+                        <th scope="col">1</th>
+                        <th scope="col">2</th>
+                        <th scope="col">3</th>
+                        <th scope="col">4</th>
+                        <th scope="col">5</th>
+                        <th scope="col">6</th>
+                        <th scope="col">7</th>
+                        <th scope="col">8</th>
+                        <th scope="col">9</th>
+                        <th scope="col">10</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row" class="rhead">CSL1</th>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>free</td>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>free</td>
+                        <td>free</td>
+                        <td>free</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="rhead">CSL2</th>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>free</td>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>free</td>
+                        <td>free</td>
+                        <td>free</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="rhead">CSL3</th>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>free</td>
+                        <td>free</td>
+                        <td>free</td>
+                        <td>1 yr MSc CS</td>
+                        <td>free</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="rhead">OCL</th>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>free</td>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>free</td>
+                        <td>free</td>
+                        <td>free</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="rhead">DSL</th>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>free</td>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>free</td>
+                        <td>free</td>
+                        <td>free</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="rhead">SKAVA</th>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>free</td>
+                        <td>free</td>
+                        <td>free</td>
+                        <td>1 yr MSc CS</td>
+                        <td>free</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="rhead">IIL</th>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>free</td>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>free</td>
+                        <td>free</td>
+                        <td>free</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="rhead">NSL</th>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>1 yr MSc CS</td>
+                        <td>free</td>
+                        <td>4 yr MSc SS</td>
+                        <td>4 yr MSc SS</td>
+                        <td>free</td>
+                        <td>free</td>
+                        <td>free</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+</body>
