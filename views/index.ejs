@@ -17,13 +17,14 @@
 <body id="body-pd">
 
     <header class="header" id="header">
-        <div class="header_toggle ps-2 d-flex align-items-center"><i class='bx bx-menu' id="header-toggle"></i> 
-        <span class="ps-5 fs-5 fw-bold">Dashboard</span></div>
+        <div class="header_toggle ps-2 d-flex align-items-center"><i class='bx bx-menu' id="header-toggle"></i>
+            <span class="ps-5 fs-5 fw-bold">Dashboard</span>
+        </div>
         <div class="header_img"> <img src="images/nucleus.png" alt="nucleus"> </div>
     </header>
 
     <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
+        <nav class="nav" id="nav">
             <div>
                 <a href="#" class="csl_logo" id="csl_logo">
                     <img class="csl w-80" src="images/csl_logo.png" alt="csl">
@@ -42,28 +43,28 @@
                         <span class="nav_name">Biometric</span>
                     </a>
 
-                    <a class="nav_link collapsed text-truncate dropd-class" href="#submenu1" data-bs-toggle="collapse" 
+                    <a class="nav_link collapsed text-truncate dropd-class" href="#submenu1" data-bs-toggle="collapse"
                         data-bs-target="#submenu1" id="dropd-toggle">
-                        
+
                         <i class='bx bx-laptop bx-sm'></i>
-                        
+
                         <span class="d-flex">
                             <span class="nav_name pe-4">Lab Booking</span>
                             <i id="uparrow" class='bx bx-chevron-down bx-sm'></i>
                         </span>
-                        
+
                     </a>
 
                     <div class="collapse submenu" id="submenu1" aria-expanded="false">
                         <ul class="list-group">
-                            
+
                             <li class="">
                                 <a href="#" class="nav_link active">
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
                                     <span class="nav_name">Regular Schedule</span>
                                 </a>
                             </li>
-                            
+
                             <li>
                                 <a href="#" class="nav_link active">
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
@@ -94,11 +95,11 @@
                         </ul>
                     </div>
 
-                    <a class="nav_link collapsed text-truncate dropd-class" href="#submenu2" data-bs-toggle="collapse" 
+                    <a class="nav_link collapsed text-truncate dropd-class" href="#submenu2" data-bs-toggle="collapse"
                         data-bs-target="#submenu2" id="dropd-toggle">
 
                         <i class='bx bx-log-in-circle bx-sm'></i>
-                        
+
                         <span class="d-flex">
                             <span class="nav_name pe-2">Login Request</span>
                             <i id="uparrow" class='bx bx-chevron-down bx-sm'></i>
@@ -108,14 +109,14 @@
 
                     <div class="collapse submenu" id="submenu2" aria-expanded="false">
                         <ul class="list-group">
-                            
+
                             <li class="">
                                 <a href="#" class="nav_link active">
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
                                     <span class="nav_name">Create Request</span>
                                 </a>
                             </li>
-                            
+
                             <li>
                                 <a href="#" class="nav_link active">
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
@@ -126,28 +127,28 @@
                         </ul>
                     </div>
 
-                    <a class="nav_link collapsed text-truncate dropd-class d-flex" href="#submenu3" data-bs-toggle="collapse"
-                        data-bs-target="#submenu3" id="dropd-toggle">
+                    <a class="nav_link collapsed text-truncate dropd-class d-flex" href="#submenu3"
+                        data-bs-toggle="collapse" data-bs-target="#submenu3" id="dropd-toggle">
 
                         <i class='bx bx-sad bx-sm'></i>
-                        
+
                         <span class="d-flex">
                             <span class="nav_name pe-4">Complaints</span>
                             <i id="uparrow" class='bx bx-chevron-down bx-sm'></i>
                         </span>
 
                     </a>
-                    
+
                     <div class="collapse submenu" id="submenu3" aria-expanded="false">
                         <ul class="list-group">
-                            
+
                             <li class="">
                                 <a href="#" class="nav_link active">
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
                                     <span class="nav_name">Create Complaint</span>
                                 </a>
                             </li>
-                            
+
                             <li>
                                 <a href="#" class="nav_link active">
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
@@ -171,8 +172,12 @@
                 <div class="row">
                     <div class="col-md-8">
                         <h3 class="mb-4 fw-bold text-purple">Hello, Dr. SENTHIL KUMARAN V!</h3>
-                <p>Welcome to Nucleus LAB manager, an all-purpose digital platform for the department of Applied Mathematics and Computational Sciences, to enable effective utilization of the lab facilities.
-                    <br>We are still running on the Beta version. Hence, feel free to report any bugs that need resolving.</p>
+                        <p>Welcome to Nucleus LAB manager, an all-purpose digital platform for the department of Applied
+                            Mathematics and Computational Sciences, to enable effective utilization of the lab
+                            facilities.
+                            <br>We are still running on the Beta version. Hence, feel free to report any bugs that need
+                            resolving.
+                        </p>
                     </div>
                     <div class="col text-center">
                         <img src="images/intro.png" class="w-75" alt="">
@@ -229,8 +234,8 @@
                                     </a>
                                 </div>
                             </li>
-                            
-                          </ul>
+
+                        </ul>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -266,16 +271,16 @@
                             </ul>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
-                
+
         </div>
         <div class="col-xl-9 container">
-            
+
         </div>
 
-        
+
 
     </div>
 
@@ -296,7 +301,7 @@
                     submenus = document.querySelectorAll('.submenu'),
                     cslLogo = document.getElementById('csl_logo'),
                     leftarr = document.getElementById('leftarrow');
-                    // uparr = document.getElementById('uparrow');
+                // uparr = document.getElementById('uparrow');
 
                 // Validate that all variables exist
                 if (toggle && leftarr && nav && bodypd && headerpd && dropdowns) {
@@ -310,7 +315,7 @@
                         // add padding to header
                         headerpd.classList.toggle('body-pd')
 
-                        if(cslLogo.classList.contains('csl_logo')) {
+                        if (cslLogo.classList.contains('csl_logo')) {
                             cslLogo.classList.remove('csl_logo');
                             cslLogo.classList.add('csl_logo_toggle');
                         }
@@ -326,7 +331,7 @@
                         // add padding to header
                         headerpd.classList.toggle('body-pd')
 
-                        if(cslLogo.classList.contains('csl_logo_toggle')) {
+                        if (cslLogo.classList.contains('csl_logo_toggle')) {
                             cslLogo.classList.remove('csl_logo_toggle');
                             cslLogo.classList.add('csl_logo');
                         }
@@ -359,7 +364,7 @@
                                 // add padding to header
                                 headerpd.classList.toggle('body-pd')
 
-                                if(cslLogo.classList.contains('csl_logo')) {
+                                if (cslLogo.classList.contains('csl_logo')) {
                                     cslLogo.classList.remove('csl_logo');
                                     cslLogo.classList.add('csl_logo_toggle');
                                 }

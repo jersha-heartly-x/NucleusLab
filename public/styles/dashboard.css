@@ -93,6 +93,21 @@ a {
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+    overflow-y: auto;
+}
+
+#nav::-webkit-scrollbar {
+    width: 3px;
+}
+
+#nav::-webkit-scrollbar-track {
+    background: var(--first-color);
+    border-radius: 5px;
+}
+
+#nav::-webkit-scrollbar-thumb {
+    background: var(--background-light);
+    border-radius: 5px;
 }
 
 .nav_logo,
