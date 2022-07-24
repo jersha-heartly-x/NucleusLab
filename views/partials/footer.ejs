@@ -1,0 +1,115 @@
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+
+        const showNavbar = (toggleId, navId, bodyId, headerId) => {
+            const toggle = document.getElementById(toggleId),
+                nav = document.getElementById(navId),
+                bodypd = document.getElementById(bodyId),
+                headerpd = document.getElementById(headerId),
+                //dropdown = document.getElementById(dropd),
+                dropdowns = document.querySelectorAll('.dropd-class'),
+                submenus = document.querySelectorAll('.submenu'),
+                cslLogo = document.getElementById('csl_logo'),
+                leftarr = document.getElementById('leftarrow');
+                // uparr = document.getElementById('uparrow');
+
+            // Validate that all variables exist
+            if (toggle && leftarr && nav && bodypd && headerpd && dropdowns) {
+                toggle.addEventListener('click', () => {
+                    // show navbar
+                    nav.classList.toggle('show')
+                    // change icon
+                    toggle.classList.toggle('d-none')
+                    // add padding to body
+                    bodypd.classList.toggle('body-pd')
+                    // add padding to header
+                    headerpd.classList.toggle('body-pd')
+
+                    if(cslLogo.classList.contains('csl_logo')) {
+                        cslLogo.classList.remove('csl_logo');
+                        cslLogo.classList.add('csl_logo_toggle');
+                    }
+                })
+
+                leftarr.addEventListener('click', () => {
+                    // show navbar
+                    nav.classList.toggle('show')
+                    // change icon
+                    toggle.className = "bx bx-menu";
+                    // add padding to body
+                    bodypd.classList.toggle('body-pd')
+                    // add padding to header
+                    headerpd.classList.toggle('body-pd')
+
+                    if(cslLogo.classList.contains('csl_logo_toggle')) {
+                        cslLogo.classList.remove('csl_logo_toggle');
+                        cslLogo.classList.add('csl_logo');
+                    }
+
+                    submenus.forEach(submenu => {
+                        if (submenu.classList.contains('show')) {
+                            submenu.classList.toggle('show')
+                        }
+                    })
+
+                    dropdowns.forEach(dropdown => {
+                        const uparr = dropdown.getElementsByTagName('i')[1];
+                        if (uparr.className == "bx bx-chevron-up bx-sm") {
+                            uparr.className = "bx bx-chevron-down bx-sm";
+                        }
+                    })
+                })
+
+                dropdowns.forEach(dropdown => {
+                    const uparr = dropdown.getElementsByTagName('i')[1];
+                    //console.log(uparr);
+                    dropdown.addEventListener('click', () => {
+                        // show navbar
+                        if (!nav.classList.contains('show')) {
+                            nav.classList.toggle('show')
+                            // change icon
+                            toggle.classList.toggle('d-none')
+                            // add padding to body
+                            bodypd.classList.toggle('body-pd')
+                            // add padding to header
+                            headerpd.classList.toggle('body-pd')
+
+                            if(cslLogo.classList.contains('csl_logo')) {
+                                cslLogo.classList.remove('csl_logo');
+                                cslLogo.classList.add('csl_logo_toggle');
+                            }
+                        }
+
+                        if (uparr.className == "bx bx-chevron-up bx-sm") {
+                            uparr.className = "bx bx-chevron-down bx-sm";
+                        } else {
+                            uparr.className = "bx bx-chevron-up bx-sm";
+                        }
+                    })
+                })
+            }
+        }
+
+        showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+        /*===== LINK ACTIVE =====*/
+        const linkColor = document.querySelectorAll('.nav_link')
+
+        function colorLink() {
+            if (linkColor) {
+                linkColor.forEach(l => l.classList.remove('active'))
+                this.classList.add('active')
+            }
+        }
+        linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+        // Your code to run since DOM is loaded and ready
+    });
+</script>
+</body>
