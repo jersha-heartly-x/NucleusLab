@@ -1,0 +1,129 @@
+<%-include ('partials/header') %>
+    <div class="main col-10 col-sm-8 col-lg-6 mx-auto">
+        <h4 class="my-5">Reserve</h4>
+        <div class="login-req-form">
+            <form action="/login_request" method="post">
+
+                <div class="mb-3 row">
+                    <label for="course" class="col-sm-3 col-form-label">Course</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" aria-label="Default select example" id="course" name="course"
+                            required>
+                            <option value=""></option>
+                            <option value="msc">Msc</option>
+                            <option value="bsc">Bsc</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="acadamic_year" class="col-sm-3 col-form-label">Acadamic Year</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" aria-label="Default select example" id="acadamic_year"
+                            name="acadamic_year" required>
+                            <option></option>
+                            <option>2022</option>
+                            <option>2021</option>
+                            <option>2020</option>
+                            <option>2019</option>
+                            <option>2018</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="programme" class="col-sm-3 col-form-label">Class</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" aria-label="Default select example" id="programme" name="programme"
+                            required>
+                            <option value=""></option>
+                            <option value="ss">Software Systems</option>
+                            <option value="tcs">Theoretical Computer Science</option>
+                            <option value="ds">Data Science</option>
+                            <option value="cs">Cyber Security</option>
+                            <option value="am">Applied Mathematics</option>
+                            <option value="csd">CSD</option>
+                            <option value="as">Applied Science</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="labId" class="col-sm-3 col-form-label">Lab Name</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" aria-label="Default select example" id="labId" name="labId"
+                            required>
+                            <option value=""></option>
+                            <option value="csl1">CSL1</option>
+                            <option value="csl2">CSL2</option>
+                            <option value="csl3">CSL3</option>
+                            <option value="ocl">OCL</option>
+                            <option value="dsl">DSL</option>
+                            <option value="skava">SKAVA</option>
+                            <option value="iil">IIL</option>
+                            <option value="nsl">NSL</option>
+                            <option value="scl">SCL</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="date" class="col-sm-3 col-form-label">Date</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" id="date" name="date" required>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="from" class="col-sm-3 col-form-label">From period</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" aria-label="Default select example" id="from" name="from" required>
+                            <option></option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="to" class="col-sm-3 col-form-label">To period</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" aria-label="Default select example" id="to" name="to" required>
+                            <option></option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="purpose" class="col-sm-3 col-form-label">Purpose</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="purpose" name="purpose" required></input>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input class="btn btn-block request" type="submit" name="submit" value="Submit">
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <%-include ('partials/footer')%>
