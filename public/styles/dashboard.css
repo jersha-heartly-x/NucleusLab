@@ -1,12 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
-
 :root {
     --header-height: 3rem;
     --nav-width: 73px;
     --first-color: #5853BC;
     --first-color-light: #AFA5D9;
+    --background-light: #ECECF9;
     --white-color: white;
-    --body-font: 'Nunito', sans-serif;
+    --body-font: 'Helvetica', sans-serif;
     --normal-font-size: 1rem;
     --z-fixed: 100
 }
@@ -18,12 +17,20 @@
 }
 
 body {
+    background-color: var(--background-light);
     position: relative;
     margin: var(--header-height) 0 0 0;
-    padding: 0 1rem;
+    padding: 1rem;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
-    transition: .3s
+    transition: .2s
+}
+
+.text-purple{
+    color: var(--first-color);
+}
+.bg-purple{
+    background-color: var(--first-color);
 }
 
 a {
@@ -40,9 +47,10 @@ a {
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem;
-    background-color: var(--white-color);
+    background-color: var(--background-light);
     z-index: var(--z-fixed);
-    transition: .3s
+    transition: .2s;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 }
 
 .header_toggle {
@@ -72,8 +80,8 @@ a {
     height: 100vh;
     background-color: var(--first-color);
     padding: .5rem 1rem 0 0;
-    transition: .3s;
-    z-index: var(--z-fixed)
+    transition: .2s;
+    z-index: var(--z-fixed);
 }
 
 .nav {
@@ -81,8 +89,13 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow: hidden
+    overflow: hidden;
+    overflow-y: auto;
 }
+ 
+#nav::-webkit-scrollbar {
+    width: 0;
+} 
 
 .nav_logo,
 .nav_link {
@@ -98,6 +111,7 @@ a {
 }
 
 .csl_logo {
+    transition: .2s;
     display: grid;
     grid-template-columns: max-content max-content;
     align-items: center;
@@ -113,6 +127,7 @@ a {
 }
 
 .csl_logo_toggle .csl {
+    transition: .2s;
     width: 80px;
     height: 60px;
 }
@@ -129,13 +144,14 @@ a {
 
 .nav_link {
     position: relative;
-    color: var(--first-color-light);
+    color: var(--white-color);
     margin-bottom: 1.5rem;
-    transition: .2s
+    transition: .2s;
 }
 
 .nav_link:hover {
-    color: var(--white-color)
+    color: var(--white-color);
+    background-color: #544fb8;
 }
 
 .nav_icon {
@@ -148,7 +164,7 @@ a {
 }
 
 .active {
-    color: var(--white-color)
+    color: var(--white-color);
 }
 
 .active::before {
@@ -166,7 +182,7 @@ a {
 
 @media screen and (min-width: 768px) {
     body {
-        margin: calc(var(--header-height) + 1rem) 0 0 0;
+        margin: calc(var(--header-height) + 2rem) 0 0 0;
         padding-left: calc(var(--nav-width) + 2rem)
     }
 
@@ -186,7 +202,7 @@ a {
 
     .l-navbar {
         left: 0;
-        padding: 1rem 1rem 0 0
+        padding: 1rem 1rem 0 0;
     }
 
     .show {
