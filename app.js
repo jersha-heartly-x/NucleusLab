@@ -28,10 +28,6 @@ app.get("/dashboard", (req, res) => {
     res.render("dashboard");
 })
 
-app.get("/login_request", (req, res) => {
-    res.render("login_request");
-})
-
 app.post("/login_request", (req, res) => {
     // console.log(req.body);
     const year = req.body.year,
@@ -43,14 +39,14 @@ app.post("/login_request", (req, res) => {
         logins = req.body.noOfLogins,
         tools = req.body.tools;
 
-        var sql = `INSERT INTO loginRequests VALUES ("C3391", "${year}", "${programme}", "${date}", "${from}", "${to}", "${type}", "${logins}", "${tools}")`;
-    
-        con.query(sql, function(err, result) {
-            if (err) throw err;
-            console.log('Record inserted');
-        });
-    
-        res.redirect("/login_request");
+    var sql = `INSERT INTO loginRequests VALUES ("C3391", "${year}", "${programme}", "${date}", "${from}", "${to}", "${type}", "${logins}", "${tools}")`;
+
+    con.query(sql, function(err, result) {
+        if (err) throw err;
+        console.log('Record inserted');
+    });
+
+    res.redirect("/login_request");
 })
 
 app.post("/login_request", (req, res) => {
@@ -64,10 +60,6 @@ app.get("/regular_schedule", (req, res) => {
 
 app.get("/biometric", (req, res) => {
     res.render("biometric");
-})
-
-app.get("/register_complaint", (req, res) => {
-    res.render("register_complaint");
 })
 
 app.post("/register_complaint", (req, res) => {
@@ -87,12 +79,24 @@ app.post("/register_complaint", (req, res) => {
     });
 
     res.redirect("/register_complaint");
+})
 
+app.get("/view_booking", (req, res) => {
+    res.render("view_booking");
+})
+
+app.get("/to_book", (req, res) => {
+    res.render("to_book");
+})
+
+app.get("/check_available", (req, res) => {
+    res.render("check_available");
 })
 
 app.listen(3000, () => {
     console.log("App running on port 3000");
 })
+
 
 
 
