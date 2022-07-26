@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mysql = require("mysql");
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
     res.redirect("/dashboard");
 })
+
 app.get("/dashboard", (req, res) => {
     res.render("dashboard");
 })
@@ -20,11 +22,6 @@ app.get("/login_request", (req, res) => {
 
 app.get("/regular_schedule", (req, res) => {
     res.render("regular_schedule");
-})
-
-app.post("/login_request", (req, res) => {
-    console.log(req.body);
-    res.send("Request processing");
 })
 
 app.get("/biometric", (req, res) => {
