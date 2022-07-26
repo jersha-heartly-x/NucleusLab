@@ -3,7 +3,7 @@
 <div class="schedule rounded p-3 mx-lg-5">
     <div class="m-3 row">
         <div class="mb-3 col-sm-6">
-            <h4 class="text-center float-sm-start">Monday</h4>
+            <h4 class="text-center float-sm-start"><%= day %></h4>
         </div>
         <div class="mb-3 col-sm-6 ms-auto">
             <div class="dropdown text-center float-sm-end">
@@ -12,12 +12,12 @@
                     Choose day
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Monday</a></li>
-                    <li><a class="dropdown-item" href="#">Tuesday</a></li>
-                    <li><a class="dropdown-item" href="#">Wednesday</a></li>
-                    <li><a class="dropdown-item" href="#">Thursday</a></li>
-                    <li><a class="dropdown-item" href="#">Friday</a></li>
-                    <li><a class="dropdown-item" href="#">Saturday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?Monday">Monday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?Tuesday">Tuesday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?Wednesday">Wednesday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?Thursday">Thursday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?Friday">Friday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?Saturday">Saturday</a></li>
                 </ul>
             </div>
         </div>

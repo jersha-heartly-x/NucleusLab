@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const schedule = require("./routes/schedule");
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
     res.redirect("/dashboard");
 })
+
 app.get("/dashboard", (req, res) => {
     res.render("dashboard");
 })
@@ -18,8 +20,9 @@ app.get("/login_request", (req, res) => {
     res.render("login_request");
 })
 
-app.get("/regular_schedule", (req, res) => {
-    res.render("regular_schedule");
+app.get("/regular_schedule/:day?", schedule.regularSchedule);
+app.get("/add_regular_schedule", (req, res) => {
+    res.render("add_regular_schedule");
 })
 
 app.post("/login_request", (req, res) => {
@@ -47,9 +50,11 @@ app.get("/check_available", (req, res) => {
     res.render("check_available");
 })
 
+
 app.listen(3000, () => {
     console.log("App running on port 3000");
 })
+
 
 
 
