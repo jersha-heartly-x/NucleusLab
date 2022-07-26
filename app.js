@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+
 const schedule = require("./routes/schedule");
+
 
 const app = express();
 
@@ -23,11 +25,6 @@ app.get("/login_request", (req, res) => {
 app.get("/regular_schedule/:day?", schedule.regularSchedule);
 app.get("/add_regular_schedule", (req, res) => {
     res.render("add_regular_schedule");
-})
-
-app.post("/login_request", (req, res) => {
-    console.log(req.body);
-    res.send("Request processing");
 })
 
 app.get("/biometric", (req, res) => {
