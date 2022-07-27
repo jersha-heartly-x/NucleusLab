@@ -12,12 +12,12 @@
                     Choose day
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="/regular_schedule?Monday">Monday</a></li>
-                    <li><a class="dropdown-item" href="/regular_schedule?Tuesday">Tuesday</a></li>
-                    <li><a class="dropdown-item" href="/regular_schedule?Wednesday">Wednesday</a></li>
-                    <li><a class="dropdown-item" href="/regular_schedule?Thursday">Thursday</a></li>
-                    <li><a class="dropdown-item" href="/regular_schedule?Friday">Friday</a></li>
-                    <li><a class="dropdown-item" href="/regular_schedule?Saturday">Saturday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?day=Monday">Monday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?day=Tuesday">Tuesday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?day=Wednesday">Wednesday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?day=Thursday">Thursday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?day=Friday">Friday</a></li>
+                    <li><a class="dropdown-item" href="/regular_schedule?day=Saturday">Saturday</a></li>
                 </ul>
             </div>
         </div>
@@ -42,107 +42,84 @@
             <tbody>
                 <tr>
                     <th scope="row" class="rhead">CSL1</th>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>free</td>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>free</td>
-                    <td>free</td>
-                    <td>free</td>
+                    <% table[0].forEach(entry=>{ %>
+                    <% if(entry == "free") { %>
+                        <td><strong class="text-purple"><%= entry %></strong></td>
+                    <% }else{ %>
+                        <td><%= entry %></td>
+                    <% } }) %>
                 </tr>
                 <tr>
                     <th scope="row" class="rhead">CSL2</th>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>free</td>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>free</td>
-                    <td>free</td>
-                    <td>free</td>
+                    <% table[1].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
                 </tr>
                 <tr>
                     <th scope="row" class="rhead">CSL3</th>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>free</td>
-                    <td>free</td>
-                    <td>free</td>
-                    <td>1 yr MSc CS</td>
-                    <td>free</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="rhead">OCL</th>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>free</td>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>free</td>
-                    <td>free</td>
-                    <td>free</td>
+                    <% table[2].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
                 </tr>
                 <tr>
                     <th scope="row" class="rhead">DSL</th>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>free</td>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>free</td>
-                    <td>free</td>
-                    <td>free</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="rhead">SKAVA</th>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>free</td>
-                    <td>free</td>
-                    <td>free</td>
-                    <td>1 yr MSc CS</td>
-                    <td>free</td>
-                </tr>
-                <tr>
-                    <th scope="row" class="rhead">IIL</th>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>free</td>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>free</td>
-                    <td>free</td>
-                    <td>free</td>
+                    <% table[3].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
                 </tr>
                 <tr>
                     <th scope="row" class="rhead">NSL</th>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>1 yr MSc CS</td>
-                    <td>free</td>
-                    <td>4 yr MSc SS</td>
-                    <td>4 yr MSc SS</td>
-                    <td>free</td>
-                    <td>free</td>
-                    <td>free</td>
+                    <% table[4].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                </tr>
+                <tr>
+                    <th scope="row" class="rhead">IIL</th>
+                    <% table[5].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                </tr>
+                <tr>
+                    <th scope="row" class="rhead">OCL</th>
+                    <% table[6].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                </tr>
+                <tr>
+                    <th scope="row" class="rhead">SKAVA</th>
+                    <% table[7].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                </tr>
+                <tr>
+                    <th scope="row" class="rhead">SCL</th>
+                    <% table[8].forEach(entry=>{ %>
+                        <% if(entry === "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
                 </tr>
             </tbody>
         </table>
