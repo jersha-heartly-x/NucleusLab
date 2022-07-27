@@ -1,24 +1,24 @@
 <%-include ('partials/header') %>
-    <div class="schedule rounded p-3 mx-lg-5">
+    <div class="schedule rounded p-3 mx-lg-5 ">
         <div class="m-3 row">
             <div class="mb-3  text-center">
                 <h2 class="text-center float-sm-start">Check Availability</h2>
             </div>
         </div>
-        <div class="mb-3 availabel_form " style="margin-left:35rem; margin-right:35rem">
-            <form action="/check_available" method="post">
+        <div class="mb-3 availabel_form d-flex justify-content-center ">
+            <form action="/check_available" method="post" style="width: 30%;">
 
 
                 <div class="mb-3 row">
-                    <label for="date" class="col-sm-3 col-form-label">Date</label>
-                    <div class="col-sm-9">
+                    <label for="date" class="col-xl-5 col-form-label">Date</label>
+                    <div class="col-xl-7">
                         <input type="date" class="form-control" id="date" name="date" required>
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="from" class="col-sm-3 col-form-label">From period</label>
-                    <div class="col-sm-9">
+                    <label for="from" class="col-xl-5 col-form-label">From period</label>
+                    <div class="col-xl-7">
                         <select class="form-select" aria-label="Default select example" id="from" name="from" required>
                             <option></option>
                             <option>1</option>
@@ -36,8 +36,8 @@
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="to" class="col-sm-3 col-form-label">To period</label>
-                    <div class="col-sm-9">
+                    <label for="to" class="col-xl-5 col-form-label">To period</label>
+                    <div class="col-xl-7">
                         <select class="form-select" aria-label="Default select example" id="to" name="to" required>
                             <option></option>
                             <option>1</option>
