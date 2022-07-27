@@ -22,7 +22,7 @@ app.get("/login_request", (req, res) => {
     res.render("login_request");
 })
 
-app.get("/regular_schedule/:day?", schedule.regularSchedule);
+app.get("/regular_schedule", schedule.regularSchedule);
 
 app.get("/add_regular_schedule", (req, res) => {
     res.render("add_regular_schedule");
