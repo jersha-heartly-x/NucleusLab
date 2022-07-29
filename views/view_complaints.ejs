@@ -1,0 +1,42 @@
+<%-include ('partials/header') %>
+
+<div class="schedule rounded p-3 mx-lg-5">
+    <div class="m-3 row">
+        <div class="mb-3 col-sm-6">
+            <h2 class="text-center float-sm-start">View Complaints</h2>
+        </div>
+
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Staff ID</th>
+                    <th scope="col">Lab name</th>
+                    <th scope="col">Row No.</th>
+                    <th scope="col">Col No.</th>
+                    <th scope="col">System No.</th>
+                    <th scope="col">Date & Time</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i<complaints.length; i++) { %>
+                <tr>
+                    <td><%= i+1 %></td>
+                    <td><%= complaints[i].staffId %></td>
+                    <td><%= complaints[i].lab %></td>
+                    <td><%= complaints[i]._row %></td>
+                    <td><%= complaints[i]._col %></td>
+                    <td><%= complaints[i].systemNo %></td>
+                    <td><%= complaints[i].date_time %></td>
+                    <td><%= complaints[i].requirement %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%-include ('partials/footer')%>

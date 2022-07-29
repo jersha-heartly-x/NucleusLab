@@ -1,6 +1,7 @@
 const con = require('../db');
 
 exports.addSchedule = function(req, res) {
+
     const academicYear = parseInt(req.body.acadamic_year),
         sem = req.body.semester,
         year = req.body.year,
