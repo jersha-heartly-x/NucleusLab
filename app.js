@@ -61,9 +61,15 @@ app.get("/add_regular_schedule", (req, res) => {
 
 app.post("/add_regular_schedule", scheduleAdmin.addSchedule);
 
+app.get("/cancel_booking", (req, res) => {
+    res.render("cancel_booking");
+})
+
 app.listen(3000, () => {
     console.log("App running on port 3000");
 })
+
+
 
 
 
