@@ -1,7 +1,7 @@
 var db = require('../db');
 
 exports.regularSchedule = function (req, res) {
-    console.log(req.query['day']);
+    // console.log(req.query['day']);
 
     const day = req.query.day!==undefined? req.query.day : new Date().toLocaleString('en-US', {weekday: "long"});
     
@@ -30,6 +30,8 @@ exports.regularSchedule = function (req, res) {
             }
         
             const data = {
+                title: "Lab Booking",
+                menu: "Regular Schedule",
                 day: day,
                 table: table
             }
