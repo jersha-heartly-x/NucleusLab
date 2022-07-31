@@ -26,6 +26,6 @@ exports.viewComplaints = function(req, res) {
     con.query(sql, function(err, result) {
         if (err) throw err;
         // console.log(result);
-        res.render("view_complaints", {complaints: result});
+        res.render("view_complaints", {title: "Complaints" , menu: "View Complaints", complaints: result});
     });
 }
