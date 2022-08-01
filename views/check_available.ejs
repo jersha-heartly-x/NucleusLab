@@ -1,24 +1,24 @@
 <%-include ('partials/header') %>
-    <div class="schedule rounded p-3 mx-lg-5">
+    <div class="schedule rounded p-3 mx-lg-5 ">
         <div class="m-3 row">
             <div class="mb-3  text-center">
-                <h2 class="text-center float-sm-start">Check Availability</h2>
+                <h4 class="text-center float-sm-start">Check Availability</h4>
             </div>
         </div>
-        <div class="mb-3 availabel_form " style="margin-left:35rem; margin-right:35rem">
-            <form action="/check_available" method="post">
+        <div class="check_available mb-3 d-flex justify-content-center ">
+            <form action="/check_available" method="post" style="width: 30%;">
 
 
                 <div class="mb-3 row">
-                    <label for="date" class="col-sm-3 col-form-label">Date</label>
-                    <div class="col-sm-9">
+                    <label for="date" class="col-xl-5 col-form-label">Date</label>
+                    <div class="col-xl-7">
                         <input type="date" class="form-control" id="date" name="date" required>
                     </div>
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="from" class="col-sm-3 col-form-label">From period</label>
-                    <div class="col-sm-9">
+                    <label for="from" class="col-xl-5 col-form-label">From period</label>
+                    <div class="col-xl-7">
                         <select class="form-select" aria-label="Default select example" id="from" name="from" required>
                             <option></option>
                             <option>1</option>
@@ -36,8 +36,8 @@
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="to" class="col-sm-3 col-form-label">To period</label>
-                    <div class="col-sm-9">
+                    <label for="to" class="col-xl-5 col-form-label">To period</label>
+                    <div class="col-xl-7">
                         <select class="form-select" aria-label="Default select example" id="to" name="to" required>
                             <option></option>
                             <option>1</option>
@@ -61,35 +61,112 @@
             </form>
         </div>
 
+        <% if(locals.table) { %>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col">S.No</th>
-                        <th scope="col">Class</th>
-                        <th scope="col">Lab name</th>
-                        <th scope="col">Entry Date</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">From Period</th>
-                        <th scope="col">To Period</th>
-                        <th scope="col">Purpose</th>
+                        <th scope="col">Lab</th>
+                        <% for(var i=from; i<=to; i++) { %>
+                            <th><%= i %></th>
+                        <% } %>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th scope="row" class="rhead">CSL1</th>
-                        <td>4 yr MSc SS</td>
-                        <td>4 yr MSc SS</td>
-                        <td>1 yr MSc CS</td>
-                        <td>1 yr MSc CS</td>
-                        <td>free</td>
-                        <td>4 yr MSc SS</td>
-                        <td>4 yr MSc SS</td>
+                        <% table[0].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" class="rhead">CSL2</th>
+                        <% table[1].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" class="rhead">CSL3</th>
+                        <% table[2].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" class="rhead">DSL</th>
+                        <% table[3].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" class="rhead">NSL</th>
+                        <% table[4].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" class="rhead">IIL</th>
+                        <% table[5].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" class="rhead">OCL</th>
+                        <% table[6].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" class="rhead">SKAVA</th>
+                        <% table[7].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" class="rhead">SCL</th>
+                        <% table[8].forEach(entry=>{ %>
+                        <% if(entry == "free") { %>
+                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% }else{ %>
+                            <td><%= entry %></td>
+                        <% } }) %>
                     </tr>
 
                 </tbody>
             </table>
         </div>
+        <% } %>
     </div>
 
     <%-include ('partials/footer')%>
