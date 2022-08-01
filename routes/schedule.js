@@ -2,12 +2,17 @@ var db = require('../db');
 
 exports.regularSchedule = function (req, res) {
     // console.log(req.query['day']);
-
     const day = req.query.day!==undefined? req.query.day : new Date().toLocaleString('en-US', {weekday: "long"});
-    
     //year and sem to be changed
-    const year = 2022, sem= "even";
-
+    var year=2022, sem="even";
+    var q = `SELECT academic_year, semester from course_dates where '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date and end_date;`;
+    db.query(q, (err, result)=>{
+        if(err){
+            console.log(err);
+        }
+        year= result[0].academic_year;
+        sem= result[0].semester;
+    })
     const labs=["CSL1", "CSL2", "CSL3", "DSL", "NSL", "IIL", "OCL", "SKAVA", "SCL"];
     
     const table = [];
@@ -18,7 +23,7 @@ exports.regularSchedule = function (req, res) {
         table.push(row);
     }
     
-    const q = `select lab, period, _year, programme from schedule where _day="${day}" and academicYear=${year} and sem="${sem}";`;
+    q = `select lab, period, _year, programme from schedule where _day="${day}" and academicYear=${year} and sem="${sem}";`;
     db.query(q, (err, result)=>{
         if(err) throw err;
         else{
@@ -39,6 +44,18 @@ exports.regularSchedule = function (req, res) {
             res.render("regular_schedule", data);
         }
     });
+}
+
+exports.add_schedule = (req, res)=>{
+    const q = `SELECT academic_year, semester from course_dates where '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date and end_date;`;
+    db.query(q, (err, result)=>{
+        if(err){
+            console.log(err);
+        }
+        console.log(result);
+        res.render("add_regular_schedule", {title: "Schedule", menu: "Add Schedule", defaultOptions :result[0]});
+    })
+    
 }
 
 exports.checkAvailability = function (req, res) {
