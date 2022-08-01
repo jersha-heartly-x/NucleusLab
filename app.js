@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const schedule = require("./routes/schedule");
+const login_request = require("./routes/login_request");
 
 
 const app = express();
@@ -48,6 +49,7 @@ app.get("/check_available", (req, res) => {
     res.render("check_available");
 })
 
+app.post("/login_request", login_request.make_request);
 
 app.listen(3000, () => {
     console.log("App running on port 3000");
