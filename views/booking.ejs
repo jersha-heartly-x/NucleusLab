@@ -1,0 +1,30 @@
+<%-include('partials/header_admin'); %>
+
+    <div class="main rounded col col-md-10 col-lg-8 col-xl-7 mx-auto">
+        <h4 class="my-4">Booking Details</h4>
+        <div class="booking-details">
+            <form action="/booking" method="post">
+    
+                <div class="mb-3 row">
+                    <label for="sdate" class="col-sm-3 col-form-label">Start Date</label>
+                    <div class="col-sm-9">
+                    <input type="date" class="form-control" id="sdate" name="sdate" required>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="edate" class="col-sm-3 col-form-label">End Date</label>
+                    <div class="col-sm-9">
+                    <input type="date" class="form-control" id="edate" name="edate" required>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <input class="btn btn-block request" type="submit" name="Submit" value="Submit">
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+<%-include ('partials/footer_admin'); %>

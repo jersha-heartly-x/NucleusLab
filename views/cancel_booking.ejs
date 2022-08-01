@@ -1,0 +1,59 @@
+<%-include ('partials/header') %>
+    <div class="main col-10 col-sm-8 col-lg-6 mx-auto">
+        <h4 class="my-5">Cancel Booking</h4>
+        <div class="cancel_booking">
+            <form action="/cancel_booking" method="post">
+
+                <div class="mb-3 row">
+                    <label for="date" class="col-sm-3 col-form-label">Date</label>
+                    <div class="col-sm-9">
+                      <input type="date" class="form-control" id="date" name="date" required>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="from" class="col-sm-3 col-form-label">From period</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" aria-label="Default select example" id="from" name="from" required>
+                            <option></option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="to" class="col-sm-3 col-form-label">To period</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" aria-label="Default select example" id="to" name="to" required>
+                            <option></option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <input class="btn btn-block request" type="submit" name="cancel" value="Cancel">
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <%-include ('partials/footer')%>
