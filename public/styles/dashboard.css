@@ -34,6 +34,14 @@ body {
     background-color: var(--first-color);
 }
 
+.bg-blue{
+    background-color: #2faec7;
+}
+
+.bg-lightred{
+    background-color: rgb(255, 230, 230);
+}
+
 a {
     text-decoration: none
 }
