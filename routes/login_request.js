@@ -3,7 +3,7 @@ const db = require("../db");
 exports.make_request = (req, res)=>{
     const staffid= "C3391",
     _class = (req.body.year.slice(2) + req.body.programme),
-    dateRequested = new Date().toISOString().slice(0, 19).replace('T', ' '),
+    dateRequested = new Date(new Date().getTime()+ 330*60*1000).toISOString().slice(0, 19).replace('T', ' '),
     dateNeeded = req.body.date,
     from = req.body.from,
     to= req.body.to,
@@ -17,5 +17,19 @@ exports.make_request = (req, res)=>{
         console.log(res);
     })
 
-    res.redirect("/login_request");
+    res.redirect("/view_login_request");
 };
+
+exports.view_request = (req, res)=>{
+    const staffid= "C3391";
+    const date = new Date().toISOString().slice(0, 10);
+    const q = `select * from login_requests where staffid = "${staffid}" and dateneeded > "${date}" order by daterequested;`;
+
+    db.query(q, (err, result)=>{
+        if(err){
+            console.log(err)
+        }
+
+        res.render("view_login_request", {title: "Login Request" , menu: "View Requests", requests: result});
+    })
+}

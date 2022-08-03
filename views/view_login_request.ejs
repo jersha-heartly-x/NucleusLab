@@ -1,0 +1,61 @@
+<%-include('partials/header')%>
+
+<div class="schedule rounded p-3 mx-lg-5">
+    <div class="m-3 row">
+        <div class="mb-3 col-sm-6">
+            <h4 class="text-center float-sm-start">View Login Requests</h4>
+        </div>
+
+    </div>
+    <div class="table-responsive">
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Date needed</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Tools</th>
+                    <th scope="col">No. of Logins</th>
+                    <th scope="col">Series</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i<requests.length; i++) { %>
+                <% if(requests[i]._status == "Rejected") {%>
+                    <tr class="bg-lightred">
+                <% } else { %>
+                    <tr>
+                <% } %> 
+                    <td><%= i+1 %></td>
+                    <td><%= requests[i].class %></td>
+                    <td><%= requests[i].dateneeded.toString().slice(0, 15) %></td>
+                    <td>Period <%= requests[i].fromperiod %></td>
+                    <td>Period <%= requests[i].toperiod %></td>
+                    <td><%= requests[i]._type %></td>
+                    <td><%= requests[i].tools %></td>
+                    <td><%= requests[i].nooflogins %></td>
+                    <% if(requests[i]._status == "Confirmed") {%>
+                        <td><%= requests[i].series %></td>
+                    <% } else { %>
+                        <td>---</td>
+                    <% } %>    
+                    <% if(requests[i]._status == "Pending") {%>
+                        <td><span class="fs-6 w-75 fw-light px-3 py-2 badge bg-blue rounded-pill">Pending</span></td>
+                    <% } %>
+                    <% if(requests[i]._status == "Rejected") {%>
+                        <td><span class="fs-6 w-75 fw-light px-3 py-2 badge bg-danger rounded-pill">Rejected</span></td>
+                    <% } %>
+                    <% if(requests[i]._status == "Confirmed") {%>
+                        <td><span class="fs-6 w-75 fw-light px-3 py-2 badge bg-success rounded-pill">Confirmed</span></td>
+                    <% } %>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<%-include('partials/footer')%>

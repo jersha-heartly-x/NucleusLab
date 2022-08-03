@@ -27,6 +27,8 @@ app.get("/login_request", (req, res) => {
     res.render("login_request", {title: "Login Request", menu: "Create Request"});
 })
 
+app.get("/view_login_request", login_request.view_request);
+
 app.get("/regular_schedule", schedule.regularSchedule);
 
 app.get("/biometric", (req, res) => {
