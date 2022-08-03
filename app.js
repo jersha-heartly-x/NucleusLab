@@ -2,6 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 
 const schedule = require("./routes/schedule");
+const login_request = require("./routes/login_request");
+
+const course_date = require("./routes/course_date");
+
 const scheduleAdmin = require("./routes/schedule_admin");
 const complaint = require("./routes/complaints");
 
@@ -49,7 +53,9 @@ app.get("/check_available", (req, res) => {
     res.render("check_available", {title: "Lab Booking", menu: "Check Availability"});
 })
 
-app.post("/check_available", schedule.checkAvailability)
+app.post("/login_request", login_request.make_request);
+app.post("/check_available", schedule.checkAvailability);
+app.post("/add_date", course_date.add_date);
 
 app.get("/cancel_booking", (req, res) => {
     res.render("cancel_booking", {title: "Lab Booking", menu: "Cancel Booking"});
@@ -64,10 +70,11 @@ app.get("/dashboard_admin", (req, res) => {
     res.render("dashboard_admin", {title: "Admin", menu: ""});
 })
 
-app.get("/add_regular_schedule", (req, res) => {
-    res.render("add_regular_schedule", {title: "Schedule", menu: "Add Schedule"});
-})
+// app.get("/add_regular_schedule", (req, res) => {
+//     res.render("add_regular_schedule", {title: "Schedule", menu: "Add Schedule"});
+// })
 
+app.get("/add_regular_schedule", schedule.add_schedule);
 app.post("/add_regular_schedule", scheduleAdmin.addSchedule);
 
 app.get("/course_date", (req, res) => {

@@ -3,30 +3,15 @@
     <div class="main col-10 col-sm-8 col-lg-6 mx-auto">
         <h4 class="my-5">Course Date</h4>
         <div class="course-date">
-            <form action="/course_date" method="post">
+            <form action="/add_date" method="post">
 
                 <div class="mb-3 row">
-                    <label for="year" class="col-sm-3 col-form-label">Year</label>
+                    <label for="year" class="col-sm-3 col-form-label">Academic Year</label>
                     <div class="col-sm-9">
                         <select class="form-select" aria-label="Default select example" id="year" name="year" required>
                             <option></option>
-                            <option>2022</option>
-                            <option>2021</option>
-                            <option>2020</option>
-                            <option>2019</option>
-                            <option>2018</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="semester" class="col-sm-3 col-form-label">Semester</label>
-                    <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="semester" name="semester"
-                            required>
-                            <option value=""></option>
-                            <option value="odd">Odd</option>
-                            <option value="even">Even</option>
+                            <option><%= new Date().getFullYear() -1 %> - <%= new Date().getFullYear() %></option>
+                            <option><%= new Date().getFullYear() %> - <%= new Date().getFullYear() + 1 %></option>
                         </select>
                     </div>
                 </div>
@@ -43,6 +28,18 @@
                     </div>
                 </div>
 
+                <div class="mb-3 row">
+                    <label for="semester" class="col-sm-3 col-form-label">Semester</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" aria-label="Default select example" id="semester" name="semester"
+                            required>
+                            <option value=""></option>
+                            <option value="odd">Odd</option>
+                            <option value="even">Even</option>
+                        </select>
+                    </div>
+                </div>
+                
                 <div class="mb-3 row">
                     <label for="start_date" class="col-sm-3 col-form-label">Start Date</label>
                     <div class="col-sm-9">

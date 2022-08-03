@@ -8,11 +8,9 @@
                 <div class="mb-3 row">
                     <label for="acadamic_year" class="col-sm-3 col-form-label">Academic Year</label>
                     <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="acadamic_year"
-                            name="acadamic_year" required>
-                            <% const year = new Date().getFullYear(); %>
-                            <option> <%= year %> </option Default>
-                            <option> <%= year+1 %> </option>
+                        <select class="form-select" aria-label="Default select example" id="academic_year"
+                            name="academic_year" required>
+                            <option><%= defaultOptions.academic_year %></option Default>
                         </select>
                     </div>
                 </div>
@@ -22,9 +20,13 @@
                     <div class="col-sm-9">
                         <select class="form-select" aria-label="Default select example" id="semester" name="semester"
                             required>
-                            <option value=""></option>
-                            <option value="odd">Odd</option>
+                            <% if (defaultOptions.semester == "odd"){ %>
+                            <option value="odd">Odd</option Default>
                             <option value="even">Even</option>
+                            <% } else { %>
+                            <option value="odd">Odd</option>
+                            <option value="even">Even</option Default>
+                            <% } %>
                         </select>
                     </div>
                 </div>

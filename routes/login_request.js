@@ -1,0 +1,21 @@
+const db = require("../db");
+
+exports.make_request = (req, res)=>{
+    const staffid= "C3391",
+    _class = (req.body.year.slice(2) + req.body.programme),
+    dateRequested = new Date().toISOString().slice(0, 19).replace('T', ' '),
+    dateNeeded = req.body.date,
+    from = req.body.from,
+    to= req.body.to,
+    type= req.body.type,
+    noOfLogins = req.body.noOfLogins,
+    tools = req.body.tools;
+
+    q = `insert into login_requests values("${staffid}", "${_class}", "${dateRequested}", "${dateNeeded}", ${from}, ${to}, "${type}", ${noOfLogins}, "${tools}", "", "Pending");`;
+    db.query(q, (err, res)=>{
+        if(err) throw err;
+        console.log(res);
+    })
+
+    res.redirect("/login_request");
+};
