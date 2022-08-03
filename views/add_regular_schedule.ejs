@@ -129,15 +129,39 @@
                             <option>9</option>
                             <option>10</option>
                         </select>
+                        <div class="text-danger p-2 d-none" id="invalidTo">Invalid To period</div>
                     </div>
                 </div>
 
                 <div class="text-center">
-                    <input class="btn btn-block request" type="submit" name="submit" value="Submit">
+                    <input class="btn btn-block request" type="submit" name="submit" value="Submit" id="submitBtn">
                 </div>
 
             </form>
         </div>
     </div>
+
+<script>
+
+    const to = document.getElementById('to');
+
+    to.addEventListener('change', (e) => {
+        console.log("out");
+        const from = document.getElementById('from').value,
+            to = e.target.value,
+            invalidTo = document.getElementById('invalidTo'),
+            submitBtn = document.getElementById('submitBtn');
+
+        if(from > to) {
+            invalidTo.classList.remove('d-none');
+            submitBtn.disabled = true;
+        }
+        else {
+            invalidTo.classList.add('d-none');
+            submitBtn.disabled = false;
+        }
+    });
+
+</script>
 
 <%-include ('partials/footer_admin'); %>
