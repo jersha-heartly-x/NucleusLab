@@ -1,3 +1,4 @@
+const { request } = require('express');
 const con = require('../db');
 
 exports.registerComplaint = function(req, res) {
@@ -6,8 +7,10 @@ exports.registerComplaint = function(req, res) {
         col = req.body.col,
         sys = req.body.system,
         desc = req.body.desc,
-        dateTime = new Date().toLocaleString();
+        dateTime = new Date(new Date().getTime()+330*60*1000).toISOString().slice(0, 19).replace('T', ' ');
     
+    // console.log(dateTime);
+
     var sql = `INSERT INTO complaints VALUES ("C3391", "${lab}", "${row}", "${col}", "${sys}", "${desc}", "${dateTime}");`;
 
     con.query(sql, function(err, result) {

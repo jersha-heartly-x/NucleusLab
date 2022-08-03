@@ -30,7 +30,7 @@
                     <td><%= complaints[i]._row %></td>
                     <td><%= complaints[i]._col %></td>
                     <td><%= complaints[i].systemNo %></td>
-                    <td><%= complaints[i].date_time %></td>
+                    <td><%= complaints[i].date_time.toString().slice(0, 24) %></td>
                     <td><%= complaints[i].requirement %></td>
                 </tr>
                 <% } %>

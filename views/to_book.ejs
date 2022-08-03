@@ -5,18 +5,6 @@
             <form action="/to_book" method="post">
 
                 <div class="mb-3 row">
-                    <label for="course" class="col-sm-3 col-form-label">Course</label>
-                    <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="course" name="course"
-                            required>
-                            <option value=""></option>
-                            <option value="msc">Msc</option>
-                            <option value="bsc">Bsc</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
                     <label for="acadamic_year" class="col-sm-3 col-form-label">Acadamic Year</label>
                     <div class="col-sm-9">
                         <select class="form-select" aria-label="Default select example" id="acadamic_year"
@@ -32,18 +20,18 @@
                 </div>
 
                 <div class="mb-3 row">
-                    <label for="programme" class="col-sm-3 col-form-label">Class</label>
+                    <label for="programme" class="col-sm-3 col-form-label">Programme</label>
                     <div class="col-sm-9">
                         <select class="form-select" aria-label="Default select example" id="programme" name="programme"
                             required>
                             <option value=""></option>
-                            <option value="ss">Software Systems</option>
-                            <option value="tcs">Theoretical Computer Science</option>
-                            <option value="ds">Data Science</option>
-                            <option value="cs">Cyber Security</option>
-                            <option value="am">Applied Mathematics</option>
-                            <option value="csd">CSD</option>
-                            <option value="as">Applied Science</option>
+                            <option value="MSc SS">MSc Software Systems</option>
+                            <option value="MSc TCS">MSc Theoretical Computer Science</option>
+                            <option value="MSc DS">MSc Data Science</option>
+                            <option value="MSc CS">MSc Cyber Security</option>
+                            <option value="MSc AM">MSc Applied Mathematics</option>
+                            <option value="BSc CSD">BSc CSD</option>
+                            <option value="BSc AS">BSc Applied Science</option>
                         </select>
                     </div>
                 </div>
@@ -54,15 +42,15 @@
                         <select class="form-select" aria-label="Default select example" id="labId" name="labId"
                             required>
                             <option value=""></option>
-                            <option value="csl1">CSL1</option>
-                            <option value="csl2">CSL2</option>
-                            <option value="csl3">CSL3</option>
-                            <option value="ocl">OCL</option>
-                            <option value="dsl">DSL</option>
-                            <option value="skava">SKAVA</option>
-                            <option value="iil">IIL</option>
-                            <option value="nsl">NSL</option>
-                            <option value="scl">SCL</option>
+                            <option value="CSL1">CSL1</option>
+                            <option value="CSL2">CSL2</option>
+                            <option value="CSL3">CSL3</option>
+                            <option value="DSL">DSL</option>
+                            <option value="NSL">NSL</option>
+                            <option value="IIL">IIL</option>
+                            <option value="OCL">OCL</option>
+                            <option value="SKAVA">SKAVA</option>
+                            <option value="SCL">SCL</option>
                         </select>
                     </div>
                 </div>
@@ -126,4 +114,4 @@
             </form>
         </div>
     </div>
-    <%-include ('partials/footer')%>
+<%-include ('partials/footer')%>
