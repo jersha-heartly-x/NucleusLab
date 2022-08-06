@@ -3,11 +3,10 @@ const bodyParser = require("body-parser");
 
 const schedule = require("./routes/schedule");
 const login_request = require("./routes/login_request");
-
 const course_date = require("./routes/course_date");
-
 const scheduleAdmin = require("./routes/schedule_admin");
 const complaint = require("./routes/complaints");
+const booking = require("./routes/booking");
 
 const app = express();
 
@@ -47,16 +46,16 @@ app.get("/view_booking", (req, res) => {
     res.render("view_booking", {title: "Lab Booking", menu: "View Booking"});
 })
 
-app.get("/to_book", (req, res) => {
-    res.render("to_book", {title: "Lab Booking", menu: "To Book"});
-})
+app.get("/to_book", booking.toBook);
 
 app.get("/check_available", (req, res) => {
     res.render("check_available", {title: "Lab Booking", menu: "Check Availability"});
 })
 
 app.post("/login_request", login_request.make_request);
+
 app.post("/check_available", schedule.checkAvailability);
+
 app.post("/add_date", course_date.add_date);
 
 app.get("/cancel_booking", (req, res) => {
@@ -71,10 +70,6 @@ app.get("/cancel_booking", (req, res) => {
 app.get("/dashboard_admin", (req, res) => {
     res.render("dashboard_admin", {title: "Admin", menu: ""});
 })
-
-// app.get("/add_regular_schedule", (req, res) => {
-//     res.render("add_regular_schedule", {title: "Schedule", menu: "Add Schedule"});
-// })
 
 app.get("/add_regular_schedule", schedule.add_schedule);
 app.post("/add_regular_schedule", scheduleAdmin.addSchedule);

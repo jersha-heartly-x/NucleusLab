@@ -8,23 +8,41 @@
                 <div class="mb-3 row">
                     <label for="sdate" class="col-sm-3 col-form-label">Start Date</label>
                     <div class="col-sm-9">
-                    <input type="date" class="form-control" id="sdate" name="sdate" required>
+                        <input type="date" class="form-control" id="sdate" name="sdate" required onchange="check()">
                     </div>
                 </div>
 
                 <div class="mb-3 row">
                     <label for="edate" class="col-sm-3 col-form-label">End Date</label>
                     <div class="col-sm-9">
-                    <input type="date" class="form-control" id="edate" name="edate" required>
+                        <input type="date" class="form-control" id="edate" name="edate" required onchange="check()">
+                        <div id="invalid" class="my-2 p-2 fs-6 alert alert-danger d-none"><span>Invalid End Date</span></div>
                     </div>
                 </div>
                 
                 <div class="text-center">
-                    <input class="btn btn-block request" type="submit" name="Submit" value="Submit">
+                    <input class="btn btn-block request" type="submit" name="Submit" value="Submit" id="submitBtn">
                 </div>
-
             </form>
         </div>
     </div>
+
+<script>
+
+    function check() {
+        const start = document.getElementById('sdate').value, end = document.getElementById('edate').value,
+            submitBtn = document.getElementById('submitBtn'), invalid = document.getElementById('invalid');
+
+        if(start && end && start > end) {
+            invalid.classList.remove('d-none');
+            submitBtn.disabled = true;
+        }
+        else {
+            invalid.classList.add('d-none');
+            submitBtn.disabled = false;
+        }
+    }
+
+</script>
 
 <%-include ('partials/footer_admin'); %>
