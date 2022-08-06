@@ -8,6 +8,7 @@ const course_date = require("./routes/course_date");
 const scheduleAdmin = require("./routes/schedule_admin");
 const complaint = require("./routes/complaints");
 const booking = require("./routes/booking");
+const blocking = require("./routes/blocking");
 
 const app = express();
 
@@ -45,7 +46,11 @@ app.get("/view_booking", (req, res) => {
     res.render("view_booking", {title: "Lab Booking", menu: "View Booking"});
 })
 
-app.get("/to_book", booking.toBook);
+app.get("/to_book", (req, res) => {
+    res.render("to_book", {title: "Lab Booking", menu: "To Book"});
+})
+
+app.post("/to_book", booking.booking);
 
 app.get("/check_available", (req, res) => {
     res.render("check_available", {title: "Lab Booking", menu: "Check Availability"});
@@ -81,9 +86,9 @@ app.get("/booking", (req, res) => {
     res.render("booking", {title: "Lab booking", menu: "Booking Details"});
 })
 
-app.get("/block_lab", (req, res) => {
-    res.render("block_lab", {title: "Schedule", menu: "Block Lab"});
-})
+app.get("/block_lab", blocking.blockLab);
+
+app.post("/block_lab", blocking.toBlock);
 
 app.get("/unblock_lab", (req, res) => {
     res.render("unblock_lab", {title: "Schedule", menu: "Unblock Lab"});

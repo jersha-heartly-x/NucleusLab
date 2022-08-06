@@ -23,7 +23,7 @@ DROP TABLE schedule;
 CREATE TABLE schedule
 (
 	academicYear VARCHAR(12),
-    sem VARCHAR(5),
+    semester VARCHAR(5),
 	_year INTEGER,
     programme VARCHAR(10),
     lab VARCHAR(6),
@@ -69,5 +69,42 @@ DELETE FROM complaints WHERE date_time < NOW() - INTERVAL 30 DAY;
 
 CREATE TABLE booking
 (
-	
+	staffId VARCHAR(6),
+	academic_year VARCHAR(12),
+    semester VARCHAR(5),
+    programme VARCHAR(10),
+    _year INTEGER,
+    lab VARCHAR(6),
+    bookingDate DATE,
+    entryDate DATE,
+    fromperiod INTEGER,
+    toperiod INTEGER,
+    purpose VARCHAR(1000),
+    PRIMARY KEY( lab, bookingDate, fromperiod, toperiod )
 );
+
+DROP TABLE booking;
+
+INSERT INTO booking VALUES("C3391", "2022 - 2023", "odd", "MSc SS", 3, "DSL", "2022-08-11", "2022-08-06", 5, 6, "Placement");
+
+SELECT * FROM booking;
+
+
+CREATE TABLE blocking
+(
+	academic_year VARCHAR(12),
+    semester VARCHAR(5),
+    lab VARCHAR(6),
+    _day VARCHAR(10),
+    fromperiod INTEGER,
+    toperiod INTEGER,
+    PRIMARY KEY(academic_year, semester, lab, _day, fromperiod, toperiod)
+);
+
+INSERT INTO blocking VALUES("2022-2023", "odd", "DSL", "Wednesday", 3, 4);
+
+SELECT * FROM blocking;
+
+DROP TABLE blocking;
+
+
