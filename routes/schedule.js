@@ -57,7 +57,7 @@ exports.add_schedule = (req, res)=>{
         if(err){
             console.log(err);
         }
-        console.log(result);
+        // console.log(result);
         res.render("add_regular_schedule", {title: "Schedule", menu: "Add Schedule", defaultOptions :result[0]});
     })
     
@@ -90,6 +90,8 @@ exports.checkAvailability = function (req, res) {
             }
         
             const data = {
+                title: "Lab Booking",
+                menu: "Check Availability",
                 table: table,
                 from: from,
                 to: to

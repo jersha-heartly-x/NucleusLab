@@ -12,14 +12,17 @@
                 <div class="mb-3 row">
                     <label for="date" class="col-xl-5 col-form-label">Date</label>
                     <div class="col-xl-7">
-                        <input type="date" class="form-control" id="date" name="date" required>
+                        <% const date = new Date(); yyyy = date.getFullYear(), mm = date.getMonth()+1, dd = date.getDate(); %>
+                        <% if(dd < 10) { dd = '0'+dd} if(mm < 10) { mm = '0'+mm} %>
+                        <% const str = yyyy+'-'+mm+'-'+dd; %>
+                        <input type="date" class="form-control" id="date" name="date" required min="<%= str %>";>
                     </div>
                 </div>
 
                 <div class="mb-3 row">
                     <label for="from" class="col-xl-5 col-form-label">From period</label>
                     <div class="col-xl-7">
-                        <select class="form-select" aria-label="Default select example" id="from" name="from" required>
+                        <select class="form-select" aria-label="Default select example" id="from" name="from" onchange="check()" required>
                             <option></option>
                             <option>1</option>
                             <option>2</option>
@@ -38,7 +41,7 @@
                 <div class="mb-3 row">
                     <label for="to" class="col-xl-5 col-form-label">To period</label>
                     <div class="col-xl-7">
-                        <select class="form-select" aria-label="Default select example" id="to" name="to" required>
+                        <select class="form-select" aria-label="Default select example" id="to" name="to" onchange="check()" required>
                             <option></option>
                             <option>1</option>
                             <option>2</option>
@@ -62,12 +65,12 @@
         </div>
 
         <% if(locals.table) { %>
-        <div class="table-responsive">
+        <div class="table-responsive mx-auto" style="width: <%= 11*(parseInt(to) - parseInt(from) + 2) %>%">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">Lab</th>
-                        <% for(var i=from; i<=to; i++) { %>
+                        <% for(var i=parseInt(from); i<=parseInt(to); i++) { %>
                             <th><%= i %></th>
                         <% } %>
                     </tr>
@@ -168,5 +171,25 @@
         </div>
         <% } %>
     </div>
+
+<script>
+
+    function check() {
+            const from = parseInt(document.getElementById('from').value), to = parseInt(document.getElementById('to').value);
+
+            invalidTo = document.getElementById('invalidTo'),
+            submitBtn = document.getElementById('submitBtn');
+
+            if(from && to && from > to) {
+                invalidTo.classList.remove('d-none');
+                submitBtn.disabled = true;
+            }
+            else {
+                invalidTo.classList.add('d-none');
+                submitBtn.disabled = false;
+            }
+    }
+    
+</script>
 
     <%-include ('partials/footer')%>
