@@ -8,57 +8,62 @@ exports.regularSchedule = function (req, res) {
     
     var q = `SELECT academic_year, semester from course_dates where '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date and end_date;`;
     
-    db.query(q, (err, result)=>{
-        if(err){
+    db.query(q, (err, result)=> {
+        if(err) {
             console.log(err);
         }
-        year= result[0].academic_year;
-        sem= result[0].semester;
-        console.log(year, sem);
-        const labs=["CSL1", "CSL2", "CSL3", "DSL", "NSL", "IIL", "OCL", "SKAVA", "SCL"];
-    
-        const table = [];
+        else {
+            year= result[0].academic_year;
+            sem= result[0].semester;
+            console.log(year, sem);
+            const labs=["CSL1", "CSL2", "CSL3", "DSL", "NSL", "IIL", "OCL", "SKAVA", "SCL"];
+        
+            const table = [];
 
-        for(var i=0; i<labs.length; i++){
-            var row = Array(10);
-            row.fill("free");
-            table.push(row);
-        }
-
-        q = `select lab, period, _year, programme from schedule where _day="${day}" and academicYear="${year}" and sem="${sem}";`;
-        db.query(q, (err, result)=>{
-            if(err) throw err;
-            else{
-                console.log(result);
-                for(var i=0; i<result.length; i++){
-                    const x = labs.indexOf(result[i].lab);
-                    const y = result[i].period -1;
-                    // console.log(x, y, result[i]._year, result[i].programme);
-                    table[x][y] = result[i]._year + " yr " + result[i].programme;
-                }
-            
-                const data = {
-                    title: "Lab Booking",
-                    menu: "Regular Schedule",
-                    day: day,
-                    table: table
-                }
-
-                res.render("regular_schedule", data);
+            for(var i=0; i<labs.length; i++){
+                var row = Array(10);
+                row.fill("free");
+                table.push(row);
             }
-        });
-    })
- 
+
+            q = `select lab, period, _year, programme from schedule where _day="${day}" and academicYear="${year}" and semester="${sem}";`;
+            db.query(q, (err, result)=>{
+                if(err) {
+                    console.log(err);
+                }
+                else {
+                    console.log(result);
+                    for(var i=0; i<result.length; i++){
+                        const x = labs.indexOf(result[i].lab);
+                        const y = result[i].period -1;
+                        // console.log(x, y, result[i]._year, result[i].programme);
+                        table[x][y] = result[i]._year + " yr " + result[i].programme;
+                    }
+                
+                    const data = {
+                        title: "Lab Booking",
+                        menu: "Regular Schedule",
+                        day: day,
+                        table: table
+                    }
+
+                    res.render("regular_schedule", data);
+                }
+            });
+        }
+    }) 
 }
 
 exports.add_schedule = (req, res)=>{
     const q = `SELECT academic_year, semester from course_dates where '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date and end_date;`;
     db.query(q, (err, result)=>{
-        if(err){
+        if(err) {
             console.log(err);
         }
         // console.log(result);
-        res.render("add_regular_schedule", {title: "Schedule", menu: "Add Schedule", defaultOptions :result[0]});
+        else {
+            res.render("add_regular_schedule", {title: "Schedule", menu: "Add Schedule", defaultOptions :result[0]});
+        }
     })
     
 }
@@ -80,7 +85,9 @@ exports.checkAvailability = function (req, res) {
     var sql = `SELECT * FROM schedule WHERE period >= "${from}" AND period <= "${to}" AND _day = "${day}";`;
 
     db.query(sql, (err, result) => {
-        if(err) throw err;
+        if(err) {
+            console.log(err);
+        }
 
         else {
             for(var i=0; i<result.length; i++) {

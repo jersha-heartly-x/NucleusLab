@@ -14,8 +14,12 @@ exports.addSchedule = function(req, res) {
     for(var i = from; i <= to; i++) {
         var sql = `INSERT INTO schedule VALUES("${academicYear}", "${sem}", ${year}, "${programme}", "${lab}", "${day}", ${i});`;
         con.query(sql, (err, res) => {
-            if(err) throw err;
-            console.log("Schedule added!");
+            if(err) {
+                console.log(err);
+            }
+            else {
+                console.log("Schedule added!");
+            }
         });
     }
     res.redirect("/add_regular_schedule");

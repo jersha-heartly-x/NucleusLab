@@ -14,8 +14,12 @@ exports.registerComplaint = function(req, res) {
     var sql = `INSERT INTO complaints VALUES ("C3391", "${lab}", "${row}", "${col}", "${sys}", "${desc}", "${dateTime}");`;
 
     con.query(sql, function(err, result) {
-        if (err) throw err;
-        console.log('Record inserted');
+        if (err) {
+            console.log(err);
+        }
+        else {
+            console.log('Record inserted');
+        }
     });
 
     res.redirect("/register_complaint");
@@ -27,8 +31,12 @@ exports.viewComplaints = function(req, res) {
     var sql = `SELECT * FROM complaints WHERE staffId = "${empId}";`;
 
     con.query(sql, function(err, result) {
-        if (err) throw err;
+        if (err) {
+            console.log(err);
+        }
         // console.log(result);
-        res.render("view_complaints", {title: "Complaints" , menu: "View Complaints", complaints: result});
+        else {
+            res.render("view_complaints", {title: "Complaints" , menu: "View Complaints", complaints: result});
+        }
     });
 }

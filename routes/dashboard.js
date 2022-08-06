@@ -1,3 +1,4 @@
+const e = require("express");
 const db = require("../db");
 
 exports.dashboard = (req, res)=>{
@@ -5,9 +6,11 @@ exports.dashboard = (req, res)=>{
     const q = `select class, dateneeded, fromperiod, toperiod, _status from login_requests where staffid="${staffid}" and daterequested > "${new Date(new Date().getTime() -2*24*60*60*1000).toISOString().slice(0, 10)}" order by dateneeded;`;
 
     db.query(q, (err, result)=>{
-        if(err){
-            throw err;
+        if(err) {
+            console.log(err);
         }
-        res.render("dashboard", {title: "Dashboard", menu: "", login_requests: result});
+        else {
+            res.render("dashboard", {title: "Dashboard", menu: "", login_requests: result});
+        }
     })
 }
