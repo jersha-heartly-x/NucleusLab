@@ -80,22 +80,33 @@
                     </div>
                 </div>
             </div>
-            <h4 class="fw-bold heading">Login requests status</h4>
+
+            <a href="view_login_request" class="text-decoration-none"><h4 class="fw-bold heading">Login requests status</h4></a>
             <div class="container bg-white rounded py-3 mb-5">
                 <div class="row">
                     <ul class="list-group list-group-flush">
+                        <% login_requests.forEach((req) => { %>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div class="pe-3">
-                                <span class="fw-bold">21PT</span> Period: 3 - 4, Aug 29 2022
+                                <span class="fw-bold"><%= req.class %></span> Period: <%=req.fromperiod %> - <%=req.toperiod %>, <%= req.dateneeded.toString().slice(0, 15) %>
                             </div>
-                            <span class="fs-6 badge bg-success rounded-pill">Confirmed</span>
+                            <% if(req._status == "Pending") {%>
+                                <td><span class="fs-6 fw-light px-3 py-2 badge bg-blue rounded-pill">Pending</span></td>
+                            <% } %>
+                            <% if(req._status == "Rejected") {%>
+                                <td><span class="fs-6 fw-light px-3 py-2 badge bg-danger rounded-pill">Rejected</span></td>
+                            <% } %>
+                            <% if(req._status == "Confirmed") {%>
+                                <td><span class="fs-6 fw-light px-3 py-2 badge bg-success rounded-pill">Confirmed</span></td>
+                            <% } %>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <% }) %>
+                        <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div class="pe-3">
                                 <span class="fw-bold">20PW</span> Period: 3 - 4, Aug 31 2022
                             </div>
                             <span class="fs-6 badge bg-purple rounded-pill">Accepted</span>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
             </div>
