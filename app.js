@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 
 const schedule = require("./routes/schedule");
 const login_request = require("./routes/login_request");
+const dashboard = require("./routes/dashboard");
 const course_date = require("./routes/course_date");
 const scheduleAdmin = require("./routes/schedule_admin");
 const complaint = require("./routes/complaints");
@@ -18,9 +19,7 @@ app.get("/", (req, res) => {
     res.redirect("/dashboard");
 })
 
-app.get("/dashboard", (req, res) => {
-    res.render("dashboard", {title: "Dashboard", menu: ""});
-})
+app.get("/dashboard", dashboard.dashboard);
 
 app.get("/login_request", (req, res) => {
     res.render("login_request", {title: "Login Request", menu: "Create Request"});
