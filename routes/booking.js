@@ -52,7 +52,7 @@ exports.booking = function(req, res) {
                                 }
                                 else {
 
-                                    q = `INSERT INTO booking VALUES("${staffId}", "${academicYear}" "${semester}", "${programme}", ${year}, "${lab}", "${date}", "${tdyDate}", ${from}, ${to}, "${purpose}");`;
+                                    q = `INSERT INTO booking VALUES("${staffId}", "${academicYear}", "${semester}", "${programme}", ${year}, "${lab}", "${date}", "${tdyDate}", ${from}, ${to}, "${purpose}");`;
 
                                     db.query(q, (err, result) => {
                                         if(err) {
