@@ -42,9 +42,7 @@ app.post("/register_complaint", complaint.registerComplaint)
 
 app.get("/view_complaints", complaint.viewComplaints)
 
-app.get("/view_booking", (req, res) => {
-    res.render("view_booking", {title: "Lab Booking", menu: "View Booking"});
-})
+app.get("/view_booking", booking.view_booking);
 
 app.get("/to_book", (req, res) => {
     res.render("to_book", {title: "Lab Booking", menu: "To Book"});

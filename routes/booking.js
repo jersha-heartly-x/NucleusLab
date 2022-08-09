@@ -80,7 +80,7 @@ exports.bookingDetails = function(req, res) {
     const start = req.body.sdate,
         end = req.body.edate;
     
-    const q = `SELECT * FROM booking WHERE bookingDate >= "${start}" AND bookingDate <= "${end}";`;
+    const q = `SELECT * FROM booking WHERE bookingDate >= "${start}" AND bookingDate <= "${end}" order by bookingDate;`;
     db.query(q, (err, result) => {
         if(err) {
             console.log(err);
@@ -93,3 +93,25 @@ exports.bookingDetails = function(req, res) {
 
 }
 
+exports.view_booking = (req, res)=>{
+    const staffid = "C3391";
+
+    let q = `SELECT academic_year, semester from course_dates where '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date and end_date;`;
+
+    db.query(q, (err, result)=>{
+        if(err){
+            console.log(err)
+        }
+        else{         
+            q = `SELECT * FROM booking WHERE staffId="${staffid}" and academic_year="${result[0].academic_year}" and semester="${result[0].semester}" order by entryDate desc;`;
+            db.query(q, (err, result)=>{
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    res.render("view_booking", {title: "Lab Booking", menu: "View Booking", bookings: result});
+                }
+            })
+        }
+    })
+}

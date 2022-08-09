@@ -1,7 +1,7 @@
 <%-include('partials/header_admin'); %>
 
     <div class="main rounded col col-sm-11 col-md-11 col-lg-11 col-xl-11 mx-auto schedule">
-        <h4 class="my-4">Booking Details</h4>
+        <h4 class="my-4">All Bookings</h4>
         <div class="booking-details col-6 mx-auto">
             <form action="/booking_details" method="post">
 
@@ -16,12 +16,12 @@
                     <label for="edate" class="col-sm-3 col-form-label">End Date</label>
                     <div class="col-sm-9">
                         <input type="date" class="form-control" id="edate" name="edate" required onchange="check()">
-                        <div id="invalid" class="my-2 p-2 fs-6 alert alert-danger d-none"><span>Invalid End Date</span></div>
+                        <div id="invalid" class="my-2 p-2 fs-6 alert alert-danger d-none"><span>Oops! check the dates</span></div>
                     </div>
                 </div>
                 
                 <div class="text-center">
-                    <input class="btn btn-block request" type="submit" name="Submit" value="Submit" id="submitBtn">
+                    <input class="btn btn-block request" type="submit" name="Submit" value="View" id="submitBtn">
                 </div>
             </form>
         </div>
@@ -35,11 +35,12 @@
                         <th scope="col">Staff ID</th>
                         <th scope="col">Class</th>
                         <th scope="col">Lab Name</th>
-                        <th scope="col">Entry Date</th>
+                        
                         <th scope="col">Date</th>
                         <th scope="col">From Period</th>
                         <th scope="col">To Period</th>
-                        <th scope="col">Purpose</th>
+                        <th scope="col" class="text-start w-25">Purpose</th>
+                        <th scope="col">Booked on</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,11 +50,11 @@
                             <td><%= table[i].staffId %></td>
                             <td><%= table[i]._year + " yr " + table[i].programme %></td>
                             <td><%= table[i].lab %></td>
-                            <td><%= table[i].entryDate.toISOString().slice(0, 10) %></td>
-                            <td><%= table[i].bookingDate.toISOString().slice(0, 10) %></td>
+                            <td><%= table[i].bookingDate.toLocaleDateString("en-IN") %></td>
                             <td><%= table[i].fromperiod %></td>
                             <td><%= table[i].toperiod %></td>
-                            <td><%= table[i].purpose %></td>
+                            <td class="text-start"><%= table[i].purpose %></td>
+                            <td><%= table[i].entryDate.toLocaleDateString("en-IN") %></td>
                         </tr>
                     <% } %>
                 </tbody>
