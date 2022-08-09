@@ -92,3 +92,73 @@ exports.bookingDetails = function(req, res) {
     })
 
 }
+
+exports.cancelBooking = function(req, res) {
+
+    let q = `SELECT academic_year, semester from course_dates where '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date and end_date;`;
+    
+    db.query(q, (err, result)=>{
+        
+        if(err) {
+            console.log(err);
+        }
+        else {
+
+            const staffId = "C3391";
+
+            const academicYear = result[0].academic_year,
+                semester = result[0].semester,
+                tdyDate = new Date(new Date().getTime()+ 330*60*1000).toISOString().slice(0, 10).replace('T', ' ');
+            
+            q = `SELECT * FROM booking WHERE academic_year="${academicYear}" AND semester="${semester}" AND staffId="${staffId}" AND bookingDate>="${tdyDate}";`;
+
+            db.query(q, (err, result) => {
+                if(err) {
+                    console.log(err);
+                }
+                else {
+                    // console.log(result);
+                    res.render("cancel_booking", {title: "Lab Booking", menu: "Cancel Booking", table: result});
+                }
+            })
+
+        }
+    })
+}
+
+exports.toCancel = function(req, res) {
+
+    let q = `SELECT academic_year, semester from course_dates WHERE '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date AND end_date;`;
+    
+    db.query(q, (err, result)=>{
+        
+        if(err) {
+            console.log(err);
+        }
+        else {
+
+            const staffId = "C3391";
+
+            const academicYear = result[0].academic_year,
+                semester = result[0].semester,
+                year = req.body.year,
+                programme = req.body.programme,
+                lab = req.body.lab,
+                date = req.body.date,
+                from = req.body.from,
+                to = req.body.to,
+                purpose = req.body.purpose;
+
+            q = `DELETE FROM booking WHERE academic_year="${academicYear}" AND semester="${semester}" AND staffId="${staffId}" AND _year=${year} AND programme="${programme}" AND lab="${lab}" AND bookingDate="${date}" AND fromperiod=${from} AND toperiod=${to} AND purpose="${purpose}";`;
+
+            db.query(q, (err, result) => {
+                if(err) {
+                    console.log(err);
+                }
+                else {
+                    res.redirect("/cancel_booking");
+                }
+            })
+        }
+    })
+}

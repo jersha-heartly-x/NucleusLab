@@ -62,11 +62,9 @@ app.post("/check_available", schedule.checkAvailability);
 
 app.post("/add_date", course_date.add_date);
 
-app.get("/cancel_booking", (req, res) => {
-    res.render("cancel_booking", {title: "Lab Booking", menu: "Cancel Booking"});
-})
+app.get("/cancel_booking", booking.cancelBooking);
 
-
+app.post("/cancel_booking", booking.toCancel);
 
 
 
@@ -92,11 +90,9 @@ app.get("/block_lab", blocking.blockLab);
 
 app.post("/block_lab", blocking.toBlock);
 
-app.get("/unblock_lab", (req, res) => {
-    res.render("unblock_lab", {title: "Schedule", menu: "Unblock Lab"});
-})
+app.get("/unblock_lab", blocking.unblockLab);
 
-
+app.post("/unblock_lab", blocking.toUnblock);
 
 
 app.listen(3000, () => {

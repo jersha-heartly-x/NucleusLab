@@ -85,10 +85,9 @@ CREATE TABLE booking
 
 DROP TABLE booking;
 
-INSERT INTO booking VALUES("C3391", "2022 - 2023", "odd", "MSc SS", 3, "DSL", "2022-08-11", "2022-08-06", 5, 6, "Placement");
+INSERT INTO booking VALUES("C3391", "2022 - 2023", "odd", "MSc SS", 3, "DSL", "2022-08-11", "2022-08-07", 5, 6, "Placement");
 
 SELECT * FROM booking;
-
 
 CREATE TABLE blocking
 (
@@ -101,7 +100,9 @@ CREATE TABLE blocking
     PRIMARY KEY(academic_year, semester, lab, _day, fromperiod, toperiod)
 );
 
-INSERT INTO blocking VALUES("2022-2023", "odd", "DSL", "Wednesday", 3, 4);
+INSERT INTO blocking VALUES("2022 - 2023", "odd", "DSL", "Wednesday", 3, 4);
+INSERT INTO blocking VALUES("2022 - 2023", "odd", "CSL1", "Thursday", 1, 2);
+INSERT INTO blocking VALUES("2022 - 2023", "odd", "CSL3", "Friday", 5, 6);
 
 SELECT * FROM blocking;
 

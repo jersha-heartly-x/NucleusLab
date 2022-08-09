@@ -84,4 +84,64 @@ exports.toBlock = function (req, res) {
 
 }
 
+exports.unblockLab = function(req, res) {
 
+    let q = `SELECT academic_year, semester from course_dates where '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date and end_date;`;
+    
+    db.query(q, (err, result)=>{
+        if(err) {
+            console.log(err);
+        }
+        else {
+
+            const academic_year = result[0].academic_year,
+                semester = result[0].semester;
+
+            const q = `SELECT * FROM blocking WHERE academic_year="${academic_year}" AND semester="${semester}";`;
+            
+            db.query(q, (err, result) => {
+
+                if(err) {
+                    console.log(err);
+                }
+                else {
+                    // console.log(result);
+                    res.render("unblock_lab", {title: "Lab Booking", menu: "Unblock Lab", table: result});
+                }
+            })
+        }
+    })
+}
+
+exports.toUnblock = function(req, res) {
+
+    let q = `SELECT academic_year, semester from course_dates where '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date and end_date;`;
+    
+    db.query(q, (err, result)=>{
+        
+        if(err) {
+            console.log(err);
+        }
+        else {
+
+            const academic_year = result[0].academic_year,
+                semester = result[0].semester;
+            
+            const lab = req.body.lab,
+                day = req.body.day,
+                from = req.body.from,
+                to = req.body.to;
+
+            q = `DELETE FROM blocking WHERE academic_year="${academic_year}" AND semester="${semester}" AND lab="${lab}" AND _day="${day}" AND fromperiod=${from} AND toperiod=${to};`;
+
+            db.query(q, (err, result) => {
+                if(err) {
+                    console.log(err);
+                }
+                else {
+                    res.redirect("/unblock_lab");
+                }
+            }) 
+        }
+    })
+}
