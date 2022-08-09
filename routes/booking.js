@@ -87,7 +87,7 @@ exports.bookingDetails = function(req, res) {
         }
         else {
             // console.log(result);
-            res.render("booking_details", {title: "Lab booking", menu: "Booking Details", table: result });
+            res.render("booking_details", {title: "Lab Booking", menu: "Booking Details", table: result });
         }
     })
 

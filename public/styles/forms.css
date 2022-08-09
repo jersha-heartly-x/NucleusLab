@@ -7,9 +7,13 @@ body{
     padding: 10px 50px 40px 50px;
     box-shadow: 2px 5px 20px rgba(0,0,0,0.1);
 }
+
 .request{
-    border-radius: 5px;
     padding: 10px 50px;
+}
+
+.request, .update, .update:focus{
+    border-radius: 5px;
     font-weight: bold;
     background-color: #5853BC;
     border: none;
@@ -17,7 +21,13 @@ body{
     margin-top: 20px;
 }
 
-.request:hover{
+.request:hover,
+.update:hover{
     color: white;
     background-color: #3d3a83;
+}
+
+.update{
+    font-size: 0.8rem;
+    padding: 0px;
 }

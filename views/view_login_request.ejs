@@ -32,7 +32,7 @@
                 <% } %> 
                     <td><%= i+1 %></td>
                     <td><%= requests[i].class %></td>
-                    <td><%= requests[i].dateneeded.toISOString().slice(0, 10) %></td>
+                    <td><%= requests[i].daterequested.toLocaleDateString("en-IN") %></td>
                     <td>Period <%= requests[i].fromperiod %></td>
                     <td>Period <%= requests[i].toperiod %></td>
                     <td><%= requests[i]._type %></td>

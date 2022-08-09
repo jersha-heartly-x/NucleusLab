@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 
 const schedule = require("./routes/schedule");
 const login_request = require("./routes/login_request");
+const login_request_admin = require("./routes/login_request_admin");
 const dashboard = require("./routes/dashboard");
 const course_date = require("./routes/course_date");
 const scheduleAdmin = require("./routes/schedule_admin");
@@ -72,6 +73,9 @@ app.get("/cancel_booking", (req, res) => {
 app.get("/dashboard_admin", (req, res) => {
     res.render("dashboard_admin", {title: "Admin", menu: ""});
 })
+
+app.get("/exam_login", login_request_admin.examLogin);
+app.post("/update_login_info", login_request_admin.update);
 
 app.get("/add_regular_schedule", schedule.add_schedule);
 app.post("/add_regular_schedule", scheduleAdmin.addSchedule);
