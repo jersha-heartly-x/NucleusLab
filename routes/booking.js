@@ -52,7 +52,7 @@ exports.booking = function(req, res) {
                                 }
                                 else {
 
-                                    q = `INSERT INTO booking VALUES("${staffId}", "${academicYear}" "${semester}", "${programme}", ${year}, "${lab}", "${date}", "${tdyDate}", ${from}, ${to}, "${purpose}");`;
+                                    q = `INSERT INTO booking VALUES("${staffId}", "${academicYear}", "${semester}", "${programme}", ${year}, "${lab}", "${date}", "${tdyDate}", ${from}, ${to}, "${purpose}");`;
 
                                     db.query(q, (err, result) => {
                                         if(err) {
@@ -73,4 +73,22 @@ exports.booking = function(req, res) {
             })
         }
     })
+}
+
+exports.bookingDetails = function(req, res) {
+
+    const start = req.body.sdate,
+        end = req.body.edate;
+    
+    const q = `SELECT * FROM booking WHERE bookingDate >= "${start}" AND bookingDate <= "${end}";`;
+    db.query(q, (err, result) => {
+        if(err) {
+            console.log(err);
+        }
+        else {
+            // console.log(result);
+            res.render("booking_details", {title: "Lab booking", menu: "Booking Details", table: result });
+        }
+    })
+
 }
