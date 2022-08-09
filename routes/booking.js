@@ -92,3 +92,4 @@ exports.bookingDetails = function(req, res) {
     })
 
 }
+
