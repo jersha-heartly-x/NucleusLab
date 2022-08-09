@@ -74,3 +74,22 @@ exports.booking = function(req, res) {
         }
     })
 }
+
+exports.bookingDetails = function(req, res) {
+
+    const start = req.body.sdate,
+        end = req.body.edate;
+    
+    const q = `SELECT * FROM booking WHERE bookingDate >= "${start}" AND bookingDate <= "${end}";`;
+    db.query(q, (err, result) => {
+        if(err) {
+            console.log(err);
+        }
+        else {
+            // console.log(result);
+            res.render("booking_details", {title: "Lab booking", menu: "Booking Details", table: result });
+        }
+    })
+
+}
+

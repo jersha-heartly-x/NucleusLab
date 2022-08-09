@@ -1,0 +1,84 @@
+<%-include('partials/header_admin'); %>
+
+    <div class="main rounded col col-sm-11 col-md-11 col-lg-11 col-xl-11 mx-auto schedule">
+        <h4 class="my-4">Booking Details</h4>
+        <div class="booking-details col-6 mx-auto">
+            <form action="/booking_details" method="post">
+
+                <div class="mb-3 row">
+                    <label for="sdate" class="col-sm-3 col-form-label">Start Date</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" id="sdate" name="sdate" required onchange="check()">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="edate" class="col-sm-3 col-form-label">End Date</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" id="edate" name="edate" required onchange="check()">
+                        <div id="invalid" class="my-2 p-2 fs-6 alert alert-danger d-none"><span>Invalid End Date</span></div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <input class="btn btn-block request" type="submit" name="Submit" value="Submit" id="submitBtn">
+                </div>
+            </form>
+        </div>
+
+        <% if(locals.table) { %>
+        <div class="table-responsive mx-auto mt-5">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Staff ID</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Lab Name</th>
+                        <th scope="col">Entry Date</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">From Period</th>
+                        <th scope="col">To Period</th>
+                        <th scope="col">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i<table.length; i++) { %>
+                        <tr>
+                            <td><%= i+1 %></td>
+                            <td><%= table[i].staffId %></td>
+                            <td><%= table[i]._year + " yr " + table[i].programme %></td>
+                            <td><%= table[i].lab %></td>
+                            <td><%= table[i].entryDate.toISOString().slice(0, 10) %></td>
+                            <td><%= table[i].bookingDate.toISOString().slice(0, 10) %></td>
+                            <td><%= table[i].fromperiod %></td>
+                            <td><%= table[i].toperiod %></td>
+                            <td><%= table[i].purpose %></td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+        <% } %>
+
+    </div>
+
+<script>
+
+    function check() {
+        const start = document.getElementById('sdate').value, end = document.getElementById('edate').value,
+            submitBtn = document.getElementById('submitBtn'), invalid = document.getElementById('invalid');
+
+        if(start && end && start > end) {
+            invalid.classList.remove('d-none');
+            submitBtn.disabled = true;
+        }
+        else {
+            invalid.classList.add('d-none');
+            submitBtn.disabled = false;
+        }
+    }
+
+</script>
+
+<%-include ('partials/footer_admin'); %>

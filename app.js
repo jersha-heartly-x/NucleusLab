@@ -82,9 +82,11 @@ app.get("/course_date", (req, res) => {
     res.render("course_date", {title: "Schedule", menu: "Course Date"});
 })
 
-app.get("/booking", (req, res) => {
-    res.render("booking", {title: "Lab booking", menu: "Booking Details"});
+app.get("/booking_details", (req, res) => {
+    res.render("booking_details", {title: "Lab booking", menu: "Booking Details"});
 })
+
+app.post("/booking_details", booking.bookingDetails);
 
 app.get("/block_lab", blocking.blockLab);
 
