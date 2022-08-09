@@ -1,88 +1,39 @@
 <%-include ('partials/header_admin'); %>
 
-    <div class="main col-10 col-sm-8 col-lg-6 mx-auto">
+    <div class="main col-11 col-sm-11 col-lg-11 mx-auto schedule">
         <h4 class="my-5">Unblock Lab</h4>
-        <div>
-            <form action="/unblock_lab" method="post">
-
-                <div class="mb-3 row">
-                    <label for="labId" class="col-sm-3 col-form-label">Lab Id</label>
-                    <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="labId" name="labId"
-                            required>
-                            <option value=""></option>
-                            <option value="csl1">CSL1</option>
-                            <option value="csl2">CSL2</option>
-                            <option value="csl3">CSL3</option>
-                            <option value="ocl">OCL</option>
-                            <option value="dsl">DSL</option>
-                            <option value="skava">SKAVA</option>
-                            <option value="iil">IIL</option>
-                            <option value="nsl">NSL</option>
-                            <option value="scl">SCL</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="day" class="col-sm-3 col-form-label">Day</label>
-                    <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="day" name="day" required>
-                            <option value=""></option>
-                            <option value="monday">MONDAY</option>
-                            <option value="tuesday">TUESDAY</option>
-                            <option value="wednesday">WEDNESDAY</option>
-                            <option value="thursday">THURSDAY</option>
-                            <option value="friday">FRIDAY</option>
-                            <option value="saturday">SATURDAY</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="from" class="col-sm-3 col-form-label">From period</label>
-                    <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="from" name="from" required>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="to" class="col-sm-3 col-form-label">To period</label>
-                    <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="to" name="to" required>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <input class="btn btn-block request" type="submit" name="unblock" value="Unblock">
-                </div>
-
-            </form>
+        <% if(table.length !=0) { %>
+        <div class="table-responsive mx-auto mt-5">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Lab Name</th>
+                        <th scope="col">Day</th>
+                        <th scope="col">From Period</th>
+                        <th scope="col">To Period</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i<table.length; i++) { %>
+                    <form action="/unblock_lab" method="post" onsubmit="return confirm('Do you really want to unblock it?');">
+                        <tr>
+                            <td><%= i+1 %></td>
+                            <td><input name="lab" value="<%= table[i].lab %>" type="text" hidden /><%= table[i].lab %></td>
+                            <td><input name="day" value="<%= table[i]._day %>" type="text" hidden /><%= table[i]._day %></td>
+                            <td><input name="from" value="<%= table[i].fromperiod %>" type="text" hidden /><%= table[i].fromperiod %></td>
+                            <td><input name="to" value="<%= table[i].toperiod %>" type="text" hidden /><%= table[i].toperiod %></td>
+                            <td>
+                                <input class="btn btn-danger rounded-pill m-0" type="submit" name="submit" value="Unblock">
+                            </td>
+                        </tr>
+                    </form>
+                    <% } %>
+                </tbody>
+            </table>
         </div>
+        <% } %>
     </div>
 
 <%-include ('partials/footer_admin'); %>

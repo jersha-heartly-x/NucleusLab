@@ -1,59 +1,42 @@
 <%-include ('partials/header') %>
-    <div class="main col-10 col-sm-8 col-lg-6 mx-auto">
+    <div class="schedule main col-11 col-sm-11 col-lg-11 col-xl-11 mx-auto">
         <h4 class="my-5">Cancel Booking</h4>
-        <div class="cancel_booking">
-            <form action="/cancel_booking" method="post">
-
-                <div class="mb-3 row">
-                    <label for="date" class="col-sm-3 col-form-label">Date</label>
-                    <div class="col-sm-9">
-                      <input type="date" class="form-control" id="date" name="date" required>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="from" class="col-sm-3 col-form-label">From period</label>
-                    <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="from" name="from" required>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="mb-3 row">
-                    <label for="to" class="col-sm-3 col-form-label">To period</label>
-                    <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="to" name="to" required>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <input class="btn btn-block request" type="submit" name="cancel" value="Cancel">
-                </div>
-
-            </form>
+        <% if(table.length !=0) { %>
+        <div class="table-responsive mx-auto mt-5">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Lab Name</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">From Period</th>
+                        <th scope="col">To Period</th>
+                        <th scope="col">Purpose</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i<table.length; i++) { %>
+                    <form action="/cancel_booking" method="post" onsubmit="return confirm('Do you really want to cancel it?');">
+                        <tr>
+                            <td><%= i+1 %></td>
+                            <td><input name="year" value="<%= table[i]._year %>" type="text" hidden /><input name="programme" value="<%= table[i].programme %>" type="text" hidden /><%= table[i]._year+" yr "+table[i].programme %></td>
+                            <td><input name="lab" value="<%= table[i].lab %>" type="text" hidden /><%= table[i].lab %></td>
+                            <% table[i].bookingDate = table[i].bookingDate.toISOString().slice(0, 8)+table[i].bookingDate.getDate() %>
+                            <td><input name="date" value="<%= table[i].bookingDate %>" type="text" hidden /><%= table[i].bookingDate %></td>
+                            <td><input name="from" value="<%= table[i].fromperiod %>" type="text" hidden /><%= table[i].fromperiod %></td>
+                            <td><input name="to" value="<%= table[i].toperiod %>" type="text" hidden /><%= table[i].toperiod %></td>
+                            <td><input name="purpose" value="<%= table[i].purpose %>" type="text" hidden /><%= table[i].purpose %></td>
+                            <td>
+                                <input class="btn btn-danger rounded-pill m-0" type="submit" name="submit" value="Cancel">
+                            </td>
+                        </tr>
+                    </form>
+                    <% } %>
+                </tbody>
+            </table>
         </div>
+        <% } %>
     </div>
     <%-include ('partials/footer')%>
