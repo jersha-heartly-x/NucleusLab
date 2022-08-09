@@ -69,6 +69,7 @@ app.post("/cancel_booking", booking.toCancel);
 
 
 
+
 app.get("/dashboard_admin", (req, res) => {
     res.render("dashboard_admin", {title: "Admin", menu: ""});
 })
@@ -98,8 +99,6 @@ app.post("/unblock_lab", blocking.toUnblock);
 app.listen(3000, () => {
     console.log("App running on port 3000");
 })
-
-
 
 
 
