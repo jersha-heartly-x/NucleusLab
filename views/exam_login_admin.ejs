@@ -1,0 +1,71 @@
+<%-include('partials/header_admin')%>
+
+<div class="schedule rounded p-3 mx-lg-5">
+    <!-- <div class="m-3 row">
+        <div class="mb-3 col-sm-6">
+            <h4 class="text-center float-sm-start"></h4>
+        </div>
+
+    </div> -->
+    <div class="table-responsive">
+        <table class="table text-center">
+            
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Staff ID</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Date needed</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Tools</th>
+                    <th scope="col">No. of Logins</th>
+                    <th scope="col">Status</th> 
+                    <th scope="col">Series</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(var i=0; i<requests.length; i++) { %>
+                    <tr>
+                    <td><%= i+1 %></td>
+                    <td><%= requests[i].staffid %></td>
+                    <td><%= requests[i].class %></td>
+                    <td><%= requests[i].daterequested.toLocaleDateString("en-IN") %></td>
+                    <td>Period <%= requests[i].fromperiod %></td>
+                    <td>Period <%= requests[i].toperiod %></td>
+                    <td><%= requests[i]._type %></td>
+                    <td><%= requests[i].tools %></td>
+                    <td><%= requests[i].nooflogins %></td>
+
+                    <% if(requests[i]._status == "Pending") {%>
+                        <td><span class="w-100 fs-6 fw-light px-3 py-2 badge bg-blue rounded-pill">Pending</span></td>
+                    <% } %>
+                    <% if(requests[i]._status == "Rejected") {%>
+                        <td><span class="w-100 fs-6 fw-light px-3 py-2 badge bg-danger rounded-pill">Rejected</span></td>
+                    <% } %>
+                    <% if(requests[i]._status == "Confirmed") {%>
+                        <td><span class="w-100 fs-6 fw-light px-3 py-2 badge bg-success rounded-pill">Confirmed</span></td>
+                    <% } %>
+                    
+                    <form action="/update_login_info" method="post" onSubmit = "return confirm('Are you sure? Changes cannot be undone!')">
+                        <input type="text" name="id" value="<%=requests[i].requestId %>" hidden>
+                        <td><input type="text" name="series" value="<%= requests[i].series %>" <%= requests[i]._status=="Rejected" && "Disabled" %>></td>
+                        <td>
+                            <div class="text-center d-flex justify-content-between">
+                                <% if (requests[i]._status != "Rejected") { %>
+                                    <input class="btn btn-block update m-0 w-100 px-3" type="submit" name="update" value="<%= requests[i]._status=="Pending"? "ALLOT": "UPDATE" %>" id="submitBtn">
+                                    <button type="submit" class="btn btn-link ms-5" name="reject"><i class='bx bx-x-circle' style='color:#d70000'  ></i></button>
+                                <% } %>
+                            </div>
+                        </td>
+                    </form>
+                    
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<%-include('partials/footer_admin')%>

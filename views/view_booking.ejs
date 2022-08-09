@@ -2,35 +2,36 @@
     <div class="schedule rounded p-3 mx-lg-5">
         <div class="m-3 row">
             <div class="mb-3 col-sm-6">
-                <h4 class="text-center float-sm-start">View Booking</h4>
+                <h4 class="text-center float-sm-start">Bookings</h4>
             </div>
 
         </div>
         <div class="table-responsive">
-            <table class="table table-striped table-hover table-bordered">
+            <table class="table text-center">
                 <thead>
                     <tr>
-                        <th scope="col">S.No</th>
+                        <th scope="col"></th>
                         <th scope="col">Class</th>
                         <th scope="col">Lab name</th>
-                        <th scope="col">Entry Date</th>
                         <th scope="col">Date</th>
                         <th scope="col">From Period</th>
                         <th scope="col">To Period</th>
-                        <th scope="col">Purpose</th>
+                        <th scope="col" style="width: 35%" class="text-start">Purpose</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row" class="rhead">CSL1</th>
-                        <td>4 yr MSc SS</td>
-                        <td>4 yr MSc SS</td>
-                        <td>1 yr MSc CS</td>
-                        <td>1 yr MSc CS</td>
-                        <td>free</td>
-                        <td>4 yr MSc SS</td>
-                        <td>4 yr MSc SS</td>
+                    <% for(i=0; i<bookings.length; i++){ %>
+    
+                    <tr <% if(bookings[i].bookingDate < new Date()) { %> class="text-secondary bg-light" <% } %> >
+                        <td><%=i+1 %></td>
+                        <td><%=bookings[i]._year + " yr " + bookings[i].programme %></td>
+                        <td><%=bookings[i].lab %></td>
+                        <td><%=bookings[i].bookingDate.toLocaleDateString("en-IN") %></td>
+                        <td><%=bookings[i].fromperiod %></td>
+                        <td><%=bookings[i].toperiod %></td>
+                        <td class="text-start"><%=bookings[i].purpose %></td>
                     </tr>
+                    <% } %>
 
                 </tbody>
             </table>
