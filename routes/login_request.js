@@ -27,7 +27,7 @@ exports.make_request = (req, res)=>{
 exports.view_request = (req, res)=>{
     const staffid= "C3391";
     const date = new Date().toISOString().slice(0, 10);
-    const q = `select * from login_requests where staffid = "${staffid}" and dateneeded > "${date}" order by daterequested;`;
+    const q = `select * from login_requests where staffid = "${staffid}" order by daterequested;`;
 
     db.query(q, (err, result)=>{
         if(err) {

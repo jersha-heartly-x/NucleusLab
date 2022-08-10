@@ -10,6 +10,7 @@ body{
 
 .request{
     padding: 10px 50px;
+    margin-top: 20px;
 }
 
 .request, .update, .update:focus{
@@ -18,7 +19,7 @@ body{
     background-color: #5853BC;
     border: none;
     color: white;
-    margin-top: 20px;
+    
 }
 
 .request:hover,
@@ -28,6 +29,14 @@ body{
 }
 
 .update{
-    font-size: 0.8rem;
-    padding: 0px;
+    font-size: 0.85rem;
+    padding: 5px;
+    margin: 0 10px;
+}
+
+.reject,
+.reject:hover,
+.reject:focus,
+.reject:active{
+    border: none;
 }
