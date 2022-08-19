@@ -17,11 +17,15 @@ body{
 .daychoicebtn{
     background-color: #5853BC;
     color: white;
+    width: 161px;
     border-radius: 5px;
     padding: 10px 27px;
     font-weight: bold;
 }
 
+.dropdown-menu{
+    width: 150px;
+}
 .daychoicebtn:hover,
 .daychoicebtn:active,
 .daychoicebtn:focus{
