@@ -1,6 +1,6 @@
 <%-include('partials/header_admin')%>
 
-<div class="schedule rounded p-3 mx-lg-5">
+<div class="schedule rounded p-3 mx-lg-1">
     <!-- <div class="m-3 row">
         <div class="mb-3 col-sm-6">
             <h4 class="text-center float-sm-start"></h4>
@@ -16,14 +16,14 @@
                     <th scope="col">Staff ID</th>
                     <th scope="col">Class</th>
                     <th scope="col">Date needed</th>
-                    <th scope="col">From</th>
-                    <th scope="col">To</th>
+                    <th scope="col">From period</th>
+                    <th scope="col">To period</th>
                     <th scope="col">Type</th>
                     <th scope="col">Tools</th>
                     <th scope="col">No. of Logins</th>
                     <th scope="col">Status</th> 
                     <th scope="col">Series</th>
-                    <th scope="col"></th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,30 +33,30 @@
                     <td><%= requests[i].staffid %></td>
                     <td><%= requests[i].class %></td>
                     <td><%= requests[i].daterequested.toLocaleDateString("en-IN") %></td>
-                    <td>Period <%= requests[i].fromperiod %></td>
-                    <td>Period <%= requests[i].toperiod %></td>
+                    <td><%= requests[i].fromperiod %></td>
+                    <td><%= requests[i].toperiod %></td>
                     <td><%= requests[i]._type %></td>
                     <td><%= requests[i].tools %></td>
                     <td><%= requests[i].nooflogins %></td>
 
                     <% if(requests[i]._status == "Pending") {%>
-                        <td><span class="w-100 fs-6 fw-light px-3 py-2 badge bg-blue rounded-pill">Pending</span></td>
+                        <td class="text-end">Pending <span class="badge bg-purple p-1 border-purple mx-2 rounded-circle"><span class="visually-hidden">Blue</span></span></td>
                     <% } %>
                     <% if(requests[i]._status == "Rejected") {%>
-                        <td><span class="w-100 fs-6 fw-light px-3 py-2 badge bg-danger rounded-pill">Rejected</span></td>
+                        <td class="text-end">Rejected <span class="badge bg-danger p-1 border border-danger mx-2 rounded-circle"><span class="visually-hidden">red</span></span></td>
                     <% } %>
                     <% if(requests[i]._status == "Confirmed") {%>
-                        <td><span class="w-100 fs-6 fw-light px-3 py-2 badge bg-success rounded-pill">Confirmed</span></td>
+                        <td class="text-end">Confirmed <span class="badge bg-success p-1 border border-success mx-2 rounded-circle"><span class="visually-hidden">green</span></span></td>
                     <% } %>
                     
                     <form action="/update_login_info" method="post" onSubmit = "return confirm('Are you sure? Changes cannot be undone!')">
                         <input type="text" name="id" value="<%=requests[i].requestId %>" hidden>
                         <td><input type="text" name="series" value="<%= requests[i].series %>" <%= requests[i]._status=="Rejected" && "Disabled" %>></td>
                         <td>
-                            <div class="text-center d-flex justify-content-between">
+                            <div class="text-center d-flex justify-content-between align-items-center">
                                 <% if (requests[i]._status != "Rejected") { %>
-                                    <input class="btn btn-block update m-0 w-100 px-3" type="submit" name="update" value="<%= requests[i]._status=="Pending"? "ALLOT": "UPDATE" %>" id="submitBtn">
-                                    <button type="submit" class="btn btn-link ms-5" name="reject"><i class='bx bx-x-circle' style='color:#d70000'  ></i></button>
+                                    <input class="btn rounded-pill btn-block update w-100" type="submit" name="update" value="<%= requests[i]._status=="Pending"? "ALLOT": "UPDATE" %>" id="submitBtn">
+                                    <button type="submit" class="btn btn-block  reject p-0 m-0 d-flex " name="reject"><i class='bx bxs-x-circle bx-sm' style='color:#e41b1b'  ></i></button>
                                 <% } %>
                             </div>
                         </td>
