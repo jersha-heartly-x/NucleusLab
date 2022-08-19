@@ -39,7 +39,7 @@ exports.booking = function(req, res) {
                         res.render("to_book", {title: "Lab Booking", menu: "To Book", alert: "Already Scheduled!"});
                     }
                     else {
-                        q = `SELECT * FROM blocking WHERE academic_year="${academicYear}" AND semester="${semester}" AND lab="${lab}" AND _day="${day}" AND ((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (${from}<=fromperiod AND ${to}>=toperiod);`;
+                        q = `SELECT * FROM blocking WHERE academic_year="${academicYear}" AND semester="${semester}" AND lab="${lab}" AND _day="${day}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
 
                         db.query(q, (err, result) => {
                             if(err) {

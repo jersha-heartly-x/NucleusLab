@@ -77,12 +77,12 @@ exports.checkAvailability = function (req, res) {
         table = [];
 
     for(var i=0; i<labs.length; i++) {
-        var row = Array(to-from+1);
+        var row = Array(10);
         row.fill("free");
         table.push(row);
     }
 
-    var sql = `SELECT * FROM schedule WHERE period >= "${from}" AND period <= "${to}" AND _day = "${day}";`;
+    let sql = `SELECT * FROM schedule WHERE period >= "${from}" AND period <= "${to}" AND _day = "${day}";`;
 
     db.query(sql, (err, result) => {
         if(err) {
@@ -95,16 +95,37 @@ exports.checkAvailability = function (req, res) {
                 const y = result[i].period-1;
                 table[x][y] = result[i]._year + " yr " + result[i].programme;
             }
-        
-            const data = {
-                title: "Lab Booking",
-                menu: "Check Availability",
-                table: table,
-                from: from,
-                to: to
-            }
 
-            res.render("check_available", data);
+            sql = `SELECT * FROM booking WHERE bookingDate="${date}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
+            
+            db.query(sql, (err, result) => {
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    // console.log(result);
+                    for(var i=0; i<result.length; i++) {
+                        const x = labs.indexOf(result[i].lab);
+                        let f = Math.max(result[i].fromperiod, from),
+                            t = Math.min(result[i].toperiod, to);
+                        for(let j=f-1; j<t; j++) {
+                            const y = j;
+                            table[x][y] = result[i]._year + " yr " + result[i].programme;
+                        }
+                    }
+
+                    const data = {
+                        title: "Lab Booking",
+                        menu: "Check Availability",
+                        table: table,
+                        from: from,
+                        to: to
+                    }
+                    // console.log(table);
+                    res.render("check_available", data);
+
+                }
+            })
        }
     })
 }

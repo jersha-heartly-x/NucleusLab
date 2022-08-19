@@ -30,10 +30,10 @@ CREATE TABLE schedule
     _day VARCHAR(10),
     period INTEGER,
     
-    PRIMARY KEY(_day, lab, period, academicYear)
+    PRIMARY KEY(_day, lab, period, academicYear, semester)
 );
 
-INSERT INTO schedule VALUES(2022, "even", 3, "MSc SS", "NSL", "Thursday", 7);
+INSERT INTO schedule VALUES(2022, "odd", 3, "MSc SS", "NSL", "Thursday", 8);
 
 CREATE TABLE login_requests
 (
@@ -85,7 +85,7 @@ CREATE TABLE booking
 
 DROP TABLE booking;
 
-INSERT INTO booking VALUES("C3391", "2022 - 2023", "odd", "MSc SS", 3, "DSL", "2022-08-11", "2022-08-07", 5, 6, "Placement");
+INSERT INTO booking VALUES("C3391", "2022 - 2023", "odd", "MSc SS", 3, "DSL", "2022-08-27", "2022-08-10", 5, 6, "Placement");
 
 SELECT * FROM booking;
 
