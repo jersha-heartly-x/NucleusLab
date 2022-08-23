@@ -98,6 +98,10 @@ app.get("/unblock_lab", blocking.unblockLab);
 app.post("/unblock_lab", blocking.toUnblock);
 
 
+app.get("/dashboard_student", (req, res) => {
+    res.render("dashboard_student", {title: "", menu: ""});
+})
+
 app.listen(3000, () => {
     console.log("App running on port 3000");
 })
