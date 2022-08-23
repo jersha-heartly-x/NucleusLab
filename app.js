@@ -10,7 +10,6 @@ const scheduleAdmin = require("./routes/schedule_admin");
 const complaint = require("./routes/complaints");
 const booking = require("./routes/booking");
 const blocking = require("./routes/blocking");
-
 const app = express();
 
 app.use(express.static(__dirname + "/public"));
@@ -75,7 +74,7 @@ app.get("/dashboard_admin", (req, res) => {
 
 app.get("/exam_login", login_request_admin.examLogin);
 app.post("/update_login_info", login_request_admin.update);
-
+app.post("/filter_login_requests", login_request_admin.filter_requests);
 app.get("/add_regular_schedule", schedule.add_schedule);
 app.post("/add_regular_schedule", scheduleAdmin.addSchedule);
 

@@ -8,7 +8,7 @@ exports.examLogin = (req, res)=>{
             console.log(err);
         }
         else{
-            res.render("exam_login_admin", {title: "Exam Login" , menu: "", requests: result});
+            res.render("exam_login_admin", {title: "Exam Login" , menu: "", filter: "All", requests: result});
         }
     })
 }
@@ -42,4 +42,25 @@ exports.update = (req, res)=>{
             }
         })
     }
+}
+
+exports.filter_requests = (req, res) =>{
+    const filter=req.body["filter_status"];
+    if(filter==="All"){
+        res.redirect("/exam_login");
+    }
+    else{
+        const q = `select * from login_requests where _status="${filter}" order by daterequested desc;`;
+        db.query(q, (err, result)=>{
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.render("exam_login_admin", {title: "Exam Login" , menu: "", filter: filter, requests: result});
+            }
+        })
+    }
+    
+    
+    
 }

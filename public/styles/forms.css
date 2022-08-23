@@ -40,3 +40,9 @@ body{
 .reject:active{
     border: none;
 }
+
+.filter:focus{
+    border: 1px solid lightgrey;
+    outline: none;
+    box-shadow: none;
+}

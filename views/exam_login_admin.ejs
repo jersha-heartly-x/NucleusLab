@@ -5,8 +5,21 @@
         <div class="mb-3 col-sm-6">
             <h4 class="text-center float-sm-start"></h4>
         </div>
-
     </div> -->
+    <div class="row">
+        <!-- <div class="col-md-1">View</div> -->
+        <div class="p-3 mb-5 d-flex align-items-center">
+            <span class="p-2">View</span>
+            <form action="/filter_login_requests" method="post">
+                <select name="filter_status" class="form-select filter" onchange="this.form.submit()">
+                    <option <%= filter=="All" && "selected" %> >All</option>
+                    <option <%= filter=="Pending" && "selected" %> >Pending</option>
+                    <option <%= filter=="Confirmed" && "selected" %> >Confirmed</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
     <div class="table-responsive">
         <table class="table text-center">
             
@@ -21,7 +34,7 @@
                     <th scope="col">Type</th>
                     <th scope="col">Tools</th>
                     <th scope="col">No. of Logins</th>
-                    <th scope="col">Status</th> 
+                    <th scope="col" colspan="2">Status</th> 
                     <th scope="col">Series</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -40,13 +53,16 @@
                     <td><%= requests[i].nooflogins %></td>
 
                     <% if(requests[i]._status == "Pending") {%>
-                        <td class="text-end">Pending <span class="badge bg-purple p-1 border-purple mx-2 rounded-circle"><span class="visually-hidden">Blue</span></span></td>
+                        <td class="text-end">Pending</td>
+                        <td><span class="badge bg-purple p-1 border-purple mx-2 rounded-circle"><span class="visually-hidden">Blue</span></span></td>
                     <% } %>
                     <% if(requests[i]._status == "Rejected") {%>
-                        <td class="text-end">Rejected <span class="badge bg-danger p-1 border border-danger mx-2 rounded-circle"><span class="visually-hidden">red</span></span></td>
+                        <td class="text-end">Rejected</td>
+                        <td><span class="badge bg-danger p-1 border border-danger mx-2 rounded-circle"><span class="visually-hidden">red</span></span></td>
                     <% } %>
                     <% if(requests[i]._status == "Confirmed") {%>
-                        <td class="text-end">Confirmed <span class="badge bg-success p-1 border border-success mx-2 rounded-circle"><span class="visually-hidden">green</span></span></td>
+                        <td class="text-end">Confirmed</td>
+                        <td><span class="badge bg-success p-1 border border-success mx-2 rounded-circle"><span class="visually-hidden">green</span></span></td>
                     <% } %>
                     
                     <form action="/update_login_info" method="post" onSubmit = "return confirm('Are you sure? Changes cannot be undone!')">
