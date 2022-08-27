@@ -1,6 +1,12 @@
 <%-include('partials/header_admin'); %>
 
-    <div class="main col-10 col-sm-8 col-lg-6 mx-auto rounded">
+    <div class="main col-10 col-sm-8 col-lg-7 mx-auto rounded">
+        <% if(locals.success) { %>
+            <div class="alert alert-success alert-dismissible fade show position-absolute top-10 start-50 translate-middle col-8" role="alert" id="alert">
+                <%= success %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
         <h4 class="my-5">Course Date</h4>
         <div class="course-date">
             <form action="/add_date" method="post">
@@ -78,7 +84,9 @@
             submitBtn.disabled = false;
         }
     }
+    
+    $("#alert").delay(2500).fadeOut(500);
 
 </script>
 
-<%-include ('partials/footer_admin'); %>
+<%-include ('partials/footer'); %>

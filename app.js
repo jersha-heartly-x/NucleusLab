@@ -10,6 +10,7 @@ const scheduleAdmin = require("./routes/schedule_admin");
 const complaint = require("./routes/complaints");
 const booking = require("./routes/booking");
 const blocking = require("./routes/blocking");
+const biometric = require("./routes/biometric");
 const app = express();
 
 app.use(express.static(__dirname + "/public"));
@@ -29,10 +30,6 @@ app.get("/login_request", (req, res) => {
 app.get("/view_login_request", login_request.view_request);
 
 app.get("/regular_schedule", schedule.regularSchedule);
-
-app.get("/biometric", (req, res) => {
-    res.render("biometric", {title: "Biometric", menu: ""});
-})
 
 app.get("/register_complaint", (req, res) => {
     res.render("register_complaint", {title: "Complaints", menu: "Register Complaints"});
@@ -96,6 +93,16 @@ app.get("/unblock_lab", blocking.unblockLab);
 
 app.post("/unblock_lab", blocking.toUnblock);
 
+
+app.get("/dashboard_student", (req, res) => {
+    res.render("dashboard_student", {title: "Student", menu: ""});
+})
+
+app.get("/biometric_student", (req, res) => {
+    res.render("biometric_student", {title: "Biometric", menu: ""});
+})
+
+app.post("/biometric_student", biometric.biometricStudent);
 
 app.listen(3000, () => {
     console.log("App running on port 3000");
