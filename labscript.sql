@@ -30,10 +30,10 @@ CREATE TABLE schedule
     _day VARCHAR(10),
     period INTEGER,
     
-    PRIMARY KEY(_day, lab, period, academicYear)
+    PRIMARY KEY(_day, lab, period, academicYear, semester)
 );
 
-INSERT INTO schedule VALUES(2022, "even", 3, "MSc SS", "NSL", "Thursday", 7);
+INSERT INTO schedule VALUES(2022, "odd", 3, "MSc SS", "NSL", "Thursday", 8);
 
 CREATE TABLE login_requests
 (
@@ -85,7 +85,7 @@ CREATE TABLE booking
 
 DROP TABLE booking;
 
-INSERT INTO booking VALUES("C3391", "2022 - 2023", "odd", "MSc SS", 3, "DSL", "2022-08-11", "2022-08-07", 5, 6, "Placement");
+INSERT INTO booking VALUES("C3391", "2022 - 2023", "odd", "MSc SS", 3, "DSL", "2022-08-27", "2022-08-10", 5, 6, "Placement");
 
 SELECT * FROM booking;
 
@@ -108,4 +108,29 @@ SELECT * FROM blocking;
 
 DROP TABLE blocking;
 
+CREATE TABLE attendance (
+	USERID VARCHAR(10),
+    DATE_ VARCHAR(20),
+    IN_TIME VARCHAR(20),
+    OUT_TIME VARCHAR(20),
+    PRIMARY KEY(USERID, DATE_, IN_TIME, OUT_TIME)
+);
 
+DROP TABLE attendance;
+
+SELECT * FROM attendance;
+
+INSERT INTO attendance values("22012","2022-06-08","5:30","6:30");
+INSERT INTO attendance values("22023","2022-06-03","9:30","12:30");
+INSERT INTO attendance values("32012","2022-06-07","7:30","9:30");
+INSERT INTO attendance values("42012","2022-05-02","17:30","19:30");
+INSERT INTO attendance values("32012","2022-04-14","15:30","19:30");
+INSERT INTO attendance values("31912","2022-04-14","14:30","18:30");
+INSERT INTO attendance values("11839","2022-04-14","15:30","19:30");
+INSERT INTO attendance values("11839","2022-09-20","15:30","19:30");
+INSERT INTO attendance values("21939","2022-09-20","15:30","19:30");
+INSERT INTO attendance values("42032","2022-09-20","15:30","19:30");
+INSERT INTO attendance values("42133","2022-09-20","15:30","19:30");
+INSERT INTO attendance values("31922","2022-08-08","12:30","6:30");
+INSERT INTO attendance values("12039","2022-08-04","13:30","17:45");
+INSERT INTO attendance values("12039","2022-08-05","12:30","14:50");

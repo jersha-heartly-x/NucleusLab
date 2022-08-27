@@ -54,11 +54,12 @@
                             <option>9</option>
                             <option>10</option>
                         </select>
+                        <div class="my-2 p-2 fs-6 alert alert-danger d-none" id="invalidTo"><span>Invalid To period</span></div>
                     </div>
                 </div>
 
                 <div class="text-center">
-                    <input class="btn btn-block request" type="submit" name="submit" value="Check">
+                    <input class="btn btn-block request" type="submit" name="submit" value="Check" id="submitBtn">
                 </div>
 
             </form>
@@ -70,7 +71,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Lab</th>
-                        <% for(var i=parseInt(from); i<=parseInt(to); i++) { %>
+                        <% for(let i=parseInt(from); i<=parseInt(to); i++) { %>
                             <th><%= i %></th>
                         <% } %>
                     </tr>
@@ -78,92 +79,92 @@
                 <tbody>
                     <tr>
                         <th scope="row" class="rhead">CSL1</th>
-                        <% table[0].forEach(entry=>{ %>
-                        <% if(entry == "free") { %>
-                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
+                        <% if(table[0][i] == "free") { %>
+                            <td><strong class="text-purple"><%= table[0][i] %></strong></td>
                         <% }else{ %>
-                            <td><%= entry %></td>
-                        <% } }) %>
+                            <td><%= table[0][i] %></td>
+                        <% } } %>
                     </tr>
 
                     <tr>
                         <th scope="row" class="rhead">CSL2</th>
-                        <% table[1].forEach(entry=>{ %>
-                        <% if(entry == "free") { %>
-                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
+                        <% if(table[1][i] == "free") { %>
+                            <td><strong class="text-purple"><%= table[1][i] %></strong></td>
                         <% }else{ %>
-                            <td><%= entry %></td>
-                        <% } }) %>
+                            <td><%= table[1][i] %></td>
+                        <% } } %>
                     </tr>
 
                     <tr>
                         <th scope="row" class="rhead">CSL3</th>
-                        <% table[2].forEach(entry=>{ %>
-                        <% if(entry == "free") { %>
-                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
+                        <% if(table[2][i] == "free") { %>
+                            <td><strong class="text-purple"><%= table[2][i] %></strong></td>
                         <% }else{ %>
-                            <td><%= entry %></td>
-                        <% } }) %>
+                            <td><%= table[2][i] %></td>
+                        <% } } %>
                     </tr>
 
                     <tr>
                         <th scope="row" class="rhead">DSL</th>
-                        <% table[3].forEach(entry=>{ %>
-                        <% if(entry == "free") { %>
-                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
+                        <% if(table[3][i] == "free") { %>
+                            <td><strong class="text-purple"><%= table[3][i] %></strong></td>
                         <% }else{ %>
-                            <td><%= entry %></td>
-                        <% } }) %>
+                            <td><%= table[3][i] %></td>
+                        <% } } %>
                     </tr>
 
                     <tr>
                         <th scope="row" class="rhead">NSL</th>
-                        <% table[4].forEach(entry=>{ %>
-                        <% if(entry == "free") { %>
-                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
+                        <% if(table[4][i] == "free") { %>
+                            <td><strong class="text-purple"><%= table[4][i] %></strong></td>
                         <% }else{ %>
-                            <td><%= entry %></td>
-                        <% } }) %>
+                            <td><%= table[4][i] %></td>
+                        <% } } %>
                     </tr>
 
                     <tr>
                         <th scope="row" class="rhead">IIL</th>
-                        <% table[5].forEach(entry=>{ %>
-                        <% if(entry == "free") { %>
-                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
+                        <% if(table[5][i] == "free") { %>
+                            <td><strong class="text-purple"><%= table[5][i] %></strong></td>
                         <% }else{ %>
-                            <td><%= entry %></td>
-                        <% } }) %>
+                            <td><%= table[5][i] %></td>
+                        <% } } %>
                     </tr>
 
                     <tr>
                         <th scope="row" class="rhead">OCL</th>
-                        <% table[6].forEach(entry=>{ %>
-                        <% if(entry == "free") { %>
-                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
+                        <% if(table[6][i] == "free") { %>
+                            <td><strong class="text-purple"><%= table[6][i] %></strong></td>
                         <% }else{ %>
-                            <td><%= entry %></td>
-                        <% } }) %>
+                            <td><%= table[6][i] %></td>
+                        <% } } %>
                     </tr>
 
                     <tr>
                         <th scope="row" class="rhead">SKAVA</th>
-                        <% table[7].forEach(entry=>{ %>
-                        <% if(entry == "free") { %>
-                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
+                        <% if(table[7][i] == "free") { %>
+                            <td><strong class="text-purple"><%= table[7][i] %></strong></td>
                         <% }else{ %>
-                            <td><%= entry %></td>
-                        <% } }) %>
+                            <td><%= table[7][i] %></td>
+                        <% } } %>
                     </tr>
 
                     <tr>
                         <th scope="row" class="rhead">SCL</th>
-                        <% table[8].forEach(entry=>{ %>
-                        <% if(entry == "free") { %>
-                            <td><strong class="text-purple"><%= entry %></strong></td>
+                        <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
+                        <% if(table[8][i] == "free") { %>
+                            <td><strong class="text-purple"><%= table[8][i] %></strong></td>
                         <% }else{ %>
-                            <td><%= entry %></td>
-                        <% } }) %>
+                            <td><%= table[8][i] %></td>
+                        <% } } %>
                     </tr>
 
                 </tbody>

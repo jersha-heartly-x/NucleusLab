@@ -46,7 +46,7 @@ exports.toBlock = function (req, res) {
                         res.render("block_lab", {title: "Schedule", menu: "Block Lab", defaultOptions : defaultOptions, alert: "Already Scheduled!"});
                     }
                     else {
-                        q = `SELECT * FROM booking WHERE academic_year="${academicYear}" AND semester="${semester}" AND lab="${lab}" AND DAYNAME(bookingDate)="${day}" AND ((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (${from}<=fromperiod AND ${to}>=toperiod);`;
+                        q = `SELECT * FROM booking WHERE academic_year="${academicYear}" AND semester="${semester}" AND lab="${lab}" AND DAYNAME(bookingDate)="${day}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
 
                         db.query(q, (err, result) => {
                             // console.log(result);

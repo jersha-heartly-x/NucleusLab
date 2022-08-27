@@ -1,0 +1,147 @@
+<%-include('partials/header_student')%>
+
+    <div class="main rounded col col-md-8 col-lg-9 mx-auto schedule">
+        
+        <h4 class="my-4">Biometric Entries</h4>
+        
+        <div class="biometric">
+            <form action="/biometric_student" method="post" class="">
+
+                <div class="mb-3 row">
+                    <label for="fdate" class="col-sm-3 col-form-label">From Date</label>
+                    <div class="col-sm-5">
+                        <input type="date" class="form-control" id="fdate" name="fdate" onchange="check(); dateSelect();">
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="tdate" class="col-sm-3 col-form-label">To Date</label>
+                    <div class="col-sm-5">
+                        <input type="date" class="form-control" id="tdate" name="tdate" onchange="check(); dateSelect();">
+                        <div id="invalid" class="my-2 p-2 fs-6 alert alert-danger d-none"><span>Invalid End Date</span></div>
+                    </div>
+                </div>
+
+                <div class="mb-3 row">
+                    <label for="month" class="col-sm-3 col-form-label">Month</label>
+                    <div class="col-sm-5">
+                        <select class="form-select" aria-label="Default select example" id="month" name="month" onchange="monthSelect()">
+                            <option value=""></option>
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+                        </select>
+                        <div id="error" class="my-2 p-2 fs-6 alert alert-danger d-none"><span>Details Missing!</span></div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input class="btn btn-block request" type="submit" name="Submit" value="Submit" id="submitBtn" onclick="formCheck()">
+                </div>
+            </form>
+        </div>
+        
+        <% if(locals.table) { %>
+        <div class="table-responsive mt-5">
+            <table class="table text-center table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">SNo</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">In Time</th>
+                        <th scope="col">Out Time</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(i=0; i<table.length; i++){ %>
+                    <tr>
+                        <td><%=i+1 %></td>
+                        <td><%=table[i].DATE_ %></td>
+                        <td><%=table[i].IN_TIME %></td>
+                        <td><%=table[i].OUT_TIME %></td>
+                    </tr>
+                    <% } %>
+
+                </tbody>
+            </table>
+        </div>
+        <% } %>
+    </div>
+
+    <script>
+
+        function check() {
+            const start = document.getElementById('fdate').value, end = document.getElementById('tdate').value,
+                submitBtn = document.getElementById('submitBtn'), invalid = document.getElementById('invalid'),
+                error = document.getElementById('error');
+    
+            if(start && end && start > end) {
+                invalid.classList.remove('d-none');
+                submitBtn.disabled = true;
+            }
+            else {
+                invalid.classList.add('d-none');
+                submitBtn.disabled = false;
+            }
+            error.classList.add('d-none');
+        }
+    
+        function dateSelect() {
+            
+            let fdate = document.getElementById("fdate").value,
+                tdate = document.getElementById("tdate").value,
+                month = document.getElementById("month");
+            
+            if (fdate || tdate) {
+                month.disabled = true;
+            }
+            else {
+                month.disabled = false;
+            }
+        }
+
+        function monthSelect() {
+            
+            let fdate = document.getElementById("fdate"),
+                tdate = document.getElementById("tdate"),
+                month = document.getElementById("month").value;
+            
+            if (month) {
+                fdate.disabled = true;
+                tdate.disabled = true;
+            }
+            else {
+                fdate.disabled = false;
+                tdate.disabled = false;
+            }
+        }
+
+        function formCheck() {
+            let fdate = document.getElementById("fdate").value,
+                tdate = document.getElementById("tdate").value,
+                month = document.getElementById("month").value,
+                submitBtn = document.getElementById('submitBtn'),
+                error = document.getElementById('error');
+
+            if(!(fdate && tdate || month)) {
+                error.classList.remove('d-none');
+                submitBtn.disabled = true;
+            }
+            else {
+                error.classList.add('d-none');
+                submitBtn.disabled = false;
+            }
+        }
+
+    </script>
+
+<%-include('partials/footer')%>

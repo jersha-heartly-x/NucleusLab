@@ -1,7 +1,8 @@
 <%-include ('partials/header') %>
-    <div class="schedule main col-11 col-sm-11 col-lg-11 col-xl-11 mx-auto">
-        <h4 class="my-5">Cancel Booking</h4>
+    
         <% if(table.length !=0) { %>
+        <div class="schedule main col-11 col-sm-11 col-lg-11 col-xl-11 mx-auto">
+        <h4 class="my-5">Cancel Booking</h4>
         <div class="table-responsive mx-auto mt-5">
             <table class="table text-center">
                 <thead>
@@ -37,6 +38,10 @@
                 </tbody>
             </table>
         </div>
+        <% } else { %>
+            <div class="text-center">
+            <img src="/images/nothing.png" class="w-25 mx-auto p-4" alt="nothing">
+            <div><p class="text-muted fs-4">No bookings to cancel!</p></div>
         <% } %>
     </div>
     <%-include ('partials/footer')%>
