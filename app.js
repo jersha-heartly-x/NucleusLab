@@ -22,6 +22,8 @@ app.get("/", (req, res) => {
 })
 
 app.get("/dashboard", dashboard.dashboard);
+app.get("/dashboard-admin", dashboard.dashboard_admin);
+
 
 app.get("/login_request", (req, res) => {
     res.render("login_request", {title: "Login Request", menu: "Create Request"});
@@ -65,11 +67,9 @@ app.post("/cancel_booking", booking.toCancel);
 
 
 
-app.get("/dashboard_admin", (req, res) => {
-    res.render("dashboard_admin", {title: "Admin", menu: ""});
-})
 
-app.get("/exam_login", login_request_admin.examLogin);
+
+app.get("/exam-login", login_request_admin.examLogin);
 app.post("/update_login_info", login_request_admin.update);
 app.post("/filter_login_requests", login_request_admin.filter_requests);
 app.get("/add_regular_schedule", schedule.add_schedule);
