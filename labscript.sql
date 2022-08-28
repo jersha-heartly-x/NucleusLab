@@ -33,7 +33,7 @@ CREATE TABLE schedule
     PRIMARY KEY(_day, lab, period, academicYear, semester)
 );
 
-INSERT INTO schedule VALUES(2022, "odd", 3, "MSc SS", "NSL", "Thursday", 8);
+INSERT INTO schedule VALUES("2022 - 2023", "odd", 3, "MSc SS", "NSL", "Thursday", 7);
 
 CREATE TABLE login_requests
 (
@@ -60,6 +60,8 @@ CREATE TABLE course_dates
     end_date DATE,
     PRIMARY KEY (academic_year, class, semester)
 );
+
+DROP TABLE course_dates;
 
 SELECT * FROM course_dates;
 
@@ -133,4 +135,10 @@ INSERT INTO attendance values("42032","2022-09-20","15:30","19:30");
 INSERT INTO attendance values("42133","2022-09-20","15:30","19:30");
 INSERT INTO attendance values("31922","2022-08-08","12:30","6:30");
 INSERT INTO attendance values("12039","2022-08-04","13:30","17:45");
-INSERT INTO attendance values("12039","2022-08-05","12:30","14:50");
+INSERT INTO attendance values("12013","2022-08-05","12:30","14:50");
+INSERT INTO attendance values("12013","2022-04-10","13:30","14:50");
+
+SELECT * FROM attendance where DATE_ between "2022-08-01" and "2022-08-12" AND USERID = "12013";
+
+
+
