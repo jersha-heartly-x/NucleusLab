@@ -35,7 +35,12 @@ app.get("/register_complaint", (req, res) => {
     res.render("register_complaint", {title: "Complaints", menu: "Register Complaints"});
 })
 
+app.get("biometric",(req,res)=>{
+
+})
+
 app.post("/register_complaint", complaint.registerComplaint)
+
 
 app.get("/view_complaints", complaint.viewComplaints)
 
@@ -60,9 +65,6 @@ app.post("/add_date", course_date.add_date);
 app.get("/cancel_booking", booking.cancelBooking);
 
 app.post("/cancel_booking", booking.toCancel);
-
-
-
 
 
 app.get("/dashboard_admin", (req, res) => {
@@ -103,6 +105,13 @@ app.get("/biometric_student", (req, res) => {
 })
 
 app.post("/biometric_student", biometric.biometricStudent);
+
+app.get("/biometric", (req,res) => {
+    res.render("biometric", {title: "Biometric", menu: ""});
+})
+
+app.post("/biometric", biometric.biometric);
+
 
 app.listen(3000, () => {
     console.log("App running on port 3000");

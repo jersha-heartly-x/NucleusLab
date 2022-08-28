@@ -13,7 +13,7 @@ function timeConversion(item) {
     if (itime_part_array[0] > 12) {
         itime_part_array[0] = itime_part_array[0] - 12;
     }
-    
+
     item.IN_TIME = itime_part_array[0] + ':' + itime_part_array[1] + ' ' + ampm;
 
 
@@ -60,7 +60,7 @@ exports.biometricStudent = (req, res) => {
 
     if (fdate && tdate) {
 
-        sql=`SELECT * FROM attendance where DATE_ between ? and ? AND USERID = ?;`;
+        sql = `SELECT * FROM attendance where DATE_ between ? and ? AND USERID = ? ORDER BY DATE_ DESC;`;
 
         db.query(sql, [fdate, tdate, userId], (err, data) => {
             if (err) {
@@ -78,7 +78,7 @@ exports.biometricStudent = (req, res) => {
     }
     else if (month) {
 
-        sql = `SELECT * FROM attendance where MONTHNAME(DATE_) = ? AND USERID = ?;`;
+        sql = `SELECT * FROM attendance where MONTHNAME(DATE_) = ? AND USERID = ? ORDER BY DATE_ DESC;`;
         db.query(sql, [month, userId], (err, data) => {
             if (err) {
                 console.log(err);
@@ -92,9 +92,171 @@ exports.biometricStudent = (req, res) => {
 
             }
         })
-        
+
     }
     else {
         res.redirect("/biometric_student");
     }
+}
+
+//staff side
+
+exports.biometric = (req, res) => {
+    // console.log(req.body);
+    const month = req.body.month,
+        fdate = req.body.fdate,
+        tdate = req.body.tdate,
+        batchyear = req.body.batchyear.substring(2, 4),
+        course = req.body.course;
+    
+    let sql;
+
+    if (fdate && tdate && batchyear && course) {
+        sql = `SELECT * FROM attendance where DATE_ between ? and ? AND SUBSTRING(USERID, 2, 2) = ? AND SUBSTRING(USERID,1, 1) = ? ORDER BY DATE_ DESC;`;
+
+        db.query(sql, [fdate, tdate, batchyear, course], (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                data.forEach(item => {
+                    item = timeConversion(item);
+                });
+                // console.log(data);
+                res.render('biometric', { title: "Biometric", table: data, menu: "" });
+
+            }
+        })
+    }
+
+    else if (month && batchyear && course) {
+        sql = `SELECT * FROM attendance where MONTHNAME(DATE_) = ? AND SUBSTRING(USERID, 2, 2) = ? AND SUBSTRING(USERID,1, 1) = ? ORDER BY DATE_ DESC;`;
+
+        db.query(sql, [month, batchyear, course], (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                data.forEach(item => {
+                    item = timeConversion(item);
+                });
+                // console.log(data);
+                res.render('biometric', { title: "Biometric", table: data, menu: "" });
+
+            }
+        })
+    }
+
+    else if (fdate && tdate && batchyear) {
+        sql = `SELECT * FROM attendance where DATE_ between ? and ?  AND SUBSTRING(USERID, 2, 2) = ? ORDER BY DATE_ DESC;`;
+
+        db.query(sql, [fdate, tdate, batchyear], (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                data.forEach(item => {
+                    item = timeConversion(item);
+                });
+                // console.log(data);
+                res.render('biometric', { title: "Biometric", table: data, menu: "" });
+
+            }
+        })
+    }
+
+    else if (fdate && tdate && course) {
+        sql = `SELECT * FROM attendance where DATE_ between ? and ?  AND SUBSTRING(USERID, 1, 1) = ? ORDER BY DATE_ DESC;`;
+
+        db.query(sql, [fdate, tdate, course], (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                data.forEach(item => {
+                    item = timeConversion(item);
+                });
+                // console.log(data);
+                res.render('biometric', { title: "Biometric", table: data, menu: "" });
+
+            }
+        })
+    }
+
+    else if (month && batchyear) {
+        sql = `SELECT * FROM attendance where MONTHNAME(DATE_) = ?  AND SUBSTRING(USERID, 2, 2) = ? ORDER BY DATE_ DESC;`;
+
+        db.query(sql, [month, batchyear], (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                data.forEach(item => {
+                    item = timeConversion(item);
+                });
+                // console.log(data);
+                res.render('biometric', { title: "Biometric", table: data, menu: "" });
+
+            }
+        })
+    }
+
+    else if (month && course) {
+        sql = `SELECT * FROM attendance where MONTHNAME(DATE_) = ?  AND SUBSTRING(USERID, 1, 1) = ? ORDER BY DATE_ DESC;`;
+
+        db.query(sql, [month, course], (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                data.forEach(item => {
+                    item = timeConversion(item);
+                });
+                // console.log(data);
+                res.render('biometric', { title: "Biometric", table: data, menu: "" });
+
+            }
+        })
+    }
+
+    else if (fdate && tdate) {
+
+        sql = `SELECT * FROM attendance where DATE_ between ? and ? ORDER BY DATE_ DESC;`;
+
+        db.query(sql, [fdate, tdate], (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                data.forEach(item => {
+                    item = timeConversion(item);
+                });
+                // console.log(data);
+                res.render('biometric', { title: "Biometric", table: data, menu: "" });
+
+            }
+        })
+    }
+    else if (month) {
+
+        sql = `SELECT * FROM attendance where MONTHNAME(DATE_) = ? ORDER BY DATE_ DESC;`;
+        db.query(sql, [month], (err, data) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                data.forEach(item => {
+                    item = timeConversion(item);
+                });
+                // console.log(data);
+                res.render('biometric', { title: "Biometric", table: data, menu: "" });
+
+            }
+        })
+
+    }
+    else {
+        res.redirect("/biometric");
+    }
+
 }
