@@ -35,9 +35,11 @@ app.get("/register_complaint", (req, res) => {
     res.render("register_complaint", {title: "Complaints", menu: "Register Complaints"});
 })
 
-app.get("biometric",(req,res)=>{
-
+app.get("/biometric", (req,res) => {
+    res.render("biometric", {title: "Biometric", menu: ""});
 })
+
+app.post("/biometric", biometric.biometric);
 
 app.post("/register_complaint", complaint.registerComplaint)
 
@@ -65,6 +67,8 @@ app.post("/add_date", course_date.add_date);
 app.get("/cancel_booking", booking.cancelBooking);
 
 app.post("/cancel_booking", booking.toCancel);
+
+
 
 
 app.get("/dashboard_admin", (req, res) => {
@@ -96,6 +100,8 @@ app.get("/unblock_lab", blocking.unblockLab);
 app.post("/unblock_lab", blocking.toUnblock);
 
 
+
+
 app.get("/dashboard_student", (req, res) => {
     res.render("dashboard_student", {title: "Student", menu: ""});
 })
@@ -106,11 +112,9 @@ app.get("/biometric_student", (req, res) => {
 
 app.post("/biometric_student", biometric.biometricStudent);
 
-app.get("/biometric", (req,res) => {
-    res.render("biometric", {title: "Biometric", menu: ""});
+app.get("/wifi", (req, res) => {
+    res.render("wifi", { title: "Wifi", menu: "" });
 })
-
-app.post("/biometric", biometric.biometric);
 
 
 app.listen(3000, () => {
