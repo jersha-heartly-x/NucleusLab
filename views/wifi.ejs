@@ -1,0 +1,38 @@
+<%-include ('partials/header_student') %>
+
+<div class="main col-10 col-sm-8 col-lg-7 mx-auto rounded">
+    
+    <h4 class="my-5">Wifi MAC Entry</h4>
+
+    <div class="wifi">
+
+        <form action="/wifi" method="post">
+
+            <div class="mb-2 row">
+                <label for="" class="col-sm-4">Existing MAC</label>
+                <div class="col-sm-8"><p>B0:A4:60:A1:62:A1</p></div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="model" class="col-sm-4 col-form-label">Laptop Model</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="model" name="model" required>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="mac" class="col-sm-4 col-form-label">MAC Address (: delimiter) </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="mac" name="mac" required>
+                    <p class="text-danger mt-2">Provide Laptop MAC address only</p>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <input class="btn btn-block request" type="submit" name="submit" value="Request" id="submitBtn">
+            </div>
+
+        </form>
+    </div>
+
+<%-include ('partials/footer'); %>
