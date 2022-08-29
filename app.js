@@ -72,6 +72,9 @@ app.post("/cancel_booking", booking.toCancel);
 
 
 
+
+
+
 app.get("/exam-login", login_request_admin.examLogin);
 app.post("/update_login_info", login_request_admin.update);
 app.post("/filter_login_requests", login_request_admin.filter_requests);
