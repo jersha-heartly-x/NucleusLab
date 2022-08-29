@@ -264,3 +264,11 @@ a {
 }
 
 
+.dashboard-card{
+    height: 250px;
+    overflow-y: auto;
+}
+
+.nothing{
+    width: 200px;
+}
