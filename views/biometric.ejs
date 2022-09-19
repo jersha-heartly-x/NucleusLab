@@ -1,6 +1,6 @@
 <%-include('partials/header')%>
 
-    <div class="main rounded col col-md-8 col-lg-9 mx-auto schedule">
+    <div class="main rounded col col-md-9 col-lg-10 mx-auto schedule">
         
         <h4 class="my-4">Biometric Entries</h4>
         
@@ -100,7 +100,7 @@
                             <% for(i=0; i<table.length; i++){ %>
                             <tr>
                                 <td><%=i+1 %></td>
-                                <td><%=table[i].USERID %></td>
+                                <td><%=table[i].ROLLNO %></td>
                                 <td><%=table[i].DATE_ %></td>
                                 <td><%=table[i].IN_TIME %></td>
                                 <td><%=table[i].OUT_TIME %></td>

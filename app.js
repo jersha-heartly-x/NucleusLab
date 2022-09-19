@@ -11,6 +11,9 @@ const complaint = require("./routes/complaints");
 const booking = require("./routes/booking");
 const blocking = require("./routes/blocking");
 const biometric = require("./routes/biometric");
+const getCookie = require("./middlewares/getcookie");
+const req = require("express/lib/request");
+
 const app = express();
 
 app.use(express.static(__dirname + "/public"));
@@ -21,8 +24,51 @@ app.get("/", (req, res) => {
     res.redirect("/dashboard");
 })
 
-app.get("/dashboard", dashboard.dashboard);
-app.get("/dashboard-admin", dashboard.dashboard_admin);
+app.get("/dashboard", getCookie.getCookie, (req, res) => {
+    switch(res.locals.role){
+        case "admin":
+            dashboard.dashboard_admin(req, res);
+            break;
+        case "teacher":
+            dashboard.dashboard(req, res);
+            break;
+        case "student":
+            res.render("dashboard_student", {title: "Student", menu: ""});
+            break;
+        default:
+            res.status(404);
+    }
+    
+})
+
+app.get("/regular-schedule", getCookie.getCookie, (req, res) => {
+    switch(res.locals.role){
+        case "admin":
+            
+        case "teacher":
+            schedule.regularSchedule(req, res);
+            break;
+        default:
+            res.sendStatus(404);
+    }
+});
+
+app.get("/check-availability", getCookie.getCookie, (req, res) => {
+    switch(res.locals.role){
+        case "admin":
+            
+        case "teacher":
+            res.render("check_available", {title: "Lab Booking", menu: "Check Availability", role: res.locals.role});
+            break;
+        default:
+            res.sendStatus(404);
+    }
+});
+
+
+
+
+
 
 
 app.get("/login_request", (req, res) => {
@@ -31,15 +77,17 @@ app.get("/login_request", (req, res) => {
 
 app.get("/view_login_request", login_request.view_request);
 
-app.get("/regular_schedule", schedule.regularSchedule);
+
 
 app.get("/register_complaint", (req, res) => {
     res.render("register_complaint", {title: "Complaints", menu: "Register Complaints"});
 })
 
-app.get("biometric",(req,res)=>{
-
+app.get("/biometric", (req,res) => {
+    res.render("biometric", {title: "Biometric", menu: ""});
 })
+
+app.post("/biometric", biometric.biometric);
 
 app.post("/register_complaint", complaint.registerComplaint)
 
@@ -72,6 +120,7 @@ app.post("/cancel_booking", booking.toCancel);
 
 
 
+
 app.get("/exam-login", login_request_admin.examLogin);
 app.post("/update_login_info", login_request_admin.update);
 app.post("/filter_login_requests", login_request_admin.filter_requests);
@@ -97,9 +146,9 @@ app.get("/unblock_lab", blocking.unblockLab);
 app.post("/unblock_lab", blocking.toUnblock);
 
 
-app.get("/dashboard_student", (req, res) => {
-    res.render("dashboard_student", {title: "Student", menu: ""});
-})
+
+
+
 
 app.get("/biometric_student", (req, res) => {
     res.render("biometric_student", {title: "Biometric", menu: ""});
@@ -107,11 +156,9 @@ app.get("/biometric_student", (req, res) => {
 
 app.post("/biometric_student", biometric.biometricStudent);
 
-app.get("/biometric", (req,res) => {
-    res.render("biometric", {title: "Biometric", menu: ""});
+app.get("/wifi", (req, res) => {
+    res.render("wifi", { title: "Wifi", menu: "" });
 })
-
-app.post("/biometric", biometric.biometric);
 
 
 app.listen(3000, () => {

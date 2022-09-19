@@ -41,6 +41,7 @@ exports.regularSchedule = function (req, res) {
                     }
                 
                     const data = {
+                        role: res.locals.role,
                         title: "Lab Booking",
                         menu: "Regular Schedule",
                         day: day,
