@@ -22,7 +22,7 @@ exports.update = (req, res)=>{
                 console.log(err);
             }
             else{
-                res.redirect("/exam_login");
+                res.redirect("/exam-login");
             }
         })
     }
@@ -38,7 +38,7 @@ exports.update = (req, res)=>{
                 console.log(err);
             }
             else{
-                res.redirect("/exam_login");
+                res.redirect("/exam-login");
             }
         })
     }
@@ -69,7 +69,7 @@ exports.filter_requests = (req, res) =>{
 
     else if(filter){
         if(filter==="All"){
-            res.redirect("/exam_login");
+            res.redirect("/exam-login");
         }
         else{
             const q = `select * from login_requests where _status="${filter}" order by daterequested desc;`;

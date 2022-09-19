@@ -265,10 +265,14 @@ a {
 
 
 .dashboard-card{
-    height: 250px;
+    height: 270px;
     overflow-y: auto;
 }
 
 .nothing{
     width: 200px;
+}
+
+.nothingFull{
+    width: 65vh;
 }

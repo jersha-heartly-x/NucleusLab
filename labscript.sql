@@ -140,5 +140,12 @@ INSERT INTO attendance values("12013","2022-04-10","13:30","14:50");
 
 SELECT * FROM attendance where DATE_ between "2022-08-01" and "2022-08-12" AND USERID = "12013";
 
-
+CREATE TABLE wifi (
+	rollNo VARCHAR(6),
+	mac VARCHAR(20),
+    model VARCHAR(100),
+    dateReq DATE,
+    _status VARCHAR(10),
+	PRIMARY KEY(rollNo, mac)
+);
 
