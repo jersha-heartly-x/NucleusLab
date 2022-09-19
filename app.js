@@ -11,6 +11,9 @@ const complaint = require("./routes/complaints");
 const booking = require("./routes/booking");
 const blocking = require("./routes/blocking");
 const biometric = require("./routes/biometric");
+const getCookie = require("./middlewares/getcookie");
+const req = require("express/lib/request");
+
 const app = express();
 
 app.use(express.static(__dirname + "/public"));
@@ -21,8 +24,51 @@ app.get("/", (req, res) => {
     res.redirect("/dashboard");
 })
 
-app.get("/dashboard", dashboard.dashboard);
-app.get("/dashboard-admin", dashboard.dashboard_admin);
+app.get("/dashboard", getCookie.getCookie, (req, res) => {
+    switch(res.locals.role){
+        case "admin":
+            dashboard.dashboard_admin(req, res);
+            break;
+        case "teacher":
+            dashboard.dashboard(req, res);
+            break;
+        case "student":
+            res.render("dashboard_student", {title: "Student", menu: ""});
+            break;
+        default:
+            res.status(404);
+    }
+    
+})
+
+app.get("/regular-schedule", getCookie.getCookie, (req, res) => {
+    switch(res.locals.role){
+        case "admin":
+            
+        case "teacher":
+            schedule.regularSchedule(req, res);
+            break;
+        default:
+            res.sendStatus(404);
+    }
+});
+
+app.get("/check-availability", getCookie.getCookie, (req, res) => {
+    switch(res.locals.role){
+        case "admin":
+            
+        case "teacher":
+            res.render("check_available", {title: "Lab Booking", menu: "Check Availability", role: res.locals.role});
+            break;
+        default:
+            res.sendStatus(404);
+    }
+});
+
+
+
+
+
 
 
 app.get("/login_request", (req, res) => {
@@ -31,7 +77,7 @@ app.get("/login_request", (req, res) => {
 
 app.get("/view_login_request", login_request.view_request);
 
-app.get("/regular_schedule", schedule.regularSchedule);
+
 
 app.get("/register_complaint", (req, res) => {
     res.render("register_complaint", {title: "Complaints", menu: "Register Complaints"});
@@ -102,9 +148,7 @@ app.post("/unblock_lab", blocking.toUnblock);
 
 
 
-app.get("/dashboard_student", (req, res) => {
-    res.render("dashboard_student", {title: "Student", menu: ""});
-})
+
 
 app.get("/biometric_student", (req, res) => {
     res.render("biometric_student", {title: "Biometric", menu: ""});
