@@ -1,5 +1,8 @@
-<%-include ('partials/header') %>
-    
+<% if(role === "admin") { %>
+    <%-include('partials/header_admin')%>
+    <% } else { %>
+    <%-include('partials/header')%>
+    <% } %>
         <% if(table.length !=0) { %>
         <div class="schedule main col-11 col-sm-11 col-lg-11 col-xl-11 mx-auto">
         <h4 class="my-5">Cancel Booking</h4>
@@ -19,7 +22,7 @@
                 </thead>
                 <tbody>
                     <% for(var i=0; i<table.length; i++) { %>
-                    <form action="/cancel_booking" method="post" onsubmit="return confirm('Do you really want to cancel it?');">
+                    <form action="/cancel-booking" method="post" onsubmit="return confirm('Do you really want to cancel it?');">
                         <tr>
                             <td><%= i+1 %></td>
                             <td><input name="year" value="<%= table[i]._year %>" type="text" hidden /><input name="programme" value="<%= table[i].programme %>" type="text" hidden /><%= table[i]._year+" yr "+table[i].programme %></td>

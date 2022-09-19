@@ -274,5 +274,6 @@ a {
 }
 
 .nothingFull{
-    width: 65vh;
+    margin: 100px;
+    width: 45vh;
 }

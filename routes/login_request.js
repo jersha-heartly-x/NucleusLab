@@ -11,7 +11,7 @@ exports.make_request = (req, res)=>{
     noOfLogins = req.body.noOfLogins,
     tools = req.body.tools;
 
-    q = `insert into login_requests values("${staffid}", "${_class}", "${dateRequested}", "${dateNeeded}", ${from}, ${to}, "${type}", ${noOfLogins}, "${tools}", "", "Pending");`;
+    q = `insert into login_requests (staffid ,class,daterequested,dateneeded,fromperiod,toperiod,_type,nooflogins,tools,series,_status) values("${staffid}", "${_class}", "${dateRequested}", "${dateNeeded}", ${from}, ${to}, "${type}", ${noOfLogins}, "${tools}", "", "Pending");`;
     db.query(q, (err, res)=>{
         if(err) {
             console.log(err);
@@ -21,7 +21,7 @@ exports.make_request = (req, res)=>{
         }
     })
 
-    res.redirect("/view_login_request");
+    res.redirect("/view-login-request");
 };
 
 exports.view_request = (req, res)=>{
