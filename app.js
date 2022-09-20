@@ -13,6 +13,7 @@ const blocking = require("./routes/blocking");
 const biometric = require("./routes/biometric");
 const getCookie = require("./middlewares/getcookie");
 
+
 const app = express();
 
 app.use(express.static(__dirname + "/public"));
@@ -72,15 +73,124 @@ app.get("/check-availability", getCookie.getCookie, (req, res) => {
 });
 
 
+app.get("/biometric", getCookie.getCookie, (req,res) => {
+    switch(res.locals.role){
+        case "teacher":
+            res.render("biometric", {title: "Biometric", menu: ""});
+            break;
+        case "student":
+            res.render("biometric_student", {title: "Biometric", menu: ""});
+            break;
+        default:
+            res.sendStatus(404);
+    } 
+})
+
+app.post("/biometric", getCookie.getCookie, (req, res)=>{
+    switch(res.locals.role){
+        case "teacher":
+            biometric.biometric(req, res);
+            break;
+        case "student":
+            biometric.biometricStudent(req, res);
+            break;
+        default:
+            res.sendStatus(404);
+    } 
+});
+
+
+app.get("/to-book", getCookie.getCookie, (req, res) => {
+    switch(res.locals.role){
+        case "admin":
+            
+        case "teacher":
+            res.render("to_book", {title: "Lab Booking", menu: "To Book", role: res.locals.role});
+            break;
+        default:
+            res.sendStatus(404);
+    }
+})
+app.post("/to-book", getCookie.getCookie, (req, res)=>{
+    switch(res.locals.role){
+        case "admin":
+        case "teacher":
+            booking.booking(req, res);
+            break;
+        default:
+            res.sendStatus(404);
+    } 
+});
+
+
+app.get("/view-booking", getCookie.getCookie, (req, res)=>{
+    switch(res.locals.role){
+        case "admin":
+        case "teacher":
+            booking.view_booking(req, res);
+            break;
+        default:
+            res.sendStatus(404);
+    } 
+});
+
+
+app.get("/cancel-booking", getCookie.getCookie, (req, res)=>{
+    switch(res.locals.role){
+        case "admin":
+        case "teacher":
+            booking.cancelBooking(req, res);
+            break;
+        default:x
+            res.sendStatus(404);
+    } 
+});
+
+app.post("/cancel-booking", getCookie.getCookie, (req, res)=>{
+    switch(res.locals.role){
+        case "admin":
+        case "teacher":
+            booking.toCancel(req, res);
+            break;
+        default:
+            res.sendStatus(404);
+    } 
+});
+
+
+app.get("/login-request", getCookie.getCookie, (req, res) => {
+    if(res.locals.role==="teacher")
+        res.render("login_request", {title: "Login Request", menu: "Create Request"});
+    else
+        res.sendStatus(404);
+});
+app.post("/login-request", getCookie.getCookie, (req, res) => {
+    if(res.locals.role==="teacher")
+        login_request.make_request(req, res);
+    else
+        res.sendStatus(404);
+});
+
+app.get("/view-login-request", getCookie.getCookie, (req, res) => {
+    if(res.locals.role==="teacher")
+        login_request.view_request(req, res);
+    else
+        res.sendStatus(404);
+});
+
+// completed up until this part 
 
 
 
+
+app.get("/booking_details", (req, res) => {
+    res.render("booking_details", {title: "Lab booking", menu: "Booking Details"});
 
 app.get("/login_request", (req, res) => {
     res.render("login_request", {title: "Login Request", menu: "Create Request"});
 })
 
-app.get("/view_login_request", login_request.view_request);
+
 
 
 
@@ -88,38 +198,27 @@ app.get("/register_complaint", (req, res) => {
     res.render("register_complaint", {title: "Complaints", menu: "Register Complaints"});
 })
 
-app.get("/biometric", (req,res) => {
-    res.render("biometric", {title: "Biometric", menu: ""});
-})
 
-app.post("/biometric", biometric.biometric);
+
 
 app.post("/register_complaint", complaint.registerComplaint)
 
 
 app.get("/view_complaints", complaint.viewComplaints)
 
-app.get("/view_booking", booking.view_booking);
 
-app.get("/to_book", (req, res) => {
-    res.render("to_book", {title: "Lab Booking", menu: "To Book"});
-})
 
-app.post("/to_book", booking.booking);
 
 app.get("/check_available", (req, res) => {
     res.render("check_available", {title: "Lab Booking", menu: "Check Availability"});
 })
 
-app.post("/login_request", login_request.make_request);
 
 app.post("/check_available", schedule.checkAvailability);
 
 app.post("/add_date", course_date.add_date);
 
-app.get("/cancel_booking", booking.cancelBooking);
 
-app.post("/cancel_booking", booking.toCancel);
 
 
 
@@ -136,9 +235,7 @@ app.get("/course_date", (req, res) => {
     res.render("course_date", {title: "Schedule", menu: "Course Date"});
 })
 
-app.get("/booking_details", (req, res) => {
-    res.render("booking_details", {title: "Lab booking", menu: "Booking Details"});
-})
+
 
 app.post("/booking_details", booking.bookingDetails);
 
@@ -155,11 +252,8 @@ app.post("/unblock_lab", blocking.toUnblock);
 
 
 
-app.get("/biometric_student", (req, res) => {
-    res.render("biometric_student", {title: "Biometric", menu: ""});
-})
 
-app.post("/biometric_student", biometric.biometricStudent);
+
 
 app.get("/wifi", (req, res) => {
     res.render("wifi", { title: "Wifi", menu: "" });

@@ -1,4 +1,8 @@
-<%-include ('partials/header') %>
+<% if(role === "admin") { %>
+    <%-include('partials/header_admin')%>
+    <% } else { %>
+    <%-include('partials/header')%>
+    <% } %>
     <div class="main col-10 col-sm-8 col-lg-6 mx-auto rounded position-relative">
 
         <% if(locals.alert) { %>
@@ -17,7 +21,7 @@
         
         <h4 class="my-5">Reserve</h4>
         <div class="to_book">
-            <form action="/to_book" method="post">
+            <form action="/to-book" method="post">
 
                 <div class="mb-3 row">
                     <label for="programme" class="col-sm-3 col-form-label">Programme</label>
