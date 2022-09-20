@@ -139,7 +139,7 @@ exports.toUnblock = function(req, res) {
                     console.log(err);
                 }
                 else {
-                    res.redirect("/unblock_lab");
+                    res.redirect("/unblock-lab");
                 }
             }) 
         }

@@ -1,7 +1,6 @@
-const express = require("express");
+const express    = require("express");
 const bodyParser = require("body-parser");
-
-const schedule = require("./routes/schedule");
+const schedule   = require("./routes/schedule");
 const login_request = require("./routes/login_request");
 const login_request_admin = require("./routes/login_request_admin");
 const dashboard = require("./routes/dashboard");
@@ -178,7 +177,128 @@ app.get("/view-login-request", getCookie.getCookie, (req, res) => {
         res.sendStatus(404);
 });
 
+
+app.get("/register-complaint", getCookie.getCookie, (req, res) => {
+    switch(res.locals.role){
+        case "student":
+            
+        case "teacher":
+            res.render("register_complaint", {title: "Complaints", menu: "Register Complaints", role: res.locals.role});
+            break;
+        default:
+            res.sendStatus(404);
+    }
+})
+app.post("/register-complaint", getCookie.getCookie, (req, res) => {
+    switch(res.locals.role){
+        case "student":
+            
+        case "teacher":
+            complaint.registerComplaint(req, res);
+            break;
+        default:
+            res.sendStatus(404);
+    }
+} )
+
+app.get("/view-complaints", getCookie.getCookie, (req, res) => {
+    switch(res.locals.role){
+        case "student":
+        case "teacher":
+            complaint.viewComplaints(req, res);
+            break;
+        default:
+            res.sendStatus(404);
+    }
+})
+
+
+app.get("/add-regular-schedule", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+        schedule.add_schedule(req, res);
+    else
+        res.sendStatus(404);
+});
+app.post("/add-regular-schedule", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+        scheduleAdmin.addSchedule(req, res);
+    else
+        res.sendStatus(404);
+} );
+
+
+
+app.get("/course-date", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+        res.render("course_date", {title: "Schedule", menu: "Course Date"});
+    else
+        res.sendStatus(404);
+})
+app.post("/add-date", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+        course_date.add_date(req, res);
+    else
+        res.sendStatus(404);
+});
+
+
+
+app.get("/block-lab", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+        blocking.blockLab(req, res);
+    else
+        res.sendStatus(404);
+});
+app.post("/block-lab", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+        blocking.toBlock(req, res);
+    else
+        res.sendStatus(404);
+});
+
+
+app.get("/unblock-lab", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+        blocking.unblockLab(req, res);
+    else
+        res.sendStatus(404);
+});
+app.post("/unblock-lab", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+        blocking.toUnblock(req, res);
+    else
+        res.sendStatus(404);
+});
+
+
+app.get("/exam-login", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+        login_request_admin.examLogin(req, res);
+    else
+        res.sendStatus(404);
+});
+app.post("/update-login-info", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+        login_request_admin.update(req, res);
+    else
+        res.sendStatus(404);
+});
+app.post("/filter-login-requests", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+        login_request_admin.filter_requests(req, res);
+    else
+        res.sendStatus(404);
+});
+
 // completed up until this part 
+// PS: please save me... this is torture!  --tam :(  
+
+
+
+
+
+
+
 
 
 
@@ -192,68 +312,15 @@ app.get("/login_request", (req, res) => {
 })
 
 
-
-
-
-app.get("/register_complaint", (req, res) => {
-    res.render("register_complaint", {title: "Complaints", menu: "Register Complaints"});
-})
-
-
-
-
-app.post("/register_complaint", complaint.registerComplaint)
-
-
-app.get("/view_complaints", complaint.viewComplaints)
-
-
-
-
 app.get("/check_available", (req, res) => {
     res.render("check_available", {title: "Lab Booking", menu: "Check Availability"});
 })
 
-
 app.post("/check_available", schedule.checkAvailability);
-
-app.post("/add_date", course_date.add_date);
-
-
-
-
-
-
-
-
-app.get("/exam-login", login_request_admin.examLogin);
-app.post("/update_login_info", login_request_admin.update);
-app.post("/filter_login_requests", login_request_admin.filter_requests);
-app.get("/add_regular_schedule", schedule.add_schedule);
-app.post("/add_regular_schedule", scheduleAdmin.addSchedule);
-
-app.get("/course_date", (req, res) => {
-    res.render("course_date", {title: "Schedule", menu: "Course Date"});
-})
 
 
 
 app.post("/booking_details", booking.bookingDetails);
-
-app.get("/block_lab", blocking.blockLab);
-
-app.post("/block_lab", blocking.toBlock);
-
-app.get("/unblock_lab", blocking.unblockLab);
-
-app.post("/unblock_lab", blocking.toUnblock);
-
-
-
-
-
-
-
 
 
 app.get("/wifi", (req, res) => {
