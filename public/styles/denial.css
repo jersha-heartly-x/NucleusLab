@@ -1,0 +1,48 @@
+:root {
+    --first-color: #5853BC;
+    --background-light: #ECECF9;
+    --white: white;
+}
+
+* {
+    margin: 0;
+    background-color: var(--background-light);
+}
+
+.text-purple{
+    color: var(--first-color);
+}
+
+.bg-purple{
+    background-color: var(--first-color);
+    height: 50vh;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+}
+
+.img {
+    background-color: var(--white);
+    width: 230px;
+    height: 210px;
+}
+
+.card {
+    background-color: var(--white);
+    position: absolute;
+    top: 20vh;
+    border-radius: 1rem !important;
+}
+
+.nucleus {
+    height: 70px;
+    width: 70px;
+    background-color: transparent;
+    transform: translate(0%, -50%);
+}
+
+.info {
+    margin: 7vh;
+    background-color: transparent;
+}
+
+
+
