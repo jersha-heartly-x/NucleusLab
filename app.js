@@ -36,10 +36,17 @@ app.get("/dashboard", getCookie.getCookie, (req, res) => {
             res.render("dashboard_student", {title: "Student", menu: ""});
             break;
         default:
-            res.status(404);
+            res.render("denial");
     }
     
 })
+
+app.get("/course-date", getCookie.getCookie, (req, res) => {
+    if(res.locals.role === "admin")
+        res.render("course_date", {title: "Schedule", menu: "Course Date"});
+    else
+        res.render("denial");
+});
 
 app.get("/regular-schedule", getCookie.getCookie, (req, res) => {
     switch(res.locals.role){
@@ -49,7 +56,7 @@ app.get("/regular-schedule", getCookie.getCookie, (req, res) => {
             schedule.regularSchedule(req, res);
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     }
 });
 
@@ -61,7 +68,7 @@ app.get("/check-availability", getCookie.getCookie, (req, res) => {
             res.render("check_available", {title: "Lab Booking", menu: "Check Availability", role: res.locals.role});
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     }
 });
 
@@ -176,13 +183,11 @@ app.get("/view-login-request", getCookie.getCookie, (req, res) => {
 
 
 
-
-
-
-
-
 app.get("/booking_details", (req, res) => {
     res.render("booking_details", {title: "Lab booking", menu: "Booking Details"});
+
+app.get("/login_request", (req, res) => {
+    res.render("login_request", {title: "Login Request", menu: "Create Request"});
 })
 
 
