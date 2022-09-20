@@ -12,7 +12,6 @@ const booking = require("./routes/booking");
 const blocking = require("./routes/blocking");
 const biometric = require("./routes/biometric");
 const getCookie = require("./middlewares/getcookie");
-const req = require("express/lib/request");
 
 const app = express();
 
@@ -36,10 +35,17 @@ app.get("/dashboard", getCookie.getCookie, (req, res) => {
             res.render("dashboard_student", {title: "Student", menu: ""});
             break;
         default:
-            res.status(404);
+            res.render("denial");
     }
     
 })
+
+app.get("/course-date", getCookie.getCookie, (req, res) => {
+    if(res.locals.role === "admin")
+        res.render("course_date", {title: "Schedule", menu: "Course Date"});
+    else
+        res.render("denial");
+});
 
 app.get("/regular-schedule", getCookie.getCookie, (req, res) => {
     switch(res.locals.role){
@@ -49,7 +55,7 @@ app.get("/regular-schedule", getCookie.getCookie, (req, res) => {
             schedule.regularSchedule(req, res);
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     }
 });
 
@@ -61,10 +67,9 @@ app.get("/check-availability", getCookie.getCookie, (req, res) => {
             res.render("check_available", {title: "Lab Booking", menu: "Check Availability", role: res.locals.role});
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     }
 });
-
 
 
 
