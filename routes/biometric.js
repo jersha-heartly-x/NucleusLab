@@ -95,7 +95,7 @@ exports.biometricStudent = (req, res) => {
 
     }
     else {
-        res.redirect("/biometric_student");
+        res.redirect("/biometric");
     }
 }
 
