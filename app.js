@@ -37,8 +37,7 @@ app.get("/dashboard", getCookie.getCookie, (req, res) => {
             break;
         default:
             res.render("denial");
-    }
-    
+    }    
 })
 
 app.get("/course-date", getCookie.getCookie, (req, res) => {
@@ -110,7 +109,8 @@ app.get("/to-book", getCookie.getCookie, (req, res) => {
         default:
             res.sendStatus(404);
     }
-})
+});
+
 app.post("/to-book", getCookie.getCookie, (req, res)=>{
     switch(res.locals.role){
         case "admin":
@@ -185,6 +185,7 @@ app.get("/view-login-request", getCookie.getCookie, (req, res) => {
 
 app.get("/booking_details", (req, res) => {
     res.render("booking_details", {title: "Lab booking", menu: "Booking Details"});
+})
 
 app.get("/login_request", (req, res) => {
     res.render("login_request", {title: "Login Request", menu: "Create Request"});
