@@ -142,12 +142,17 @@ SELECT * FROM attendance where DATE_ between "2022-08-01" and "2022-08-12" AND U
 
 CREATE TABLE wifi (
 	rollNo VARCHAR(6),
+    _name VARCHAR(50),
 	mac VARCHAR(20),
     model VARCHAR(100),
-    dateReq DATE,
+    date_timeReq DATETIME,
     _status VARCHAR(10),
 	PRIMARY KEY(rollNo, mac)
 );
+
+DROP TABLE wifi;
+
+SELECT * FROM wifi;
 
 CREATE TABLE master (
     USERID VARCHAR(20),
@@ -748,3 +753,6 @@ INSERT INTO `master` (`USERID`,`NAME`,`ROLLNO`) VALUES ('519059','YOHESH BABU   
 INSERT INTO `master` (`USERID`,`NAME`,`ROLLNO`) VALUES ('519060','LOGASH KUMAR   A M','19X060');
 INSERT INTO `master` (`USERID`,`NAME`,`ROLLNO`) VALUES ('519061','KAVIN   S','19X061');
 INSERT INTO `master` (`USERID`,`NAME`,`ROLLNO`) VALUES ('6242','VISHNU KUMAR','C6242');
+
+
+
