@@ -2,7 +2,8 @@ const { request } = require('express');
 const con = require('../db');
 
 exports.registerComplaint = function(req, res) {
-    const lab = req.body.lab,
+    const staffId = res.locals.userDetails.id,
+        lab = req.body.lab,
         row = req.body.row,
         col = req.body.col,
         sys = req.body.system,
@@ -11,7 +12,7 @@ exports.registerComplaint = function(req, res) {
     
     // console.log(dateTime);
 
-    var sql = `INSERT INTO complaints VALUES ("C3391", "${lab}", "${row}", "${col}", "${sys}", "${desc}", "${dateTime}");`;
+    var sql = `INSERT INTO complaints VALUES ("${staffId}", "${lab}", "${row}", "${col}", "${sys}", "${desc}", "${dateTime}");`;
 
     con.query(sql, function(err, result) {
         if (err) {
@@ -26,9 +27,9 @@ exports.registerComplaint = function(req, res) {
 }
 
 exports.viewComplaints = function(req, res) {
-    const empId = "C3391";
+    const staffId = res.locals.userDetails.id;
 
-    var sql = `SELECT * FROM complaints WHERE staffId = "${empId}";`;
+    var sql = `SELECT * FROM complaints WHERE staffId = "${staffId}";`;
 
     con.query(sql, function(err, result) {
         if (err) {
