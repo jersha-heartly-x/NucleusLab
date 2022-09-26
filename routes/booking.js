@@ -2,7 +2,7 @@ var db = require('../db');
 
 exports.booking = function(req, res) {
 
-    const staffId = "C3391";
+    const staffId = res.locals.userDetails.id;
 
     const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
@@ -95,7 +95,7 @@ exports.bookingDetails = function(req, res) {
 
 
 exports.view_booking = (req, res)=>{
-    const staffid = "C3391";
+    const staffid = res.locals.userDetails.id;
 
     let q = `SELECT academic_year, semester from course_dates where '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date and end_date;`;
 
@@ -128,7 +128,7 @@ exports.cancelBooking = function(req, res) {
         }
         else {
 
-            const staffId = "C3391";
+            const staffId = res.locals.userDetails.id;
 
             const academicYear = result[0].academic_year,
                 semester = result[0].semester,
@@ -161,7 +161,7 @@ exports.toCancel = function(req, res) {
         }
         else {
 
-            const staffId = "C3391";
+            const staffId = res.locals.userDetails.id;
 
             const academicYear = result[0].academic_year,
                 semester = result[0].semester,

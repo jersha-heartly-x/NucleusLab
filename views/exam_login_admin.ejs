@@ -10,7 +10,7 @@
         <!-- <div class="col-md-1">View</div> -->
         <div class="p-3 mb-5">
             
-            <form class="col-sm-7 col-md-5 col-lg-4 mx-auto" action="/filter_login_requests" method="post">
+            <form class="col-sm-7 col-md-5 col-lg-4 mx-auto" action="/filter-login-requests" method="post">
                 <div class="d-flex m-3 ">
                     <label for="filter_status" class="col-form-label me-2">View</label>
                 <select name="filter_status" class="form-select">
@@ -77,7 +77,7 @@
                         <td><span class="badge bg-success p-1 border border-success mx-2 rounded-circle"><span class="visually-hidden">green</span></span></td>
                     <% } %>
                     
-                    <form action="/update_login_info" method="post" onSubmit = "return confirm('Are you sure? Changes cannot be undone!')">
+                    <form action="/update-login-info" method="post" onSubmit = "return confirm('Are you sure? Changes cannot be undone!')">
                         <input type="text" name="id" value="<%=requests[i].requestId %>" hidden>
                         <td><input type="text" name="series" value="<%= requests[i].series %>" <%= requests[i]._status=="Rejected" && "Disabled" %>></td>
                         <td>

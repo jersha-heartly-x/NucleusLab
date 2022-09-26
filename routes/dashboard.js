@@ -2,7 +2,7 @@ const con = require("../db");
 const db = require("../db");
 
 exports.dashboard = (req, res) => {
-  const staffid = "C3391";
+  const staffid = res.locals.userDetails.id;
 
   let q = `select * from booking where staffId="${staffid}" and entryDate >="${new Date(new Date().getTime()+330*60*1000 -3*24*3600*1000).toISOString().slice(0, 10)}" order by bookingDate limit 4; `;
 
@@ -24,7 +24,8 @@ exports.dashboard = (req, res) => {
                 title: "Dashboard",
                 menu: "",
                 login_requests: logins,
-                bookings : bookings
+                bookings : bookings,
+                userDetails : res.locals.userDetails
               });
             }
           });

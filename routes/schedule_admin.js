@@ -22,7 +22,7 @@ exports.addSchedule = function(req, res) {
             }
         });
     }
-    res.redirect("/add_regular_schedule");
+    res.redirect("/add-regular-schedule");
 }
 
 
