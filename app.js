@@ -10,8 +10,9 @@ const complaint = require("./routes/complaints");
 const booking = require("./routes/booking");
 const blocking = require("./routes/blocking");
 const biometric = require("./routes/biometric");
-const getCookie = require("./middlewares/getcookie");
+const wifi = require("./routes/wifi");
 
+const getCookie = require("./middlewares/getcookie");
 
 const app = express();
 
@@ -304,12 +305,25 @@ app.post("/filter-login-requests", getCookie.getCookie, (req, res)=>{
 });
 
 app.get("/wifi", getCookie.getCookie, (req, res) => {
-    if(res.locals.role=== "student")
-        res.render("wifi", { title: "Wifi", menu: "" });
+    if(res.locals.role === "student")
+        wifi.wifi(req, res);
     else
         res.render("denial");
 })
 
+app.post("/wifi", getCookie.getCookie, (req, res) => {
+    if(res.locals.role=== "student")
+        wifi.postWifi(req, res);
+    else
+        res.render("denial");
+})
+
+app.get("/view-wifi", getCookie.getCookie, (req, res) => {
+    if(res.locals.role=== "student")
+        wifi.getWifi(req, res);
+    else
+        res.render("denial");
+})
 
 app.get("/booking-details", getCookie.getCookie, (req, res) => {
     if(res.locals.role=== "admin")
@@ -326,8 +340,6 @@ app.post("/booking-details", getCookie.getCookie, (req, res)=>{
         res.render("denial");
 });
 
-// completed
-// PS: this was torture!  --tam :(  
 
 app.listen(3000, () => {
     console.log("App running on port 3000");
