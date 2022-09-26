@@ -4,7 +4,7 @@ exports.regularSchedule = function (req, res) {
     // console.log(req.query['day']);
     const day = req.query.day!==undefined? req.query.day : new Date().toLocaleString('en-US', {weekday: "long"});
     //year and sem to be changed
-    var year=2022, sem="even";
+    var year, sem;
     
     var q = `SELECT academic_year, semester from course_dates where '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date and end_date;`;
     
