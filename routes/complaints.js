@@ -22,7 +22,7 @@ exports.registerComplaint = function(req, res) {
         }
     });
 
-    res.redirect("/register_complaint");
+    res.redirect("/register-complaint");
 }
 
 exports.viewComplaints = function(req, res) {
@@ -36,7 +36,7 @@ exports.viewComplaints = function(req, res) {
         }
         // console.log(result);
         else {
-            res.render("view_complaints", {title: "Complaints" , menu: "View Complaints", complaints: result});
+            res.render("view_complaints", {title: "Complaints" , menu: "View Complaints", complaints: result, role: res.locals.role});
         }
     });
 }

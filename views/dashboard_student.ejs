@@ -1,10 +1,9 @@
 <%-include ('partials/header_student') %>
-
 <div class="col-xl-10 container">
     <div class="bg-white rounded p-4 mb-5">
         <div class="row">
             <div class="col-md-6 col-lg-7">
-                <h4 class="mb-4 text-purple">Hello, JERSHA HEARTLY X!</h4>
+                <h4 class="mb-4 text-purple">Hey, <%=userDetails.firstName %> <%=userDetails.lastName %></h4>
                 <p>Welcome to Nucleus Lab manager, an all-purpose digital platform for the department of Applied Mathematics and Computational Sciences, to enable effective utilization of the lab facilities.
                 <br>We are still running on the Beta version. Hence, feel free to report any bugs that need resolving.</p>
             </div>
@@ -14,60 +13,9 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-6 mb-5">
-            <a href="#" class="text-decoration-none"><h4 class="fw-bold heading">Your recent complaints</h4></a>
-            <div class="container dashboard-card bg-white rounded py-4">
-                <% if(complaints.length==0) { %>
-                    <div class="row text-center">
-                    <img src="/images/nothing.png" class="nothing mx-auto p-4" alt="nothing">
-                    <div><p class="fw-bold">Nothing to show!</p></div>
-                </div>
-                <% } else { %>
-                <ul class="list-group list-group-flush">
-                    
-                    <% complaints.forEach((booking)=> { %>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="me-3">
-                            <div class="fw-bold"><%=booking.lab %></div>
-                            Period: <%=booking.fromperiod %> - <%=booking.toperiod %>, <%= booking.bookingDate.toString().slice(0, 15) %>
-                        </div>
-                        <div>
-                                <span class="fw-bold" style="color: #5853BC;"><%=booking._year + " yr " + booking.programme %></span>
-                        </div>
-                    </li>
-                    <% }) %>
-                    </ul>
-                <% } %>
-            </div>
-        </div>
-        <div class="col-md-6 mb-5">
-            <a href="#" class="text-decoration-none"><h4 class="fw-bold heading">All Recent bookings</h4></a>
-            <div class="container dashboard-card bg-white rounded py-4">
-                <% if(all_bookings.length==0) { %>
-                    <div class="row text-center">
-                        <img src="/images/nothing.png" class="nothing mx-auto p-4" alt="nothing">
-                        <div><p class="fw-bold">Nothing to show!</p></div>
-                    </div>
-                <% } else { %>
-                <ul class="list-group list-group-flush">
-                    
-                    <% all_bookings.forEach((booking)=> { %>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div class="me-3">
-                            <div class="fw-bold"><%=booking.lab %></div>
-                            Period: <%=booking.fromperiod %> - <%=booking.toperiod %>, <%= booking.bookingDate.toString().slice(0, 15) %>
-                        </div>
-                        <div>
-                                <span class="fw-bold" style="color: #5853BC;"><%=booking._year + " yr " + booking.programme %></span>
-                        </div>
-                    </li>
-                    <% }) %>
-                    </ul>
-                <% } %>
-            </div>
-        </div>
-    </div>
-</div>
 
+
+    <!-- remaining cards from here -->
+
+</div>
 <%-include ('partials/footer'); %>

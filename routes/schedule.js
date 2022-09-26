@@ -120,7 +120,8 @@ exports.checkAvailability = function (req, res) {
                         menu: "Check Availability",
                         table: table,
                         from: from,
-                        to: to
+                        to: to,
+                        role: res.locals.role
                     }
                     // console.log(table);
                     res.render("check_available", data);
