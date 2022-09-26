@@ -13,6 +13,7 @@ const biometric = require("./routes/biometric");
 const getCookie = require("./middlewares/getcookie");
 
 
+
 const app = express();
 
 app.use(express.static(__dirname + "/public"));
