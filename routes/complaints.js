@@ -26,7 +26,7 @@ exports.registerComplaint = function(req, res) {
 }
 
 exports.viewComplaints = function(req, res) {
-    const empId = "C3391";
+    const staffid = res.locals.userDetails.id;
 
     var sql = `SELECT * FROM complaints WHERE staffId = "${empId}";`;
 
