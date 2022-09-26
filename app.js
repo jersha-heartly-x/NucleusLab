@@ -32,7 +32,7 @@ app.get("/dashboard", getCookie.getCookie, (req, res) => {
             dashboard.dashboard(req, res);
             break;
         case "student":
-            res.render("dashboard_student", {title: "Student", menu: ""});
+            res.render("dashboard_student", {title: "Student", menu: "", userDetails : res.locals.userDetails});
             break;
         default:
             res.render("denial");
@@ -71,6 +71,19 @@ app.get("/check-availability", getCookie.getCookie, (req, res) => {
 });
 
 
+app.post("/check-availability", getCookie.getCookie, (req, res)=>{
+    switch(res.locals.role){
+        case "admin":
+            
+        case "teacher":
+            schedule.checkAvailability(req, res);
+            break;
+        default:
+            res.render("denial");
+    }
+});
+
+
 app.get("/biometric", getCookie.getCookie, (req,res) => {
     switch(res.locals.role){
         case "teacher":
@@ -80,7 +93,7 @@ app.get("/biometric", getCookie.getCookie, (req,res) => {
             res.render("biometric_student", {title: "Biometric", menu: ""});
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     } 
 })
 
@@ -93,7 +106,7 @@ app.post("/biometric", getCookie.getCookie, (req, res)=>{
             biometric.biometricStudent(req, res);
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     } 
 });
 
@@ -106,7 +119,7 @@ app.get("/to-book", getCookie.getCookie, (req, res) => {
             res.render("to_book", {title: "Lab Booking", menu: "To Book", role: res.locals.role});
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     }
 });
 
@@ -117,7 +130,7 @@ app.post("/to-book", getCookie.getCookie, (req, res)=>{
             booking.booking(req, res);
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     } 
 });
 
@@ -129,7 +142,7 @@ app.get("/view-booking", getCookie.getCookie, (req, res)=>{
             booking.view_booking(req, res);
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     } 
 });
 
@@ -141,7 +154,7 @@ app.get("/cancel-booking", getCookie.getCookie, (req, res)=>{
             booking.cancelBooking(req, res);
             break;
         default:x
-            res.sendStatus(404);
+            res.render("denial");
     } 
 });
 
@@ -152,7 +165,7 @@ app.post("/cancel-booking", getCookie.getCookie, (req, res)=>{
             booking.toCancel(req, res);
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     } 
 });
 
@@ -161,20 +174,20 @@ app.get("/login-request", getCookie.getCookie, (req, res) => {
     if(res.locals.role==="teacher")
         res.render("login_request", {title: "Login Request", menu: "Create Request"});
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 app.post("/login-request", getCookie.getCookie, (req, res) => {
     if(res.locals.role==="teacher")
         login_request.make_request(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 
 app.get("/view-login-request", getCookie.getCookie, (req, res) => {
     if(res.locals.role==="teacher")
         login_request.view_request(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 
 
@@ -186,7 +199,7 @@ app.get("/register-complaint", getCookie.getCookie, (req, res) => {
             res.render("register_complaint", {title: "Complaints", menu: "Register Complaints", role: res.locals.role});
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     }
 })
 app.post("/register-complaint", getCookie.getCookie, (req, res) => {
@@ -197,7 +210,7 @@ app.post("/register-complaint", getCookie.getCookie, (req, res) => {
             complaint.registerComplaint(req, res);
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     }
 } )
 
@@ -208,7 +221,7 @@ app.get("/view-complaints", getCookie.getCookie, (req, res) => {
             complaint.viewComplaints(req, res);
             break;
         default:
-            res.sendStatus(404);
+            res.render("denial");
     }
 })
 
@@ -217,13 +230,13 @@ app.get("/add-regular-schedule", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
         schedule.add_schedule(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 app.post("/add-regular-schedule", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
         scheduleAdmin.addSchedule(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 } );
 
 
@@ -232,13 +245,13 @@ app.get("/course-date", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
         res.render("course_date", {title: "Schedule", menu: "Course Date"});
     else
-        res.sendStatus(404);
+        res.render("denial");
 })
 app.post("/add-date", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
         course_date.add_date(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 
 
@@ -247,13 +260,13 @@ app.get("/block-lab", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
         blocking.blockLab(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 app.post("/block-lab", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
         blocking.toBlock(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 
 
@@ -261,13 +274,13 @@ app.get("/unblock-lab", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
         blocking.unblockLab(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 app.post("/unblock-lab", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
         blocking.toUnblock(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 
 
@@ -275,58 +288,46 @@ app.get("/exam-login", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
         login_request_admin.examLogin(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 app.post("/update-login-info", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
         login_request_admin.update(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 app.post("/filter-login-requests", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
         login_request_admin.filter_requests(req, res);
     else
-        res.sendStatus(404);
+        res.render("denial");
 });
 
-// completed up until this part 
-// PS: please save me... this is torture!  --tam :(  
-
-
-
-
-
-
-
-
-
-
-
-app.get("/booking_details", (req, res) => {
-    res.render("booking_details", {title: "Lab booking", menu: "Booking Details"});
-})
-
-app.get("/login_request", (req, res) => {
-    res.render("login_request", {title: "Login Request", menu: "Create Request"});
+app.get("/wifi", getCookie.getCookie, (req, res) => {
+    if(res.locals.role=== "student")
+        res.render("wifi", { title: "Wifi", menu: "" });
+    else
+        res.render("denial");
 })
 
 
-app.get("/check_available", (req, res) => {
-    res.render("check_available", {title: "Lab Booking", menu: "Check Availability"});
+app.get("/booking-details", getCookie.getCookie, (req, res) => {
+    if(res.locals.role=== "admin")
+        res.render("booking_details", {title: "Lab booking", menu: "Booking Details"});
+    else
+        res.render("denial");
 })
 
-app.post("/check_available", schedule.checkAvailability);
 
+app.post("/booking-details", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role=== "admin")
+        booking.bookingDetails(req, res);
+    else
+        res.render("denial");
+});
 
-
-app.post("/booking_details", booking.bookingDetails);
-
-
-app.get("/wifi", (req, res) => {
-    res.render("wifi", { title: "Wifi", menu: "" });
-})
-
+// completed
+// PS: this was torture!  --tam :(  
 
 app.listen(3000, () => {
     console.log("App running on port 3000");

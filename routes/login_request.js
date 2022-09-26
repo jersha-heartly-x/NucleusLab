@@ -1,7 +1,7 @@
 const db = require("../db");
 
 exports.make_request = (req, res)=>{
-    const staffid= "C3391",
+    const staffid = res.locals.userDetails.id,
     _class = (req.body.year.slice(2) + req.body.programme),
     dateRequested = new Date(new Date().getTime()+ 330*60*1000).toISOString().slice(0, 19).replace('T', ' '),
     dateNeeded = req.body.date,
@@ -25,7 +25,7 @@ exports.make_request = (req, res)=>{
 };
 
 exports.view_request = (req, res)=>{
-    const staffid= "C3391";
+    const staffid = res.locals.userDetails.id;
     const date = new Date().toISOString().slice(0, 10);
     const q = `select * from login_requests where staffid = "${staffid}" order by daterequested;`;
 
