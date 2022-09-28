@@ -1,0 +1,94 @@
+<%-include('partials/header_admin'); %>
+
+<% if(users.length != 0) { %>
+
+<div class="schedule rounded p-3 mx-lg-1">
+
+    <h4 class="m-5">Users List</h4>
+
+    <form action="/filter-users" method="post" class="mx-5">
+
+        <div class="mb-3 row">
+            <label for="device" class="col-sm-3 col-form-label">Router Name</label>
+            <div class="col-sm-5">
+                <select class="form-select" id="device" name="device" placeholder="device" onchange="">
+                    <option value="" <%= filter=="All" && "selected" %> >All</option>
+                    <option value="AMCS LAB" <%= filter=="AMCS LAB" && "selected" %> >AMCS LAB</option>
+                    <option value="AMCS LAB 1" <%= filter=="AMCS LAB 1" && "selected" %> >AMCS LAB 1</option>
+                    <option value="AMCS LAB 2" <%= filter=="AMCS LAB 2" && "selected" %> >AMCS LAB 2</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="year" class="col-sm-3 col-form-label">Year</label>
+            <div class="col-sm-5">
+                <select class="form-select" id="year" name="year" placeholder="year" onchange="">
+                    <% let year = new Date().getFullYear(); %>
+                    <option value="" <%= acyear=="All" && "selected" %> >All</option>
+                    <option value="<%= year %>" <%= acyear==year && "selected" %> ><%= year %></option>
+                    <option value="<%= year-1 %>" <%= acyear==year-1 && "selected" %> ><%= year-1 %></option>
+                    <option value="<%= year-2 %>" <%= acyear==year-2 && "selected" %> ><%= year-2 %></option>
+                    <option value="<%= year-3 %>" <%= acyear==year-3 && "selected" %> ><%= year-3 %></option>
+                    <option value="<%= year-4 %>" <%= acyear==year-4 && "selected" %> ><%= year-4 %></option>
+                    <option value="<%= year-5 %>" <%= acyear==year-5 && "selected" %> ><%= year-5 %></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label for="course" class="col-sm-3 col-form-label">Course</label>
+            <div class="col-sm-5">
+                <select class="form-select" aria-label="Default select example" id="course" name="course" placeholder="course"
+                    onchange="">
+                    <option value="" <%= course=="All" && "selected" %> >All</option>
+                    <option value="PW" <%= course=="PW" && "selected" %> >M.Sc.Software Systems</option>
+                    <option value="PT" <%= course=="PT" && "selected" %> >M.Sc.Theoretical Computer Science</option>
+                    <option value="PD" <%= course=="PD" && "selected" %> >M.Sc.Data Science</option>
+                    <option value="PC" <%= course=="PC" && "selected" %> >M.Sc.Cyber Security</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="text-center mb-5">
+            <input class="btn btn-block request" type="submit" name="submit" value="View" id="submitBtn" onclick="formCheck()">
+        </div>
+    </form>
+
+    <div class="table-responsive">
+    <table class="table text-center">
+            
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Roll No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Model</th>
+                <th scope="col">MAC</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Router</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% for(var i=0; i<users.length; i++) { %>
+            <tr>
+                <td><%= i+1 %></td>
+                <td><%= users[i].rollNo %></td>
+                <td><%= users[i]._name %></td>
+                <td><%= users[i].model %></td>
+                <td><%= users[i].mac %></td>
+                <td><%= users[i].mobile %></td>
+                <td><%= users[i].routerName %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    </div>
+<% } else { %>
+    <div class="col-sm-5 col-md-5 col-lg-5 mt-5 mx-auto d-flex align-items-center row">
+        <img src="images/nothing.png" class="w-75 w-md-50 mx-auto" alt="">
+        <p class="fw-bold text-center" style="color: #5853BC;">Nothing to show!</p>
+    </div>
+<% } %>
+<%-include ('partials/footer'); %>
