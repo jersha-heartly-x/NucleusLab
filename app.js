@@ -453,6 +453,20 @@ app.post("/wifi-requests", getCookie.getCookie, (req, res) => {
         res.render("denial");
 })
 
+app.get("/resolve-complaints", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role=='lab_assistant')
+        complaint.viewComplaintsResolve(req, res);
+    else
+        res.render('denial');
+})
+
+app.post("/resolve-complaints", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role=='lab_assistant')
+        complaint.resolveComplaints(req, res);
+    else
+        res.render('denial');
+})
+
 app.listen(3000, () => {
     console.log("App running on port 3000");
 })
