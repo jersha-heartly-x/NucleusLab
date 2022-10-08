@@ -36,7 +36,7 @@ exports.booking = function(req, res) {
                 else {
                     if(result.length != 0 ) {
                         console.log("Already Scheduled");
-                        res.render("to_book", {title: "Lab Booking", menu: "To Book", alert: "Already Scheduled!", role: res.locals.role});
+                        res.render("to_book", {title: "Lab Booking", menu: "To Book", alert: "Already Scheduled!", role: res.locals.role, isPR: res.locals.isPR});
                     }
                     else {
                         q = `SELECT * FROM blocking WHERE academic_year="${academicYear}" AND semester="${semester}" AND lab="${lab}" AND _day="${day}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
@@ -48,7 +48,7 @@ exports.booking = function(req, res) {
                             else {
                                 if(result.length != 0) {
                                     console.log("Already Blocked");
-                                    res.render("to_book", {title: "Lab Booking", menu: "To Book", alert: "Already Blocked!", role: res.locals.role});
+                                    res.render("to_book", {title: "Lab Booking", menu: "To Book", alert: "Already Blocked!", role: res.locals.role, isPR: res.locals.isPR});
                                 }
                                 else {
 
@@ -60,7 +60,7 @@ exports.booking = function(req, res) {
                                         }
                                         else {
                                             console.log("Booked Successfully");
-                                            res.render("to_book", {title: "Lab Booking", menu: "To Book", success: "Booked Successfully!", role: res.locals.role});
+                                            res.render("to_book", {title: "Lab Booking", menu: "To Book", success: "Booked Successfully!", role: res.locals.role, isPR: res.locals.isPR});
                                         }
 
                                     })
@@ -110,7 +110,7 @@ exports.view_booking = (req, res)=>{
                     console.log(err);
                 }
                 else{
-                    res.render("view_booking", {title: "Lab Booking", menu: "View Booking", bookings: result, role: res.locals.role});
+                    res.render("view_booking", {title: "Lab Booking", menu: "View Booking", bookings: result, role: res.locals.role, isPR: res.locals.isPR});
                 }
             })
         }
@@ -142,7 +142,7 @@ exports.cancelBooking = function(req, res) {
                 }
                 else {
                     // console.log(result);
-                    res.render("cancel_booking", {title: "Lab Booking", menu: "Cancel Booking", table: result, role: res.locals.role});
+                    res.render("cancel_booking", {title: "Lab Booking", menu: "Cancel Booking", table: result, role: res.locals.role, isPR: res.locals.isPR});
                 }
             })
 
