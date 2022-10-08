@@ -29,10 +29,10 @@ exports.viewComplaints = function(req, res) {
     const userId = res.locals.userDetails.id;
     var sql;
     if(res.locals.role==="admin"){
-        sql = `SELECT * FROM complaints`;
+        sql = `SELECT * FROM complaints order by date_time desc;`;
     }
     else{
-        sql = `SELECT * FROM complaints WHERE userId = "${userId}";`;
+        sql = `SELECT * FROM complaints WHERE userId = "${userId}" order by date_time desc;`;
     }
     con.query(sql, function(err, result) {
         if (err) {
@@ -43,4 +43,34 @@ exports.viewComplaints = function(req, res) {
             res.render("view_complaints", {title: "Complaints" , menu: "View Complaints", complaints: result, role: res.locals.role});
         }
     });
+}
+
+
+exports.viewComplaintsResolve =function(req, res) {
+    var sql = `SELECT * FROM complaints order by date_time desc`;
+
+    con.query(sql, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        // console.log(result);
+        else {
+            res.render('resolve_complaints.ejs', {title: 'Resolve complaints', complaints: result});
+        }
+    });
+}
+
+exports.resolveComplaints = function(req, res){
+    const   complaintId = req.body['complaintId'],
+            staffId = req.body['staffId'],
+            resolvedBy =req.body['resolvedBy'],
+            resolvedDate = new Date(new Date().getTime()+330*60*1000).toISOString().slice(0, 10);
+
+    const q = `UPDATE complaints SET  _status = "Resolved", resolvedBy = "${resolvedBy}", resolvedDate="${resolvedDate}" WHERE (complaintId =  ${complaintId});`;
+    con.query(q, (err, result)=>{
+        if(err)
+            console.log(err)
+        else
+        res.redirect('/resolve-complaints');
+    })
 }
