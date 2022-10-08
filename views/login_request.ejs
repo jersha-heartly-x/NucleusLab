@@ -8,12 +8,14 @@
                         <label for="year" class="col-sm-3 col-form-label">Year</label>
                         <div class="col-sm-9">
                             <select class="form-select" aria-label="Default select example" id="year" name="year" required>
-                                <option ></option>
-                                <option >2022</option>
-                                <option >2021</option>
-                                <option >2020</option>
-                                <option >2019</option>
-                                <option >2018</option>
+                                <% let year = new Date().getFullYear(); %>
+                                <option value="">All</option>
+                                <option value="<%= year-5 %>"><%= year-5 %></option>
+                                <option value="<%= year-4 %>"><%= year-4 %></option>
+                                <option value="<%= year-3 %>"><%= year-3 %></option>
+                                <option value="<%= year-2 %>"><%= year-2 %></option>
+                                <option value="<%= year-1 %>"><%= year-1 %></option>
+                                <option value="<%= year %>"><%= year %></option>
                             </select>
                         </div>
                     </div>
@@ -27,7 +29,7 @@
                                 <option value="PT">Theoretical Computer Science</option>
                                 <option value="PD">Data Science</option>
                                 <option value="CS">Cyber Security</option>
-                                <option value="am   ">Applied Mathematics</option>
+                                <option value="am">Applied Mathematics</option>
                                 <option value="csd">CSD</option>
                                 <option value="as">Applied Science</option>
                             </select>
