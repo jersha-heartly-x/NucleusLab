@@ -34,7 +34,7 @@ app.get("/dashboard", getCookie.getCookie, (req, res) => {
             dashboard.dashboard(req, res);
             break;
         case "student":
-            res.render("dashboard_student", { title: "Student", menu: "", userDetails: res.locals.userDetails });
+            res.render("dashboard_student", {title: "Student", menu: "", userDetails : res.locals.userDetails, isPR : res.locals.isPR});
             break;
         case "lab_assistant":
             res.render("dashboard_lab", { title: "Lab Assistant", menu: "" });
@@ -63,19 +63,37 @@ app.get("/regular-schedule", getCookie.getCookie, (req, res) => {
 });
 
 app.get("/check-availability", getCookie.getCookie, (req, res) => {
-    switch (res.locals.role) {
+    switch(res.locals.role){
+        case "student":
+            if(res.locals.isPR){
+                res.render("check_available", {title: "Lab Booking", menu: "Check Availability", role: res.locals.role, isPR : res.locals.isPR});
+            }
+            else{
+                res.render("denial");
+            }
+            break;
         case "admin":
 
         case "teacher":
             res.render("check_available", { title: "Lab Booking", menu: "Check Availability", role: res.locals.role });
             break;
+        
         default:
             res.render("denial");
     }
 });
 
-app.post("/check-availability", getCookie.getCookie, (req, res) => {
-    switch (res.locals.role) {
+
+app.post("/check-availability", getCookie.getCookie, (req, res)=>{
+    switch(res.locals.role){
+        case "student":
+            if (res.locals.isPR){
+                schedule.checkAvailability(req, res);
+            }
+            else{
+                res.render("denial");
+            }
+            break;
         case "admin":
 
         case "teacher":
@@ -113,7 +131,16 @@ app.post("/biometric", getCookie.getCookie, (req, res) => {
 });
 
 app.get("/to-book", getCookie.getCookie, (req, res) => {
-    switch (res.locals.role) {
+
+    switch(res.locals.role){
+        case "student":
+            if(res.locals.isPR){
+                res.render("to_book", {title: "Lab Booking", menu: "To Book", role: res.locals.role, isPR: res.locals.isPR});
+            }
+            else{
+                res.render("denial");
+            }
+            break;
         case "admin":
 
         case "teacher":
@@ -124,8 +151,17 @@ app.get("/to-book", getCookie.getCookie, (req, res) => {
     }
 });
 
-app.post("/to-book", getCookie.getCookie, (req, res) => {
-    switch (res.locals.role) {
+
+app.post("/to-book", getCookie.getCookie, (req, res)=>{
+    switch(res.locals.role){
+        case "student":
+            if(res.locals.isPR){
+                booking.booking(req, res);
+            }
+            else{
+                res.render("denial");
+            }
+            break;
         case "admin":
         case "teacher":
             booking.booking(req, res);
@@ -135,8 +171,18 @@ app.post("/to-book", getCookie.getCookie, (req, res) => {
     }
 });
 
-app.get("/view-booking", getCookie.getCookie, (req, res) => {
-    switch (res.locals.role) {
+
+
+app.get("/view-booking", getCookie.getCookie, (req, res)=>{
+    switch(res.locals.role){
+        case "student":
+            if(res.locals.isPR){
+                booking.view_booking(req, res);
+            }
+            else{
+                res.render("denial");
+            }
+            break;
         case "admin":
         case "teacher":
             booking.view_booking(req, res);
@@ -146,19 +192,38 @@ app.get("/view-booking", getCookie.getCookie, (req, res) => {
     }
 });
 
-app.get("/cancel-booking", getCookie.getCookie, (req, res) => {
-    switch (res.locals.role) {
+
+app.get("/cancel-booking", getCookie.getCookie, (req, res)=>{
+    switch(res.locals.role){
+        case "student":
+            if(res.locals.isPR){
+                booking.cancelBooking(req, res);
+            }
+            else{
+                res.render("denial");
+            }
+            break;
         case "admin":
         case "teacher":
             booking.cancelBooking(req, res);
             break;
-        default: x
+        default:
+
             res.render("denial");
     }
 });
 
-app.post("/cancel-booking", getCookie.getCookie, (req, res) => {
-    switch (res.locals.role) {
+
+app.post("/cancel-booking", getCookie.getCookie, (req, res)=>{
+    switch(res.locals.role){
+        case "student":
+            if(res.locals.isPR){
+                booking.toCancel(req, res);
+            }
+            else{
+                res.render("denial");
+            }
+            break;
         case "admin":
         case "teacher":
             booking.toCancel(req, res);
@@ -193,6 +258,8 @@ app.get("/register-complaint", getCookie.getCookie, (req, res) => {
     switch (res.locals.role) {
         case "student":
 
+        case "admin":
+
         case "teacher":
             res.render("register_complaint", { title: "Complaints", menu: "Register Complaints", role: res.locals.role });
             break;
@@ -205,6 +272,8 @@ app.post("/register-complaint", getCookie.getCookie, (req, res) => {
     switch (res.locals.role) {
         case "student":
 
+        case "admin":
+
         case "teacher":
             complaint.registerComplaint(req, res);
             break;
@@ -216,6 +285,7 @@ app.post("/register-complaint", getCookie.getCookie, (req, res) => {
 app.get("/view-complaints", getCookie.getCookie, (req, res) => {
     switch (res.locals.role) {
         case "student":
+        case "admin":
         case "teacher":
             complaint.viewComplaints(req, res);
             break;
@@ -231,8 +301,10 @@ app.get("/add-regular-schedule", getCookie.getCookie, (req, res) => {
         res.render("denial");
 });
 
-app.post("/add-regular-schedule", getCookie.getCookie, (req, res) => {
-    if (res.locals.role === "admin")
+
+app.post("/add-regular-schedule", getCookie.getCookie, (req, res)=>{
+    if(res.locals.role === "admin")
+
         scheduleAdmin.addSchedule(req, res);
     else
         res.render("denial");

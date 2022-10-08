@@ -1,7 +1,9 @@
 <% if(role === "student") { %>
     <%-include('partials/header_student')%>
-    <% } else { %>
+    <% } else if(role === "teacher") { %>
     <%-include('partials/header')%>
+    <% } else { %>
+    <%-include('partials/header_admin') %>
     <% } %>
 <div class="schedule rounded p-3 mx-lg-5">
     <div class="m-3 row">
@@ -15,26 +17,49 @@
             <thead>
                 <tr>
                     <th scope="col">S.No</th>
-                    <th scope="col">Staff ID</th>
+                    <th scope="col">User ID</th>
                     <th scope="col">Lab name</th>
                     <th scope="col">Row No.</th>
                     <th scope="col">Col No.</th>
                     <th scope="col">System No.</th>
-                    <th scope="col">Date & Time</th>
+                    <th scope="col">Entry date</th>
                     <th scope="col">Description</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Resolved on</th>
+                    <th scope="col">Resolved by</th>
                 </tr>
             </thead>
             <tbody>
                 <% for(var i=0; i<complaints.length; i++) { %>
                 <tr>
                     <td><%= i+1 %></td>
-                    <td><%= complaints[i].staffId %></td>
+                    <td><%= complaints[i].userId %></td>
                     <td><%= complaints[i].lab %></td>
-                    <td><%= complaints[i]._row %></td>
-                    <td><%= complaints[i]._col %></td>
-                    <td><%= complaints[i].systemNo %></td>
-                    <td><%= complaints[i].date_time.toISOString().slice(0, 10) %></td>
+                    <% if (complaints[i]._row==0) { %>
+                        <td>NA</td>
+                        <% } else { %>
+                        <td><%= complaints[i]._row %></td>
+                    <% } %>
+                    <% if (complaints[i]._col==0) { %>
+                        <td>NA</td>
+                        <% } else { %>
+                        <td><%= complaints[i]._col %></td>
+                    <% } %>
+                    <% if (complaints[i].systemNo==0) { %>
+                        <td>NA</td>
+                        <% } else { %>
+                        <td><%= complaints[i].systemNo %></td>
+                    <% } %>
+                    <td><%= complaints[i].date_time.toLocaleDateString("en-IN") %></td>
                     <td><%= complaints[i].requirement %></td>
+                    <% if(complaints[i]._status == "Pending") {%>
+                        <td><span class="fs-6 fw-light px-3 py-2 badge bg-blue rounded-pill">Pending</span></td>
+                    <% } %>
+                    <% if(complaints[i]._status == "Resolved") {%>
+                        <td><span class="fs-6 fw-light px-3 py-2 badge bg-success rounded-pill">Resolved</span></td>
+                    <% } %>
+                    <td><%= complaints[i].resolvedDate %></td>
+                    <td><%= complaints[i].resolvedBy %></td>
                 </tr>
                 <% } %>
             </tbody>

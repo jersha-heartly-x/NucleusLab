@@ -121,7 +121,8 @@ exports.checkAvailability = function (req, res) {
                         table: table,
                         from: from,
                         to: to,
-                        role: res.locals.role
+                        role: res.locals.role,
+                        isPR: res.locals.isPR
                     }
                     // console.log(table);
                     res.render("check_available", data);
