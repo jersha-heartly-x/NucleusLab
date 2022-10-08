@@ -37,7 +37,10 @@
                     <div class="mb-3 row">
                         <label for="date" class="col-sm-3 col-form-label">Date</label>
                         <div class="col-sm-9">
-                          <input type="date" class="form-control" id="date" name="date" required>
+                            <% const date = new Date(); yyyy = date.getFullYear(), mm = date.getMonth()+1, dd = date.getDate(); %>
+                            <% if(dd < 10) { dd = '0'+dd} if(mm < 10) { mm = '0'+mm} %>
+                            <% const str = yyyy+'-'+mm+'-'+dd; %>
+                            <input type="date" class="form-control" id="date" name="date" required min="<%= str %>";>
                         </div>
                     </div>
                     

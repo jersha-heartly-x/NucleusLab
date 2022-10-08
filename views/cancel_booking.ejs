@@ -1,7 +1,9 @@
-<% if(role === "admin") { %>
-    <%-include('partials/header_admin')%>
-    <% } else { %>
+<% if(role === "student") { %>
+    <%-include('partials/header_student')%>
+    <% } else if(role === "teacher") { %>
     <%-include('partials/header')%>
+    <% } else { %>
+    <%-include('partials/header_admin') %>
     <% } %>
         <% if(table.length !=0) { %>
         <div class="schedule main col-11 col-sm-11 col-lg-11 col-xl-11 mx-auto">
