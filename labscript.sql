@@ -145,9 +145,12 @@ CREATE TABLE wifi (
     _name VARCHAR(50),
 	mac VARCHAR(20),
     model VARCHAR(100),
-    date_timeReq DATETIME,
+    _type VARCHAR(15),
+    mobile VARCHAR(10),
+    routerName VARCHAR(20),
+    verify VARCHAR(20),
     _status VARCHAR(10),
-	PRIMARY KEY(rollNo, mac)
+	PRIMARY KEY(rollNo)
 );
 
 DROP TABLE wifi;

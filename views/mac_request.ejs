@@ -1,0 +1,54 @@
+<%-include('partials/header_admin'); %>
+
+    <% if(requests.length != 0) { %>
+    <div class="schedule rounded p-3 mx-lg-1">
+        <h4 class="my-5">New/Modified Request</h4>
+    <div class="table-responsive">
+        <table class="table text-center">
+            
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Roll No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">MAC</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Router</th>
+                    <th scope="col">Status Update</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% for(var i=0; i<requests.length; i++) { %>
+                    <tr>
+                    <td><%= i+1 %></td>
+                    <td><%= requests[i].rollNo %></td>
+                    <td><%= requests[i]._name %></td>
+                    <td><%= requests[i].model %></td>
+                    <td><%= requests[i].mac %></td>
+                    <td><%= requests[i]._type %></td>
+                    <td><%= requests[i].mobile %></td>
+                    <td><%= requests[i].routerName %></td>
+                    <form action="/verify-mac-request" method="post">
+                        <td>
+                            <input type="text" name="rno" value="<%=requests[i].rollNo %>" hidden>
+                            <div class="text-center d-flex justify-content-between align-items-center">
+                                    <input class="btn rounded-pill btn-block update w-75" type="submit" name="submit" value="VERIFY" id="submitBtn">
+                                    <button type="submit" class="btn btn-block  reject p-0 m-0 d-flex " name="reject" value="REJECT"><i class='bx bxs-x-circle bx-sm' style='color:#e41b1b'></i></button>
+                            </div>
+                        </td>
+                    </form>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <% } else { %>
+        <div class="col-sm-5 col-md-5 col-lg-5 mt-5 mx-auto d-flex align-items-center row">
+            <img src="images/nothing.png" class="w-75 w-md-50 mx-auto" alt="">
+            <p class="fw-bold text-center" style="color: #5853BC;">Nothing to show!</p>
+        </div>
+    <% } %>
+<%-include ('partials/footer'); %>

@@ -1,29 +1,23 @@
 <%-include('partials/header_admin')%>
 
 <div class="schedule rounded p-3 mx-lg-1">
-    <!-- <div class="m-3 row">
-        <div class="mb-3 col-sm-6">
-            <h4 class="text-center float-sm-start"></h4>
-        </div>
-    </div> -->
+
     <div class="row">
-        <!-- <div class="col-md-1">View</div> -->
         <div class="p-3 mb-5">
             
             <form class="col-sm-7 col-md-5 col-lg-4 mx-auto" action="/filter-login-requests" method="post">
                 <div class="d-flex m-3 ">
                     <label for="filter_status" class="col-form-label me-2">View</label>
-                <select name="filter_status" class="form-select">
-                    <option <%= filter=="All" && "selected" %> >All</option>
-                    <option <%= filter=="Pending" && "selected" %> >Pending</option>
-                    <option <%= filter=="Confirmed" && "selected" %> >Confirmed</option>
-                    <option <%= filter=="Rejected" && "selected" %> >Rejected</option>
-                </select>
+                    <select name="filter_status" class="form-select">
+                        <option <%= filter=="All" && "selected" %> >All</option>
+                        <option <%= filter=="Pending" && "selected" %> >Pending</option>
+                        <option <%= filter=="Confirmed" && "selected" %> >Confirmed</option>
+                        <option <%= filter=="Rejected" && "selected" %> >Rejected</option>
+                    </select>
                 </div>
                 <div class="d-flex m-3">
                     <label for="_date" class="col-form-label me-2" >Date</label>
                     <input type="date" class="form-control" name="_date" value="<%= date%>">
-
                 </div>
                 <div class="text-center">
                     <input class="btn btn-sm btn-block request" type="submit" name="Submit" value="Filter" id="submitBtn">
@@ -84,7 +78,7 @@
                             <div class="text-center d-flex justify-content-between align-items-center">
                                 <% if (requests[i]._status != "Rejected") { %>
                                     <input class="btn rounded-pill btn-block update w-100" type="submit" name="update" value="<%= requests[i]._status=="Pending"? "ALLOT": "UPDATE" %>" id="submitBtn">
-                                    <button type="submit" class="btn btn-block  reject p-0 m-0 d-flex " name="reject"><i class='bx bxs-x-circle bx-sm' style='color:#e41b1b'  ></i></button>
+                                    <button type="submit" class="btn btn-block  reject p-0 m-0 d-flex " name="reject"><i class='bx bxs-x-circle bx-sm' style='color:#e41b1b'></i></button>
                                 <% } %>
                             </div>
                         </td>

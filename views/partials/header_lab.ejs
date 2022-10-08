@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/styles/schedule.css">
     <link rel="stylesheet" href="/styles/forms.css">
     <link rel="icon" href="/images/favicon.png">
-
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <script src = 
         "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
@@ -49,11 +48,11 @@
                 
                 <div class="nav_list">
                     
-                    <a href="dashboard" class="nav_link" <% if(title === "" && menu === "") { %> id="active" <% } %>>
+                    <a href="dashboard" class="nav_link" <% if(title === "Admin" && menu === "") { %> id="active" <% } %>>
                         <i class='bx bxs-grid bx-sm'></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
-
+                    
                     <a class="nav_link collapsed text-truncate dropd-class" href="#submenu1" data-bs-toggle="collapse"
                         data-bs-target="#submenu1" id="dropd-toggle">
                         
@@ -67,70 +66,24 @@
                         <ul class="list-group">
 
                             <li>
-                                <a href="wifi" class="nav_link" <% if(title === "WiFi" && menu === "") { %>id="active" <% } %>>
+                                <a href="#" class="nav_link" <% if(title === "WiFi" && menu === "WiFi Requests") { %>id="active" <% } %>>
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
-                                    <span>Add/Edit Entry</span>
+                                    <span>WiFi Requests</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="view-wifi" class="nav_link" <% if(title === "View WiFi" && menu === "") { %>id="active" <% } %>>
+                                <a href="view-users" class="nav_link" <% if(title === "WiFi" && menu === "View Users") { %>id="active" <% } %>>
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
-                                    <span>View Entry</span>
+                                    <span>View users</span>
                                 </a>
                             </li>
+
                         </ul>
                     </div>
 
-                    <a href="biometric" class="nav_link" <% if(title === "Biometric " && menu === "") { %>id="active" <% } %>>
-                        <i class='bx bx-fingerprint bx-sm'></i>
-                        <span class="nav_name">Biometric</span>
-                    </a>
-
-                    <% if (isPR) { %>
                     <a class="nav_link collapsed text-truncate dropd-class" href="#submenu2" data-bs-toggle="collapse"
                         data-bs-target="#submenu2" id="dropd-toggle">
-                        
-                        <i class='bx bx-laptop bx-sm'></i>
-                        <span class="nav_name">Lab Booking</span>
-                        <i id="uparrow" class='bx bx-chevron-down bx-sm'></i>
-                    
-                    </a>
-
-                    <div class="collapse submenu" id="submenu2" aria-expanded="false">
-                        <ul class="list-group">
-                            <li>
-                                <a href="check-availability" class="nav_link" <% if(title === "Lab Booking" && menu === "Check Availability") { %>id="active" <% } %>>
-                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
-                                    <span>Check Availability</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="to-book" class="nav_link" <% if(title === "Lab Booking" && menu === "To Book") { %>id="active" <% } %>>
-                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
-                                    <span>To Book</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="view-booking" class="nav_link" <% if(title === "Lab Booking" && menu === "View Booking") { %>id="active" <% } %>>
-                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
-                                    <span>View Booking</span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="cancel-booking" class="nav_link" <% if(title === "Lab Booking" && menu === "Cancel Booking") { %>id="active" <% } %>>
-                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
-                                    <span>Cancel Booking</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <% } %>
-                    <a class="nav_link collapsed text-truncate dropd-class" href="#submenu3" data-bs-toggle="collapse"
-                        data-bs-target="#submenu3" id="dropd-toggle">
                         
                         <i class='bx bx-sad bx-sm'></i>
                         <span class="nav_name">Complaints</span>
@@ -138,23 +91,17 @@
                     
                     </a>
 
-                    <div class="collapse submenu" id="submenu3" aria-expanded="false">
+                    <div class="collapse submenu" id="submenu2" aria-expanded="false">
                         <ul class="list-group">
 
                             <li>
-                                <a href="register-complaint" class="nav_link" <% if(title === "" && menu === "") { %>id="active" <% } %>>
+                                <a href="" class="nav_link" <% if(title === "Complaints" && menu === "Complaint Requests") { %>id="active" <% } %>>
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
-                                    <span>Register Complaint</span>
+                                    <span>Complaint Requests</span>
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="view-complaints" class="nav_link" <% if(title === "" && menu === "") { %>id="active" <% } %>>
-                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
-                                    <span>View Complaints</span>
-                                </a>
-                            </li>
-                        </ul>
+                        </ul> 
                     </div>
 
                 </div>
@@ -164,4 +111,3 @@
 
     <!--Container Main start-->
     <div class="height-100">
-
