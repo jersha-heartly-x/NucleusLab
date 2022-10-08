@@ -71,9 +71,8 @@ app.get("/check-availability", getCookie.getCookie, (req, res) => {
             }
             else{
                 res.render("denial");
-                break;
             }
-
+            break;
         case "admin":
 
         case "teacher":
@@ -94,8 +93,8 @@ app.post("/check-availability", getCookie.getCookie, (req, res)=>{
             }
             else{
                 res.render("denial");
-                break;
             }
+            break;
         case "admin":
 
         case "teacher":
@@ -141,9 +140,8 @@ app.get("/to-book", getCookie.getCookie, (req, res) => {
             }
             else{
                 res.render("denial");
-                break;
             }
-
+            break;
         case "admin":
 
         case "teacher":
@@ -163,9 +161,8 @@ app.post("/to-book", getCookie.getCookie, (req, res)=>{
             }
             else{
                 res.render("denial");
-                break;
             }
-
+            break;
         case "admin":
         case "teacher":
             booking.booking(req, res);
@@ -185,9 +182,8 @@ app.get("/view-booking", getCookie.getCookie, (req, res)=>{
             }
             else{
                 res.render("denial");
-                break;
             }
-
+            break;
         case "admin":
         case "teacher":
             booking.view_booking(req, res);
@@ -206,9 +202,8 @@ app.get("/cancel-booking", getCookie.getCookie, (req, res)=>{
             }
             else{
                 res.render("denial");
-                break;
             }
-
+            break;
         case "admin":
         case "teacher":
             booking.cancelBooking(req, res);
@@ -228,9 +223,8 @@ app.post("/cancel-booking", getCookie.getCookie, (req, res)=>{
             }
             else{
                 res.render("denial");
-                break;
             }
-
+            break;
         case "admin":
         case "teacher":
             booking.toCancel(req, res);
