@@ -1,0 +1,40 @@
+<%-include ('partials/header_student') %>
+
+<div class="main col-10 col-sm-8 col-lg-7 mx-auto rounded">
+
+    <h4 class="my-5">View Wifi Entry</h4>
+
+    <% if(details) { %>
+    <div class="mb-3 row">
+        <label for="" class="col-sm-4">Roll No</label>
+        <div class="col-sm-8"><%= details.rollNo %> </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="" class="col-sm-4">Name</label>
+        <div class="col-sm-8"><%= details._name %> </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="" class="col-sm-4">Model</label>
+        <div class="col-sm-8"><%= details.model %> </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="" class="col-sm-4">MAC</label>
+        <div class="col-sm-8"><%= details.mac %> </div>
+    </div>
+
+    <div class="mb-3 row">
+        <label for="" class="col-sm-4">Status</label>
+        <div class="col-sm-8"><%= details._status %> </div>
+    </div>
+
+    <% } else { %>
+        <div class="col-sm-5 col-md-5 col-lg-5 mt-5 mx-auto d-flex align-items-center row">
+            <img src="images/nothing.png" class="w-100 w-md-50 mx-auto" alt="ntg">
+            <p class="fw-bold text-center" style="color: #5853BC;">WiFi Entry Pending!</p>
+        </div>
+    <% } %>
+
+<%-include ('partials/footer'); %>
