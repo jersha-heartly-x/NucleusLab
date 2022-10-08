@@ -1,6 +1,8 @@
+<% if(role === "admin") { %>
 <%-include('partials/header_admin'); %>
-
-<% if(users.length != 0) { %>
+<% } else { %>
+<%-include('partials/header_lab'); %>  
+<% } %>
 
 <div class="schedule rounded p-3 mx-lg-1">
 
@@ -55,6 +57,7 @@
         </div>
     </form>
 
+    <% if(users.length != 0) { %>
     <div class="table-responsive">
     <table class="table text-center">
             

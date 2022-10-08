@@ -135,13 +135,25 @@ exports.filter_requests = (req, res) => {
         year = req.body.year,
         acyear = year.substring(2, 4),
         course = req.body.course;
-
+    
     let sql;
 
     if(device && year && course)
         sql = `SELECT * FROM wifi WHERE routerName = "${device}" AND SUBSTRING(rollNo, 3, 2) = "${course}" AND SUBSTRING(rollNo, 1, 2) = "${acyear}"`;
+    else if(device && year)
+        sql = `SELECT * FROM wifi WHERE routerName = "${device}" AND SUBSTRING(rollNo, 1, 2) = "${acyear}"`;
+    else if(device && course)
+        sql = `SELECT * FROM wifi WHERE routerName = "${device}" AND SUBSTRING(rollNo, 3, 2) = "${course}"`;
+    else if(year && course)
+        sql = `SELECT * FROM wifi WHERE SUBSTRING(rollNo, 1, 2) = "${acyear}" AND SUBSTRING(rollNo, 3, 2) = "${course}"`;
+    else if(device)
+        sql = `SELECT * FROM wifi WHERE routerName = "${device}"`;
+    else if(year)
+        sql = `SELECT * FROM wifi WHERE SUBSTRING(rollNo, 1, 2) = "${acyear}"`;
+    else if(course)
+        sql = `SELECT * FROM wifi WHERE SUBSTRING(rollNo, 3, 2) = "${course}"`;
     else
-        res.redirect("/view-users");
+        sql = `SELECT * FROM wifi`;
 
     db.query(sql, (err, result) => {
         if(err) {
@@ -151,4 +163,37 @@ exports.filter_requests = (req, res) => {
             res.render("view_users", {title: "WiFi", menu: "View Users", users: result, filter: device, acyear: year, course: course});
         }
     })
+}
+
+exports.getWifiLab = (req, res) => {
+
+    let sql = `SELECT * FROM wifi WHERE verify = "VERIFIED"`;
+
+    db.query(sql, (err, result) => {
+        if(err) {
+            console.log(err);
+        }
+        else {
+            res.render("wifi_lab", { title: "WiFi", menu: "WiFi Requests", table: result });
+        }
+    })
+
+}
+
+exports.updateRouter = (req, res) => {
+    
+    const router = req.body.router,
+        rno = req.body.rno;
+
+    let sql = `UPDATE wifi SET routerName = '${router}', _status = "Live" WHERE rollNo = '${rno}' `;
+
+    db.query(sql, (err, result) => {
+        if(err) {
+            console.log(err);
+        }
+        else {
+            res.redirect("/wifi-requests");
+        }
+    })
+
 }
