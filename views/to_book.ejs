@@ -1,10 +1,11 @@
 <% if(role === "student") { %>
-    <%-include('partials/header_student')%>
-    <% } else if(role === "teacher") { %>
-    <%-include('partials/header')%>
-    <% } else { %>
-    <%-include('partials/header_admin') %>
-    <% } %>
+<%-include('partials/header_student')%>
+<% } else if(role === "teacher") { %>
+<%-include('partials/header')%>
+<% } else { %>
+<%-include('partials/header_admin') %>
+<% } %>
+
     <div class="main col-10 col-sm-8 col-lg-6 mx-auto rounded position-relative">
 
         <% if(locals.alert) { %>

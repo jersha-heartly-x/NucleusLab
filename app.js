@@ -26,7 +26,6 @@ app.get("/", (req, res) => {
 })
 
 app.get("/dashboard", getCookie.getCookie, (req, res) => {
-    console.log(res.locals.role);
     switch (res.locals.role) {
         case "admin":
             dashboard.dashboard_admin(req, res);
@@ -39,6 +38,7 @@ app.get("/dashboard", getCookie.getCookie, (req, res) => {
             break;
         case "lab_assistant":
             res.render("dashboard_lab", { title: "Lab Assistant", menu: "" });
+            break;
         default:
             res.render("denial");
     }
@@ -426,15 +426,29 @@ app.post("/verify-mac-request", getCookie.getCookie, (req, res) => {
 })
 
 app.get("/view-users", getCookie.getCookie, (req, res) => {
-    if(res.locals.role === "admin")
+    if(res.locals.role === "admin" || res.locals.role === "lab_assistant")
         wifi.userList(req, res);
     else
         res.render("denial");
 })
 
 app.post("/filter-users", getCookie.getCookie, (req, res) => {
-    if(res.locals.role === "admin")
+    if(res.locals.role === "admin" || res.locals.role === "lab_assistant")
         wifi.filter_requests(req, res);
+    else
+        res.render("denial");
+})
+
+app.get("/wifi-requests", getCookie.getCookie, (req, res) => {
+    if(res.locals.role === "lab_assistant")
+        wifi.getWifiLab(req, res);
+    else
+        res.render("denial");
+})
+
+app.post("/wifi-requests", getCookie.getCookie, (req, res) => {
+    if(res.locals.role === "lab_assistant")
+        wifi.updateRouter(req, res);
     else
         res.render("denial");
 })
