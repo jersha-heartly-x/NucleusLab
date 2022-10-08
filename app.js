@@ -26,7 +26,6 @@ app.get("/", (req, res) => {
 })
 
 app.get("/dashboard", getCookie.getCookie, (req, res) => {
-    console.log(res.locals.role);
     switch (res.locals.role) {
         case "admin":
             dashboard.dashboard_admin(req, res);
