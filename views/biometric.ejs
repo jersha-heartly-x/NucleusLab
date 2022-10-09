@@ -1,5 +1,8 @@
+<% if(role === "admin") { %>
+<%-include('partials/header_admin')%>
+<% } else { %>
 <%-include('partials/header')%>
-
+<% } %>
     <div class="main rounded col col-md-9 col-lg-10 mx-auto schedule">
         
         <h4 class="my-4">Biometric Entries</h4>
@@ -53,8 +56,6 @@
                     </div>
                 </div>
 
-                
-
                 <div class="mb-3 row">
                     <label for="month" class="col-sm-3 col-form-label">Month</label>
                     <div class="col-sm-5">
@@ -73,9 +74,11 @@
                             <option value="November">November</option>
                             <option value="December">December</option>
                         </select>
+                        <p class="text-danger mt-2">Date or Month is mandatory</p>
                         <div id="error" class="my-2 p-2 fs-6 alert alert-danger d-none"><span>Details Missing!</span></div>
                     </div>
                 </div>
+                
                 <div class="text-center">
                     <input class="btn btn-block request" type="submit" name="Submit" value="Submit" id="submitBtn" onclick="formCheck()">
                 </div>

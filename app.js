@@ -107,6 +107,8 @@ app.post("/check-availability", getCookie.getCookie, (req, res)=>{
 
 app.get("/biometric", getCookie.getCookie, (req, res) => {
     switch (res.locals.role) {
+        case "admin":
+
         case "teacher":
             res.render("biometric", { title: "Biometric", menu: "" });
             break;
@@ -120,6 +122,8 @@ app.get("/biometric", getCookie.getCookie, (req, res) => {
 
 app.post("/biometric", getCookie.getCookie, (req, res) => {
     switch (res.locals.role) {
+        case "admin":
+            
         case "teacher":
             biometric.biometric(req, res);
             break;
