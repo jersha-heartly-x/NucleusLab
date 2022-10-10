@@ -266,7 +266,7 @@ app.get("/register-complaint", getCookie.getCookie, (req, res) => {
         case "admin":
 
         case "teacher":
-            res.render("register_complaint", { title: "Complaints", menu: "Register Complaints", role: res.locals.role });
+            res.render("register_complaint", { title: "Complaints", menu: "Register Complaint", role: res.locals.role });
             break;
         default:
             res.render("denial");

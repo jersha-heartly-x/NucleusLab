@@ -41,7 +41,7 @@
                 <div class="d-flex align-items-center">
                     
                     <a href="/" class="csl_logo" id="csl_logo">
-                        <img class="csl w-80" src="/images/csl_logo.png" alt="csl">
+                        <img class="csl" src="/images/favicon.png" alt="csl">
                     </a>
 
                     <i class='bx bx-chevron-left bx-sm leftarrow' id="leftarrow"></i>
@@ -49,9 +49,14 @@
                 
                 <div class="nav_list">
                     
-                    <a href="dashboard" class="nav_link" <% if(title === "" && menu === "") { %> id="active" <% } %>>
+                    <a href="dashboard" class="nav_link" <% if(title === "Dashboard" && menu === "") { %> id="active" <% } %>>
                         <i class='bx bxs-grid bx-sm'></i>
                         <span class="nav_name">Dashboard</span>
+                    </a>
+
+                    <a href="biometric" class="nav_link" <% if(title === "Biometric" && menu === "") { %>id="active" <% } %>>
+                        <i class='bx bx-fingerprint bx-sm'></i>
+                        <span class="nav_name">Biometric</span>
                     </a>
 
                     <a class="nav_link collapsed text-truncate dropd-class" href="#submenu1" data-bs-toggle="collapse"
@@ -82,10 +87,7 @@
                         </ul>
                     </div>
 
-                    <a href="biometric" class="nav_link" <% if(title === "Biometric " && menu === "") { %>id="active" <% } %>>
-                        <i class='bx bx-fingerprint bx-sm'></i>
-                        <span class="nav_name">Biometric</span>
-                    </a>
+                    
 
                     <% if (isPR) { %>
                     <a class="nav_link collapsed text-truncate dropd-class" href="#submenu2" data-bs-toggle="collapse"
@@ -142,14 +144,14 @@
                         <ul class="list-group">
 
                             <li>
-                                <a href="register-complaint" class="nav_link" <% if(title === "" && menu === "") { %>id="active" <% } %>>
+                                <a href="register-complaint" class="nav_link" <% if(title === "Complaints" && menu === "Register Complaint") { %>id="active" <% } %>>
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
                                     <span>Register Complaint</span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="view-complaints" class="nav_link" <% if(title === "" && menu === "") { %>id="active" <% } %>>
+                                <a href="view-complaints" class="nav_link" <% if(title === "Complaints" && menu === "View Complaints") { %>id="active" <% } %>>
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
                                     <span>View Complaints</span>
                                 </a>

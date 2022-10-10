@@ -5,6 +5,7 @@
     <% } else { %>
     <%-include('partials/header_admin') %>
     <% } %>
+    <% if(bookings.length !=0) { %>
     <div class="schedule rounded p-3 mx-lg-5">
         <div class="m-3 row">
             <div class="mb-3 col-sm-6">
@@ -42,6 +43,11 @@
                 </tbody>
             </table>
         </div>
+        <% } else { %>
+            <div class="text-center">
+            <img src="/images/nothing.png" class="nothingFull" alt="nothing">
+            <div><p class="fs-5 text-purple fw-bold">No bookings</p></div>
+        <% } %>
     </div>
 
 <%-include ('partials/footer')%>
