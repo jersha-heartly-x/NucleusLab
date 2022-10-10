@@ -107,6 +107,8 @@ app.post("/check-availability", getCookie.getCookie, (req, res)=>{
 
 app.get("/biometric", getCookie.getCookie, (req, res) => {
     switch (res.locals.role) {
+        case "admin":
+
         case "teacher":
             res.render("biometric", { title: "Biometric", menu: "" });
             break;
@@ -120,6 +122,8 @@ app.get("/biometric", getCookie.getCookie, (req, res) => {
 
 app.post("/biometric", getCookie.getCookie, (req, res) => {
     switch (res.locals.role) {
+        case "admin":
+            
         case "teacher":
             biometric.biometric(req, res);
             break;
@@ -398,7 +402,7 @@ app.get("/view-wifi", getCookie.getCookie, (req, res) => {
 
 app.get("/booking-details", getCookie.getCookie, (req, res) => {
     if (res.locals.role === "admin")
-        res.render("booking_details", { title: "Lab booking", menu: "Booking Details" });
+        res.render("booking_details", { title: "Lab Booking", menu: "Booking Details" });
     else
         res.render("denial");
 })
