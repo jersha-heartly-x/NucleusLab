@@ -48,7 +48,7 @@
                 
                 <div class="nav_list">
                     
-                    <a href="dashboard" class="nav_link" <% if(title === "Admin" && menu === "") { %> id="active" <% } %>>
+                    <a href="dashboard" class="nav_link" <% if(title === "Dashboard" && menu === "") { %> id="active" <% } %>>
                         <i class='bx bxs-grid bx-sm'></i>
                         <span class="nav_name">Dashboard</span>
                     </a>
@@ -90,13 +90,6 @@
                             </li>
 
                             <li>
-                                <a href="regular-schedule" class="nav_link" <% if(title === "Schedule" && menu === "View Schedule") { %>id="active" <% } %>>
-                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
-                                    <span>View Schedule</span>
-                                </a>
-                            </li>
-
-                            <li>
                                 <a href="block-lab" class="nav_link" <% if(title === "Schedule" && menu === "Block Lab") { %>id="active" <% } %>>
                                     <i class='bx bx-grid-alt bx-sm nav_icon'></i>
                                     <span>Block Lab</span>
@@ -125,6 +118,13 @@
 
                     <div class="collapse submenu" id="submenu2" aria-expanded="false">
                         <ul class="list-group">
+
+                            <li>
+                                <a href="regular-schedule" class="nav_link" <% if(title === "Lab Booking" && menu === "Regular Schedule") { %>id="active" <% } %>>
+                                    <i class='bx bx-grid-alt bx-sm nav_icon'></i>
+                                    <span>Regular Schedule</span>
+                                </a>
+                            </li>
 
                             <li>
                                 <a href="check-availability" class="nav_link" <% if(title === "Lab Booking" && menu === "Check Availability") { %>id="active" <% } %>>

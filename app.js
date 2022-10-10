@@ -402,7 +402,7 @@ app.get("/view-wifi", getCookie.getCookie, (req, res) => {
 
 app.get("/booking-details", getCookie.getCookie, (req, res) => {
     if (res.locals.role === "admin")
-        res.render("booking_details", { title: "Lab booking", menu: "Booking Details" });
+        res.render("booking_details", { title: "Lab Booking", menu: "Booking Details" });
     else
         res.render("denial");
 })

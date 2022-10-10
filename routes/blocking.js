@@ -106,7 +106,7 @@ exports.unblockLab = function(req, res) {
                 }
                 else {
                     // console.log(result);
-                    res.render("unblock_lab", {title: "Lab Booking", menu: "Unblock Lab", table: result});
+                    res.render("unblock_lab", {title: "Schedule", menu: "Unblock Lab", table: result});
                 }
             })
         }
