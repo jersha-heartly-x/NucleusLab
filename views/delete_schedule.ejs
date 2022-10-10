@@ -1,25 +1,15 @@
-<%-include ('partials/header_admin'); %>
+<%-include('partials/header_admin'); %>
 
-    <div class="main col-10 col-sm-8 col-lg-6 mx-auto rounded position-relative">
-        
-        <% if(locals.alert) { %>
-        <div class="alert alert-danger alert-dismissible fade show position-absolute top-10 start-50 translate-middle" role="alert" id="alert">
-            <%= alert %>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <% } %>
-
+    <div class="main col-10 col-md-9 col-lg-7 mx-auto rounded">
         <% if(locals.success) { %>
             <div class="alert alert-success alert-dismissible fade show position-absolute top-10 start-50 translate-middle" role="alert" id="alert">
                 <%= success %>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <% } %>
-        
-        <h4 class="my-5">Block Lab</h4>
-        
-        <div class="block_lab">
-            <form action="/block-lab" method="post">
+        <h4 class="my-5">Delete Schedule</h4>
+        <div class="">
+            <form action="/delete-regular-schedule" method="post">
 
                 <div class="mb-3 row">
                     <label for="academic_year" class="col-sm-3 col-form-label">Academic Year</label>
@@ -46,8 +36,7 @@
                         </select>
                     </div>
                 </div>
-
-
+                
                 <div class="mb-3 row">
                     <label for="lab" class="col-sm-3 col-form-label">Lab Name</label>
                     <div class="col-sm-9">
@@ -86,7 +75,7 @@
                 <div class="mb-3 row">
                     <label for="from" class="col-sm-3 col-form-label">From period</label>
                     <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="from" name="from" required onchange="check()">
+                        <select class="form-select" aria-label="Default select example" id="from" name="from" onChange="check()" required>
                             <option></option>
                             <option>1</option>
                             <option>2</option>
@@ -105,7 +94,7 @@
                 <div class="mb-3 row">
                     <label for="to" class="col-sm-3 col-form-label">To period</label>
                     <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="to" name="to" required onchange="check()">
+                        <select class="form-select" aria-label="Default select example" id="to" name="to" onChange="check()" required>
                             <option></option>
                             <option>1</option>
                             <option>2</option>
@@ -123,9 +112,8 @@
                 </div>
 
                 <div class="text-center">
-                    <input class="btn btn-block request" type="submit" name="block" value="Block" id="submitBtn">
+                    <input class="btn btn-block request" type="submit" name="submit" value="Delete" id="submitBtn">
                 </div>
-
             </form>
         </div>
     </div>
@@ -147,7 +135,7 @@
             submitBtn.disabled = false;
         }
     }
-    
+
     $("#alert").delay(2500).fadeOut(500);
 
 </script>

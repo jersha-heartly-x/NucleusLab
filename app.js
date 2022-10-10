@@ -5,7 +5,6 @@ const login_request = require("./routes/login_request");
 const login_request_admin = require("./routes/login_request_admin");
 const dashboard = require("./routes/dashboard");
 const course_date = require("./routes/course_date");
-const scheduleAdmin = require("./routes/schedule_admin");
 const complaint = require("./routes/complaints");
 const booking = require("./routes/booking");
 const blocking = require("./routes/blocking");
@@ -306,11 +305,23 @@ app.get("/add-regular-schedule", getCookie.getCookie, (req, res) => {
         res.render("denial");
 });
 
-
 app.post("/add-regular-schedule", getCookie.getCookie, (req, res)=>{
     if(res.locals.role === "admin")
+        schedule.addSchedule(req, res);
+    else
+        res.render("denial");
+});
 
-        scheduleAdmin.addSchedule(req, res);
+app.get("/delete-regular-schedule", getCookie.getCookie, (req, res) => {
+    if (res.locals.role === "admin")
+        schedule.delete_schedule(req, res);
+    else
+        res.render("denial");
+});
+
+app.post("/delete-regular-schedule", getCookie.getCookie, (req, res) => {
+    if (res.locals.role === "admin")
+        schedule.deleteSchedule(req, res);
     else
         res.render("denial");
 });
