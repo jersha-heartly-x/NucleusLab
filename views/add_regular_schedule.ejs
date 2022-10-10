@@ -1,7 +1,23 @@
 <%-include('partials/header_admin'); %>
 
     <div class="main col-10 col-md-9 col-lg-7 mx-auto rounded">
+
+        <% if(locals.alert) { %>
+            <div class="alert alert-danger alert-dismissible fade show position-absolute top-10 start-50 translate-middle" role="alert" id="alert">
+                <%= alert %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
+
+        <% if(locals.success) { %>
+            <div class="alert alert-success alert-dismissible fade show position-absolute top-10 start-50 translate-middle" role="alert" id="alert">
+                <%= success %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
+
         <h4 class="my-5">Add Schedule</h4>
+        
         <div class="add_regular_schedule">
             <form action="/add-regular-schedule" method="post">
 
@@ -77,6 +93,7 @@
                             <option value="OCL">OCL</option>
                             <option value="SKAVA">SKAVA</option>
                             <option value="SCL">SCL</option>
+                            <option value="CL">CL</option>
                         </select>
                     </div>
                 </div>
@@ -159,6 +176,8 @@
             submitBtn.disabled = false;
         }
     }
+
+    $("#alert").delay(2500).fadeOut(500);
 
 </script>
 

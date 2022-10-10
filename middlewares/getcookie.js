@@ -13,7 +13,7 @@ exports.getCookie = (req, res, next) => {
         url: 'https://nucleus.amcspsgtech.in/server',
         headers: {
             'path': '/profile',
-            'cookie': student
+            'cookie': admin
         }
     };
 
