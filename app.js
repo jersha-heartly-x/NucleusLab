@@ -253,7 +253,7 @@ app.post("/login-request", getCookie.getCookie, (req, res) => {
 });
 
 app.get("/view-login-request", getCookie.getCookie, (req, res) => {
-    if (res.locals.role === "teacher")
+    if (res.locals.role === "teacher" || res.locals.role === "admin")
         login_request.view_request(req, res);
     else
         res.render("denial");
@@ -359,7 +359,7 @@ app.post("/unblock-lab", getCookie.getCookie, (req, res) => {
 });
 
 app.get("/exam-login", getCookie.getCookie, (req, res) => {
-    if (res.locals.role === "admin")
+    if (res.locals.role === "lab_assistant")
         login_request_admin.examLogin(req, res);
     else
         res.render("denial");
@@ -373,8 +373,17 @@ app.post("/update-login-info", getCookie.getCookie, (req, res) => {
 });
 
 app.post("/filter-login-requests", getCookie.getCookie, (req, res) => {
-    if (res.locals.role === "admin")
+    if (res.locals.role === "lab_assistant")
         login_request_admin.filter_requests(req, res);
+    else
+        res.render("denial");
+});
+
+app.post("/filter-complaints", getCookie.getCookie, (req, res) => {
+    if (res.locals.role === "admin" || res.locals.role === "teacher" || res.locals.role === "student")
+        complaint.filter_complaints(req, res);
+    else if (res.locals.role === "lab_assistant")
+        complaint.filter_complaints_lab_assistant(req, res);
     else
         res.render("denial");
 });

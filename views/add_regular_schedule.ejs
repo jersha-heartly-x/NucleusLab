@@ -30,6 +30,22 @@
                         </select>
                     </div>
                 </div>
+
+                <div class="mb-3 row">
+                    <label for="programme" class="col-sm-3 col-form-label">Programme</label>
+                    <div class="col-sm-9">
+                        <select class="form-select" aria-label="Default select example" id="programme" name="programme"
+                            required onchange="restrict_years()">
+                            <option value=""></option>
+                            <option value="MSc SS">MSc Software Systems</option>
+                            <option value="MSc TCS">MSc Theoretical Computer Science</option>
+                            <option value="MSc DS">MSc Data Science</option>
+                            <option value="MSc CS">MSc Cyber Security</option>
+                            <option value="MSc AM">MSc Applied Mathematics</option>
+                            <option value="BSc CSD">BSc Computer Systems and Design</option>
+                        </select>
+                    </div>
+                </div>
                 
                 <div class="mb-3 row">
                     <label for="year" class="col-sm-3 col-form-label">Year</label>
@@ -45,22 +61,7 @@
                     </div>
                 </div>
 
-                <div class="mb-3 row">
-                    <label for="programme" class="col-sm-3 col-form-label">Programme</label>
-                    <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="programme" name="programme"
-                            required>
-                            <option value=""></option>
-                            <option value="MSc SS">MSc Software Systems</option>
-                            <option value="MSc TCS">MSc Theoretical Computer Science</option>
-                            <option value="MSc DS">MSc Data Science</option>
-                            <option value="MSc CS">MSc Cyber Security</option>
-                            <option value="MSc AM">MSc Applied Mathematics</option>
-                            <option value="BSc CSD">BSc CSD</option>
-                            <option value="BSc AS">BSc Applied Science</option>
-                        </select>
-                    </div>
-                </div>
+                
 
                 <div class="mb-3 row">
                     <label for="lab" class="col-sm-3 col-form-label">Lab Name</label>
@@ -159,6 +160,52 @@
             submitBtn.disabled = false;
         }
     }
+
+    function restrict_years(){
+        const programme = document.getElementById('programme').value;
+        year_select = document.getElementById('year');
+        lab_select = document.getElementById('lab');
+
+        if(programme == "BSc CSD"){
+            year_select.innerHTML = `
+                            <option></option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>`;
+            lab_select.innerHTML = `<option value=""></option>
+                            <option value="OCL">OCL</option>
+                            <option value="SKAVA">SKAVA</option>`;
+        }
+        else{
+            lab_select.innerHTML = `<option value=""></option>
+                            <option value="CSL1">CSL1</option>
+                            <option value="CSL2">CSL2</option>
+                            <option value="CSL3">CSL3</option>
+                            <option value="DSL">DSL</option>
+                            <option value="NSL">NSL</option>
+                            <option value="IIL">IIL</option>
+                            <option value="OCL">OCL</option>
+                            <option value="SKAVA">SKAVA</option>
+                            <option value="SCL">SCL</option>`;
+            if (programme == "MSc AM"){
+                year_select.innerHTML = `
+                                <option></option>
+                                <option>1</option>
+                                <option>2</option>`;
+                }
+            else{
+                year_select.innerHTML = `
+                                <option></option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>`;
+            }
+        }
+           
+    }
+
 
 </script>
 
