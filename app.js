@@ -34,10 +34,10 @@ app.get("/dashboard", getCookie.getCookie, (req, res) => {
             dashboard.dashboard(req, res);
             break;
         case "student":
-            res.render("dashboard_student", {title: "Student", menu: "", userDetails : res.locals.userDetails, isPR : res.locals.isPR});
+            res.render("dashboard_student", {title: "Dashboard", menu: "", userDetails : res.locals.userDetails, isPR : res.locals.isPR});
             break;
         case "lab_assistant":
-            res.render("dashboard_lab", { title: "Lab Assistant", menu: "" });
+            res.render("dashboard_lab", { title: "Dashboard", menu: "" });
             break;
         default:
             res.render("denial");
@@ -266,7 +266,7 @@ app.get("/register-complaint", getCookie.getCookie, (req, res) => {
         case "admin":
 
         case "teacher":
-            res.render("register_complaint", { title: "Complaints", menu: "Register Complaints", role: res.locals.role });
+            res.render("register_complaint", { title: "Complaints", menu: "Register Complaint", role: res.locals.role });
             break;
         default:
             res.render("denial");
