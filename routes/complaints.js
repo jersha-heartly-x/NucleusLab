@@ -55,7 +55,7 @@ exports.viewComplaintsResolve =function(req, res) {
         }
         // console.log(result);
         else {
-            res.render('resolve_complaints.ejs', {title: 'Resolve complaints', complaints: result});
+            res.render('resolve_complaints.ejs', {title: "Complaints", complaints: result});
         }
     });
 }

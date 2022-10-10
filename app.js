@@ -34,10 +34,10 @@ app.get("/dashboard", getCookie.getCookie, (req, res) => {
             dashboard.dashboard(req, res);
             break;
         case "student":
-            res.render("dashboard_student", {title: "Student", menu: "", userDetails : res.locals.userDetails, isPR : res.locals.isPR});
+            res.render("dashboard_student", {title: "Dashboard", menu: "", userDetails : res.locals.userDetails, isPR : res.locals.isPR});
             break;
         case "lab_assistant":
-            res.render("dashboard_lab", { title: "Lab Assistant", menu: "" });
+            res.render("dashboard_lab", { title: "Dashboard", menu: "" });
             break;
         default:
             res.render("denial");
@@ -402,7 +402,7 @@ app.get("/view-wifi", getCookie.getCookie, (req, res) => {
 
 app.get("/booking-details", getCookie.getCookie, (req, res) => {
     if (res.locals.role === "admin")
-        res.render("booking_details", { title: "Lab booking", menu: "Booking Details" });
+        res.render("booking_details", { title: "Lab Booking", menu: "Booking Details" });
     else
         res.render("denial");
 })
