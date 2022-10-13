@@ -13,6 +13,7 @@ exports.regularSchedule = function (req, res) {
             console.log(err);
         }
         else {
+            if(result.length != 0) {
             year = result[0].academic_year;
             sem = result[0].semester;
             console.log(year, sem);
@@ -74,6 +75,18 @@ exports.regularSchedule = function (req, res) {
                 }
             });
         }
+        else {
+            const data = {
+                role: res.locals.role,
+                title: "Lab Booking",
+                menu: "Regular Schedule",
+                day: day,
+                table: []
+            }
+
+            res.render("regular_schedule", data);
+        }
+    }
     }) 
 }
 
