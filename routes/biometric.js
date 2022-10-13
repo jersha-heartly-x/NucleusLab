@@ -2,7 +2,7 @@ const db = require("../db");
 
 function timeConversion(item) {
     let [year, month, date] = (item.DATE_).split('-');
-    item.DATE_ = [date, month, year].join('-');
+    item.DATE_ = [date, month, year].join('/');
     const itime_part_array = item.IN_TIME.split(":");
     const otime_part_array = item.OUT_TIME.split(":");
 
@@ -14,6 +14,7 @@ function timeConversion(item) {
         itime_part_array[0] = itime_part_array[0] - 12;
     }
 
+    if(item.IN_TIME != "None")
     item.IN_TIME = itime_part_array[0] + ':' + itime_part_array[1] + ' ' + ampm;
 
 
@@ -23,6 +24,8 @@ function timeConversion(item) {
     if (otime_part_array[0] > 12) {
         otime_part_array[0] = otime_part_array[0] - 12;
     }
+
+    if(item.OUT_TIME != "None")
     item.OUT_TIME = otime_part_array[0] + ':' + otime_part_array[1] + ' ' + ampm;
     return item;
 }
@@ -71,8 +74,7 @@ exports.biometricStudent = (req, res) => {
                     item = timeConversion(item);
                 });
                 // console.log(data);
-                res.render('biometric_student', { title: "Biometric", table: data });
-
+                res.render('biometric_student', { title: "Biometric", menu: "", table: data });
             }
         })
     }
@@ -88,7 +90,7 @@ exports.biometricStudent = (req, res) => {
                     item = timeConversion(item);
                 });
                 // console.log(data);
-                res.render('biometric_student', { title: "Biometric", table: data });
+                res.render('biometric_student', { title: "Biometric", menu: "", table: data });
 
             }
         })

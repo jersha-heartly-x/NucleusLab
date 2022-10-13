@@ -1,10 +1,12 @@
 <% if(role === "student") { %>
-    <%-include('partials/header_student')%>
-    <% } else if(role === "teacher") { %>
-    <%-include('partials/header')%>
-    <% } else { %>
-    <%-include('partials/header_admin') %>
-    <% } %>
+<%-include('partials/header_student')%>
+<% } else if(role === "teacher") { %>
+<%-include('partials/header')%>
+<% } else { %>
+<%-include('partials/header_admin') %>
+<% } %>
+
+<% if(complaints.length != 0) { %>
 <div class="schedule rounded p-3 mx-lg-6">
     <div class="m-3 row">
         <div class="mb-3 col-sm-6">
@@ -96,5 +98,12 @@
         </table>
     </div>
 </div>
+
+<% } else { %>
+    <div class="col-sm-5 col-md-5 col-lg-5 mt-5 mx-auto d-flex align-items-center row">
+        <img src="images/nothing.png" class="w-75 w-md-50 mx-auto" alt="">
+        <p class="fw-bold text-center" style="color: #5853BC;">No complaints made!</p>
+    </div>
+<% } %>
 
 <%-include ('partials/footer')%>
