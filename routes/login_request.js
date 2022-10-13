@@ -27,7 +27,11 @@ exports.make_request = (req, res)=>{
 exports.view_request = (req, res)=>{
     const staffid = res.locals.userDetails.id;
     const date = new Date().toISOString().slice(0, 10);
-    const q = `select * from login_requests where staffid = "${staffid}" order by daterequested;`;
+    var q;
+    if(res.locals.role === "teacher")
+         q = `select * from login_requests where staffid = "${staffid}" order by daterequested desc;`;
+    else
+        q = `select * from login_requests order by daterequested desc;`;
 
     db.query(q, (err, result)=>{
         if(err) {

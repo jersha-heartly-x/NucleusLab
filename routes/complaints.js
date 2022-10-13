@@ -40,7 +40,7 @@ exports.viewComplaints = function(req, res) {
         }
         // console.log(result);
         else {
-            res.render("view_complaints", {title: "Complaints" , menu: "View Complaints", complaints: result, role: res.locals.role});
+            res.render("view_complaints", {title: "Complaints" , menu: "View Complaints", filter: "All", complaints: result, role: res.locals.role});
         }
     });
 }
@@ -55,7 +55,7 @@ exports.viewComplaintsResolve =function(req, res) {
         }
         // console.log(result);
         else {
-            res.render('resolve_complaints.ejs', {title: "Complaints", complaints: result});
+            res.render('resolve_complaints.ejs', {title: "Complaints", filter: "All", complaints: result});
         }
     });
 }
@@ -73,4 +73,53 @@ exports.resolveComplaints = function(req, res){
         else
         res.redirect('/resolve-complaints');
     })
+}
+
+exports.filter_complaints = (req, res) =>{
+    //console.log(req.body);
+    const filter=req.body["filter_status"];
+
+    let q="";
+    if(filter==="All"){
+        res.redirect("/view-complaints");
+    }
+    else{
+        if(res.locals.role==="admin"){
+           q = `SELECT * FROM complaints where _status="${filter}" order by date_time desc;`;
+        }
+        else{
+            q = `SELECT * FROM complaints WHERE userId = "${userId}" and _status="${filter}" order by date_time desc;`;
+        }
+        con.query(q, (err, result)=>{
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.render("view_complaints", {title: "Complaints" , menu: "View Complaints", filter: filter, complaints: result, role: res.locals.role});
+            }
+        })
+    }
+}
+
+exports.filter_complaints_lab_assistant = (req, res) =>{
+    //console.log(req.body);
+    const filter=req.body["filter_status"];
+
+    let q="";
+    if(filter==="All"){
+        res.redirect("/resolve-complaints");
+    }
+    else{
+        
+        q = `SELECT * FROM complaints where _status="${filter}" order by date_time desc;`;
+
+        con.query(q, (err, result)=>{
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.render("resolve_complaints", {title: "Complaints" , menu: "View Complaints", filter: filter, complaints: result, role: res.locals.role});
+            }
+        })
+    }
 }

@@ -6,6 +6,26 @@
         </div>
 
     </div>
+
+    <div class="row">
+        <div class="p-3 mb-5">
+            
+            <form class="col-sm-7 col-md-5 col-lg-4 mx-auto" action="/filter-complaints" method="post">
+                <div class="d-flex m-3 ">
+                    <label for="filter_status" class="col-form-label me-2">View</label>
+                    <select name="filter_status" class="form-select">
+                        <option <%= filter=="All" && "selected" %> >All</option>
+                        <option <%= filter=="Pending" && "selected" %> >Pending</option>
+                        <option <%= filter=="Resolved" && "selected" %> >Resolved</option>
+                    </select>
+                </div>
+                <div class="text-center">
+                    <input class="btn btn-sm btn-block request" type="submit" name="Submit" value="Filter" id="submitBtn">
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <div class="table-responsive">
         <table class="table text-center">
             <thead>
@@ -19,6 +39,8 @@
                     <th scope="col">Entry date</th>
                     <th scope="col">Description</th>
                     <th scope="col" colspan="2">Status</th>
+                    <th scope="col">Resolved on</th>
+                    <th scope="col">Resolved by</th>
                     <th scope="col">Resolve complaint</th>
                 </tr>
             </thead>
@@ -52,6 +74,16 @@
                     <% if(complaints[i]._status == "Resolved") {%>
                         <td class="text-end">Resolved</td>
                         <td><span class="badge bg-success p-1 border border-success mx-2 rounded-circle"><span class="visually-hidden">green</span></span></td>
+                    <% } %>
+                    <% if (complaints[i].resolvedDate) { %>
+                        <td><%= complaints[i].resolvedDate.toLocaleDateString("en-IN") %></td>
+                        <% } else { %>
+                        <td>---</td>
+                    <% } %>
+                    <% if (complaints[i].resolvedBy) { %>
+                        <td><%= complaints[i].resolvedBy %></td>
+                        <% } else { %>
+                        <td>---</td>
                     <% } %>
                     <td>
                         <form action="/resolve-complaints" method="POST">
