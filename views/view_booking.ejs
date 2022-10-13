@@ -1,11 +1,12 @@
 <% if(role === "student") { %>
-    <%-include('partials/header_student')%>
-    <% } else if(role === "teacher") { %>
-    <%-include('partials/header')%>
-    <% } else { %>
-    <%-include('partials/header_admin') %>
-    <% } %>
-    <% if(bookings.length !=0) { %>
+<%-include('partials/header_student')%>
+<% } else if(role === "teacher") { %>
+<%-include('partials/header')%>
+<% } else { %>
+<%-include('partials/header_admin') %>
+<% } %>
+<% if(bookings.length !=0) { %>
+    
     <div class="schedule rounded p-3 mx-lg-5">
         <div class="m-3 row">
             <div class="mb-3 col-sm-6">
