@@ -482,6 +482,10 @@ app.post("/resolve-complaints", getCookie.getCookie, (req, res)=>{
         res.render('denial');
 })
 
+app.get("*", (req, res)=>{
+    res.render("denial")
+})
+
 app.listen(3000, () => {
     console.log("App running on port 3000");
 })
