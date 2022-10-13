@@ -52,35 +52,18 @@ exports.toBlock = function (req, res) {
                         res.render("block_lab", {title: "Schedule", menu: "Block Lab", defaultOptions : defaultOptions, alert: "Already Scheduled!"});
                     }
                     else {
-                        q = `SELECT * FROM booking WHERE academic_year="${academicYear}" AND semester="${semester}" AND lab="${lab}" AND DAYNAME(bookingDate)="${day}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
+
+                        q = `INSERT INTO blocking VALUES("${academicYear}", "${semester}", "${lab}", "${day}", ${from}, ${to});`;
 
                         db.query(q, (err, result) => {
-                            // console.log(result);
                             if(err) {
                                 console.log(err);
                             }
                             else {
-                                if(result.length != 0) {
-                                    console.log("Already Booked");
-                                    res.render("block_lab", {title: "Schedule", menu: "Block Lab", defaultOptions : defaultOptions, alert: "Already Booked!"});
-                                }
-                                else {
-
-                                    q = `INSERT INTO blocking VALUES("${academicYear}", "${semester}", "${lab}", "${day}", ${from}, ${to});`;
-
-                                    db.query(q, (err, result) => {
-                                        if(err) {
-                                            console.log(err);
-                                        }
-                                        else {
-                                            console.log("Blocked Successfully");
-                                            res.render("block_lab", {title: "Schedule", menu: "Block Lab", defaultOptions : defaultOptions, success: "Blocked Successfully!"});
-                                        }
-
-                                    })
-
-                                }
+                                console.log("Blocked Successfully");
+                                res.render("block_lab", {title: "Schedule", menu: "Block Lab", defaultOptions : defaultOptions, success: "Blocked Successfully!"});
                             }
+
                         })
                     }
                 }

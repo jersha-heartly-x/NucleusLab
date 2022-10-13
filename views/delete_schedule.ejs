@@ -1,25 +1,15 @@
 <%-include('partials/header_admin'); %>
 
     <div class="main col-10 col-md-9 col-lg-7 mx-auto rounded">
-
-        <% if(locals.alert) { %>
-            <div class="alert alert-danger alert-dismissible fade show position-absolute top-10 start-50 translate-middle" role="alert" id="alert">
-                <%= alert %>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <% } %>
-
         <% if(locals.success) { %>
             <div class="alert alert-success alert-dismissible fade show position-absolute top-10 start-50 translate-middle" role="alert" id="alert">
                 <%= success %>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <% } %>
-
-        <h4 class="my-5">Add Schedule</h4>
-        
-        <div class="add_regular_schedule">
-            <form action="/add-regular-schedule" method="post">
+        <h4 class="my-5">Delete Schedule</h4>
+        <div class="">
+            <form action="/delete-regular-schedule" method="post">
 
                 <div class="mb-3 row">
                     <label for="academic_year" class="col-sm-3 col-form-label">Academic Year</label>
@@ -46,39 +36,7 @@
                         </select>
                     </div>
                 </div>
-
-                <div class="mb-3 row">
-                    <label for="programme" class="col-sm-3 col-form-label">Programme</label>
-                    <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="programme" name="programme"
-                            required onchange="restrict_years()">
-                            <option value=""></option>
-                            <option value="MSc SS">MSc Software Systems</option>
-                            <option value="MSc TCS">MSc Theoretical Computer Science</option>
-                            <option value="MSc DS">MSc Data Science</option>
-                            <option value="MSc CS">MSc Cyber Security</option>
-                            <option value="MSc AM">MSc Applied Mathematics</option>
-                            <option value="BSc CSD">BSc Computer Systems and Design</option>
-                        </select>
-                    </div>
-                </div>
                 
-                <div class="mb-3 row">
-                    <label for="year" class="col-sm-3 col-form-label">Year</label>
-                    <div class="col-sm-9">
-                        <select class="form-select" aria-label="Default select example" id="year" name="year" required>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                </div>
-
-                
-
                 <div class="mb-3 row">
                     <label for="lab" class="col-sm-3 col-form-label">Lab Name</label>
                     <div class="col-sm-9">
@@ -154,7 +112,7 @@
                 </div>
 
                 <div class="text-center">
-                    <input class="btn btn-block request" type="submit" name="submit" value="Submit" id="submitBtn">
+                    <input class="btn btn-block request" type="submit" name="submit" value="Delete" id="submitBtn">
                 </div>
             </form>
         </div>
@@ -176,51 +134,6 @@
             invalidTo.classList.add('d-none');
             submitBtn.disabled = false;
         }
-    }
-
-    function restrict_years(){
-        const programme = document.getElementById('programme').value;
-        year_select = document.getElementById('year');
-        lab_select = document.getElementById('lab');
-
-        if(programme == "BSc CSD"){
-            year_select.innerHTML = `
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>`;
-            lab_select.innerHTML = `<option value=""></option>
-                            <option value="OCL">OCL</option>
-                            <option value="SKAVA">SKAVA</option>`;
-        }
-        else{
-            lab_select.innerHTML = `<option value=""></option>
-                            <option value="CSL1">CSL1</option>
-                            <option value="CSL2">CSL2</option>
-                            <option value="CSL3">CSL3</option>
-                            <option value="DSL">DSL</option>
-                            <option value="NSL">NSL</option>
-                            <option value="IIL">IIL</option>
-                            <option value="OCL">OCL</option>
-                            <option value="SKAVA">SKAVA</option>
-                            <option value="SCL">SCL</option>`;
-            if (programme == "MSc AM"){
-                year_select.innerHTML = `
-                                <option></option>
-                                <option>1</option>
-                                <option>2</option>`;
-                }
-            else{
-                year_select.innerHTML = `
-                                <option></option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>`;
-            }
-        }
-           
     }
 
     $("#alert").delay(2500).fadeOut(500);
