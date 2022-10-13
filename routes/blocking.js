@@ -3,13 +3,19 @@ var db = require('../db');
 exports.blockLab = function (req, res) {
     
     const q = `SELECT academic_year, semester from course_dates where '${new Date().toISOString().slice(0, 10)}' BETWEEN start_date and end_date;`;
+    
     db.query(q, (err, result)=>{
         if(err) {
             console.log(err);
         }
         // console.log(result);
         else {
-            res.render("block_lab", {title: "Schedule", menu: "Block Lab", defaultOptions :result[0]});
+            if(result[0]){
+                res.render("block_lab", {title: "Schedule", menu: "Block Lab", defaultOptions :result[0]});
+            }
+            else{
+                res.render("block_lab", {title: "Schedule", menu: "Block Lab"})
+            }
         }
     })
 
@@ -93,22 +99,26 @@ exports.unblockLab = function(req, res) {
             console.log(err);
         }
         else {
-
-            const academic_year = result[0].academic_year,
+            if(result[0]){
+                const academic_year = result[0].academic_year,
                 semester = result[0].semester;
 
-            const q = `SELECT * FROM blocking WHERE academic_year="${academic_year}" AND semester="${semester}";`;
-            
-            db.query(q, (err, result) => {
+                const q = `SELECT * FROM blocking WHERE academic_year="${academic_year}" AND semester="${semester}";`;
+                
+                db.query(q, (err, result) => {
 
-                if(err) {
-                    console.log(err);
-                }
-                else {
-                    // console.log(result);
-                    res.render("unblock_lab", {title: "Schedule", menu: "Unblock Lab", table: result});
-                }
-            })
+                    if(err) {
+                        console.log(err);
+                    }
+                    else {
+                        // console.log(result);
+                        res.render("unblock_lab", {title: "Schedule", menu: "Unblock Lab", table: result});
+                    }
+                })
+            }
+            else{
+                res.render("unblock_lab", {title: "Schedule", menu: "Unblock Lab", table: []});
+            }
         }
     })
 }

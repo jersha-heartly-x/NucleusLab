@@ -22,8 +22,6 @@ CREATE TABLE blocking
 CREATE TABLE booking
 (
 	staffId VARCHAR(6),
-	academic_year VARCHAR(12),
-    semester VARCHAR(5),
     programme VARCHAR(10),
     _year INTEGER,
     lab VARCHAR(6),

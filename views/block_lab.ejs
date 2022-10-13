@@ -1,5 +1,6 @@
 <%-include ('partials/header_admin'); %>
 
+    <% if(locals.defaultOptions){ %>
     <div class="main col-10 col-sm-8 col-lg-6 mx-auto rounded position-relative">
         
         <% if(locals.alert) { %>
@@ -17,6 +18,7 @@
         <% } %>
         
         <h4 class="my-5">Block Lab</h4>
+        
         
         <div class="block_lab">
             <form action="/block-lab" method="post">
@@ -128,6 +130,12 @@
             </form>
         </div>
     </div>
+    <% } else { %>
+        <div class="text-center">
+            <img src="/images/nothing.png" class="nothingFull" alt="nothing">
+            <div><p class="fs-5 text-purple fw-bold">Add course dates to block</p></div>
+        </div>
+    <% } %>
 
 <script>
 
