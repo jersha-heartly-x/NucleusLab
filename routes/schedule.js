@@ -97,7 +97,10 @@ exports.add_schedule = (req, res)=>{
             console.log(err);
         }
         else {
-            res.render("add_regular_schedule", {title: "Schedule", menu: "Add Schedule", defaultOptions :result[0]});
+            if(result.length != 0)
+                res.render("add_regular_schedule", {title: "Schedule", menu: "Add Schedule", defaultOptions :result[0]});
+            else
+                res.render("add_regular_schedule", {title: "Schedule", menu: "Add Schedule"});
         }
     })
     
@@ -112,7 +115,10 @@ exports.delete_schedule = (req, res)=> {
             console.log(err);
         }
         else {
-            res.render("delete_schedule", {title: "Schedule", menu: "Delete Schedule", defaultOptions :result[0]});
+            if(result.length != 0)
+                res.render("delete_schedule", {title: "Schedule", menu: "Delete Schedule", defaultOptions :result[0]});
+            else
+                res.render("delete_schedule", {title: "Schedule", menu: "Delete Schedule"});
         }
     })
 }

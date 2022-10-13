@@ -1,5 +1,6 @@
 <%-include('partials/header_admin'); %>
 
+<% if(locals.defaultOptions) { %>
     <div class="main col-10 col-md-9 col-lg-7 mx-auto rounded">
         <% if(locals.success) { %>
             <div class="alert alert-success alert-dismissible fade show position-absolute top-10 start-50 translate-middle" role="alert" id="alert">
@@ -117,7 +118,12 @@
             </form>
         </div>
     </div>
-
+<% } else { %>
+    <div class="col-sm-5 col-md-5 col-lg-5 mt-5 mx-auto d-flex align-items-center row">
+        <img src="images/nothing.png" class="w-75 w-md-50 mx-auto" alt="">
+        <p class="fw-bold text-center" style="color: #5853BC;">Add course dates before deleting schedule!</p>
+    </div>
+<% } %>
 <script>
 
     function check() {

@@ -1,8 +1,10 @@
 <% if(role === "admin") { %>
-    <%-include('partials/header_admin')%>
-    <% } else { %>
-    <%-include('partials/header')%>
-    <% } %>
+<%-include('partials/header_admin')%>
+<% } else { %>
+<%-include('partials/header')%>
+<% } %>
+
+<% if(requests.length != 0) { %>
 <div class="schedule rounded p-3 mx-lg-5">
     <div class="m-3 row">
         <div class="mb-3 col-sm-6">
@@ -61,4 +63,11 @@
         </table>
     </div>
 </div>
+<% } else { %>
+    <div class="col-sm-5 col-md-5 col-lg-5 mt-5 mx-auto d-flex align-items-center row">
+        <img src="images/nothing.png" class="w-75 w-md-50 mx-auto" alt="">
+        <p class="fw-bold text-center" style="color: #5853BC;">No login requests made!</p>
+    </div>
+<% } %>
+
 <%-include('partials/footer')%>
