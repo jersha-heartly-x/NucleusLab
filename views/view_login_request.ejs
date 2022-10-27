@@ -15,6 +15,10 @@
             <thead>
                 <tr>
                     <th scope="col"></th>
+                    <% if(role === "admin") { %>
+                        <th scope="col">Staff name</th>
+                        <th scope="col">Staff email</th>
+                    <% } %>
                     <th scope="col">Class</th>
                     <th scope="col">Date needed</th>
                     <th scope="col">From</th>
@@ -34,6 +38,10 @@
                     <tr>
                 <% } %> 
                     <td><%= i+1 %></td>
+                    <% if(role === "admin") { %>
+                        <td><%= requests[i].staffname %></td>
+                        <td><%= requests[i].staffemail %></td>
+                    <% } %>
                     <td><%= requests[i].class %></td>
                     <td><%= requests[i].daterequested.toLocaleDateString("en-IN") %></td>
                     <td>Period <%= requests[i].fromperiod %></td>
