@@ -44,11 +44,12 @@
                     <th scope="col">System No.</th>
                     <th scope="col">Entry date</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Status</th>
                     <% if (role=="admin") { %>
                     <th scope="col">Resolved on</th>
                     <th scope="col">Resolved by</th>
+                    <th scope="col">Remarks</th>
                     <% } %>
+                    <th scope="col">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,12 +75,7 @@
                     <% } %>
                     <td><%= complaints[i].date_time.toLocaleDateString("en-IN") %></td>
                     <td><%= complaints[i].requirement %></td>
-                    <% if(complaints[i]._status == "Pending") {%>
-                        <td><span class="fs-6 fw-light px-3 py-2 badge bg-blue rounded-pill">Pending</span></td>
-                    <% } %>
-                    <% if(complaints[i]._status == "Resolved") {%>
-                        <td><span class="fs-6 fw-light px-3 py-2 badge bg-success rounded-pill">Resolved</span></td>
-                    <% } %>
+                    
                     <% if (role=="admin") { %>
                     <% if (complaints[i].resolvedDate) { %>
                         <td><%= complaints[i].resolvedDate.toLocaleDateString("en-IN") %></td>
@@ -91,6 +87,17 @@
                         <% } else { %>
                         <td>---</td>
                     <% } %>
+                    <% if (complaints[i].remarks) { %>
+                        <td><%= complaints[i].remarks %></td>
+                        <% } else { %>
+                        <td>---</td>
+                    <% } %>
+                    <% } %>
+                    <% if(complaints[i]._status == "Pending") {%>
+                        <td><span class="fs-6 fw-light px-3 py-2 badge bg-blue rounded-pill">Pending</span></td>
+                    <% } %>
+                    <% if(complaints[i]._status == "Resolved") {%>
+                        <td><span class="fs-6 fw-light px-3 py-2 badge bg-success rounded-pill">Resolved</span></td>
                     <% } %>
                 </tr>
                 <% } %>

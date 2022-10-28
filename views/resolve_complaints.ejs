@@ -1,4 +1,4 @@
-<%- include('partials/header_lab') %>  
+<%- include('partials/header_lab') %>
 <div class="schedule rounded p-3 mx-lg-6">
     <div class="m-3 row">
         <div class="mb-3 col-sm-6">
@@ -26,6 +26,7 @@
         </div>
     </div>
     
+    <% if(complaints.length != 0) { %>
     <div class="table-responsive">
         <table class="table text-center">
             <thead>
@@ -41,6 +42,7 @@
                     <th scope="col" colspan="2">Status</th>
                     <th scope="col">Resolved on</th>
                     <th scope="col">Resolved by</th>
+                    <th scope="col">Remarks</th>
                     <th scope="col">Resolve complaint</th>
                 </tr>
             </thead>
@@ -85,18 +87,30 @@
                         <% } else { %>
                         <td>---</td>
                     <% } %>
-                    <td>
-                        <form action="/resolve-complaints" method="POST">
-                            <input type="text" name="complaintId" value="<%= complaints[i].complaintId %>" hidden>
-                            <input type="text" name="staffId" value="<%= userDetails.id %>" hidden>
-                            <input type="text" name="resolvedBy" value="<%= userDetails.firstName + ' ' + userDetails.lastName %>" hidden>
-                            <input class="btn btn-success rounded-pill" type="submit" name="submit" value="Resolve" <%= complaints[i]._status == "Resolved" && "disabled" %>>
-                        </form>
-                    </td>
+
+                    
+                    <form action="/resolve-complaints" method="POST">
+                        <% if(complaints[i]._status != "Resolved") {%>
+                            <td><input type="text" name="remarks" id="remarks"></td>
+                        <% } else { %>
+                            <td><%= complaints[i].remarks %></td>
+                        <% } %>
+                        <input type="text" name="complaintId" value="<%= complaints[i].complaintId %>" hidden>
+                        <input type="text" name="staffId" value="<%= userDetails.id %>" hidden>
+                        <input type="text" name="resolvedBy" value="<%= userDetails.firstName + ' ' + userDetails.lastName %>" hidden>
+                        <td><input class="btn btn-success rounded-pill" type="submit" name="submit" value="Resolve" <%= complaints[i]._status == "Resolved" && "disabled" %>></td>
+                    </form>
+
                 </tr>
                 <% } %>
             </tbody>
         </table>
+        <% } else { %>
+            <div class="col-sm-5 col-md-5 col-lg-5 mt-5 mx-auto d-flex align-items-center row">
+                <img src="images/nothing.png" class="w-75 w-md-50 mx-auto" alt="">
+                <p class="fw-bold text-center" style="color: #5853BC;">No complaints made!</p>
+            </div>
+        <% } %>
     </div>
 </div>
 

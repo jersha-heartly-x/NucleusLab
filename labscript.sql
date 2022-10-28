@@ -6,14 +6,19 @@ DROP TABLE complaints;
 
 CREATE TABLE complaints
 (
-	staffId VARCHAR(6),
+	complaintId int NOT NULL AUTO_INCREMENT,
+	userId VARCHAR(6),
     lab VARCHAR(6),
     _row INTEGER,
     _col INTEGER,
     systemNo INTEGER,
     requirement VARCHAR(1000),
     date_time DATETIME,
-    PRIMARY KEY(staffId, date_time)
+    _status VARCHAR(20),
+    resolvedDate DATE,
+    remarks VARCHAR(500),
+    resolvedBy VARCHAR(40),
+    PRIMARY KEY(complaintId)
 );
 
 SELECT * FROM schedule;
@@ -72,8 +77,6 @@ DELETE FROM complaints WHERE date_time < NOW() - INTERVAL 30 DAY;
 CREATE TABLE booking
 (
 	staffId VARCHAR(6),
-	academic_year VARCHAR(12),
-    semester VARCHAR(5),
     programme VARCHAR(10),
     _year INTEGER,
     lab VARCHAR(6),
