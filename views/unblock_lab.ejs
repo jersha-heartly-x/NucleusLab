@@ -1,5 +1,5 @@
 <%-include ('partials/header_admin'); %>
-
+        
         <% if(table.length !=0) { %>
         <div class="main col-11 col-sm-11 col-lg-11 mx-auto schedule">    
         <h4 class="my-5">Unblock Lab</h4>
@@ -35,8 +35,9 @@
         </div>
         <% } else { %>
             <div class="text-center">
-            <img src="/images/nothing.png" class="nothingFull" alt="nothing">
-            <div><p class="fs-5 text-purple fw-bold">No labs to unblock</p></div>
+                <img src="/images/nothing.png" class="nothingFull" alt="nothing">
+                <div><p class="fs-5 text-purple fw-bold">No labs to unblock</p></div>
+            </div>
         <% } %>
     </div>
 

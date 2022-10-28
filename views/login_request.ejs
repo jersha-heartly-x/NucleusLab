@@ -3,13 +3,28 @@
         <h4 class="my-4">Login Request</h4>
             <div class="login-req-form">
                 <form action="/login-request" method="post">
-        
+                    
+                    <div class="mb-3 row">
+                        <label for="programme" class="col-sm-3 col-form-label">Programme</label>
+                        <div class="col-sm-9">
+                            <select class="form-select" aria-label="Default select example" id="programme" name="programme" required onchange="restrict_years()">
+                                <option value=""></option>
+                                <option value="PW">MSc Software Systems</option>
+                                <option value="PT">MSc Theoretical Computer Science</option>
+                                <option value="PD">MSc Data Science</option>
+                                <option value="CS">MSc Cyber Security</option>
+                                <option value="AM">MSc Applied Mathematics</option>
+                                <option value="CSD">BSc Computer Systems and Design</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="mb-3 row">
                         <label for="year" class="col-sm-3 col-form-label">Year</label>
                         <div class="col-sm-9">
-                            <select class="form-select" aria-label="Default select example" id="year" name="year" required>
-                                <% let year = new Date().getFullYear(); %>
-                                <option value="">All</option>
+                            <% let year = new Date().getFullYear(); %>
+                            <select class="form-select" aria-label="Default select example" id="year" name="year" required> 
+                                <option value=""></option>
                                 <option value="<%= year-5 %>"><%= year-5 %></option>
                                 <option value="<%= year-4 %>"><%= year-4 %></option>
                                 <option value="<%= year-3 %>"><%= year-3 %></option>
@@ -20,21 +35,7 @@
                         </div>
                     </div>
                     
-                    <div class="mb-3 row">
-                        <label for="programme" class="col-sm-3 col-form-label">Programme</label>
-                        <div class="col-sm-9">
-                            <select class="form-select" aria-label="Default select example" id="programme" name="programme" required>
-                                <option value=""></option>
-                                <option value="PW">Software Systems</option>
-                                <option value="PT">Theoretical Computer Science</option>
-                                <option value="PD">Data Science</option>
-                                <option value="CS">Cyber Security</option>
-                                <option value="am">Applied Mathematics</option>
-                                <option value="csd">CSD</option>
-                                <option value="as">Applied Science</option>
-                            </select>
-                        </div>
-                    </div>
+                    
         
                     <div class="mb-3 row">
                         <label for="date" class="col-sm-3 col-form-label">Date</label>
@@ -135,6 +136,38 @@
                 submitBtn.disabled = false;
             }
         }
+
+        function restrict_years(){
+        const programme = document.getElementById('programme').value;
+        year_select = document.getElementById('year');
+
+        if(programme == "CSD"){
+            year_select.innerHTML = `
+                                <option value=""></option>
+            <option value="<%= year-3 %>"><%= year-3 %></option>
+                                <option value="<%= year-2 %>"><%= year-2 %></option>
+                                <option value="<%= year-1 %>"><%= year-1 %></option>
+                                <option value="<%= year %>"><%= year %></option>`;
+        }
+        else if (programme == "AM"){
+            year_select.innerHTML = `
+                                <option value=""></option>
+                                <option value="<%= year-2 %>"><%= year-2 %></option>
+                                <option value="<%= year-1 %>"><%= year-1 %></option>
+                                <option value="<%= year %>"><%= year %></option>`;
+                                
+        }
+        else{
+            year_select.innerHTML = `
+                                <option value=""></option>
+                                <option value="<%= year-5 %>"><%= year-5 %></option>
+                                <option value="<%= year-4 %>"><%= year-4 %></option>
+                                <option value="<%= year-3 %>"><%= year-3 %></option>
+                                <option value="<%= year-2 %>"><%= year-2 %></option>
+                                <option value="<%= year-1 %>"><%= year-1 %></option>
+                                <option value="<%= year %>"><%= year %></option>`;
+        }
+    }
     </script>
 
 <%-include('partials/footer')%>

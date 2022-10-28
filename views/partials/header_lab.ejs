@@ -62,8 +62,11 @@
                     
                     </a>
 
+                    
+
                     <div class="collapse submenu" id="submenu1" aria-expanded="false">
                         <ul class="list-group">
+
 
                             <li>
                                 <a href="wifi-requests" class="nav_link" <% if(title === "WiFi" && menu === "WiFi Requests") { %>id="active" <% } %>>
@@ -81,6 +84,11 @@
 
                         </ul>
                     </div>
+                    
+                    <a href="exam-login" class="nav_link" <% if(title === "Exam Login" && menu === "") { %> id="active" <% } %>>
+                        <i class='bx bx-log-in-circle bx-sm'></i>
+                        <span class="nav_name">Exam Login</span>
+                    </a>
 
                     <a href="resolve-complaints" class="nav_link" <% if(title === "Complaints") { %> id="active" <% } %>>
                         <i class='bx bx-sad bx-sm'></i>
