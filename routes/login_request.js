@@ -2,6 +2,8 @@ const db = require("../db");
 
 exports.make_request = (req, res)=>{
     const staffid = res.locals.userDetails.id,
+    staffname = res.locals.userDetails.firstName + " " + res.locals.userDetails.lastName,
+    staffemail = res.locals.userDetails.email,
     _class = (req.body.year.slice(2) + req.body.programme),
     dateRequested = new Date(new Date().getTime()+ 330*60*1000).toISOString().slice(0, 19).replace('T', ' '),
     dateNeeded = req.body.date,
@@ -11,7 +13,7 @@ exports.make_request = (req, res)=>{
     noOfLogins = req.body.noOfLogins,
     tools = req.body.tools;
 
-    q = `insert into login_requests (staffid ,class,daterequested,dateneeded,fromperiod,toperiod,_type,nooflogins,tools,series,_status) values("${staffid}", "${_class}", "${dateRequested}", "${dateNeeded}", ${from}, ${to}, "${type}", ${noOfLogins}, "${tools}", "", "Pending");`;
+    q = `insert into login_requests (staffid ,staffname, staffemail, class,daterequested,dateneeded,fromperiod,toperiod,_type,nooflogins,tools,series,_status) values("${staffid}", "${staffname}", "${staffemail}", "${_class}", "${dateRequested}", "${dateNeeded}", ${from}, ${to}, "${type}", ${noOfLogins}, "${tools}", "", "Pending");`;
     db.query(q, (err, res)=>{
         if(err) {
             console.log(err);
