@@ -37,6 +37,7 @@ CREATE TABLE complaints
     date_time DATETIME,
     _status VARCHAR(20),
     resolvedDate DATE,
+    remarks VARCHAR(500),
     resolvedBy VARCHAR(40),
     PRIMARY KEY(complaintId)
 );

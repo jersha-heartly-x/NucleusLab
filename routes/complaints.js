@@ -55,7 +55,7 @@ exports.viewComplaintsResolve =function(req, res) {
         }
         // console.log(result);
         else {
-            res.render('resolve_complaints.ejs', {title: "Complaints", filter: "All", complaints: result});
+            res.render('resolve_complaints.ejs', {title: "Complaints", menu: "Resolve Complaints", filter: "All", complaints: result});
         }
     });
 }
@@ -64,9 +64,10 @@ exports.resolveComplaints = function(req, res){
     const   complaintId = req.body['complaintId'],
             staffId = req.body['staffId'],
             resolvedBy =req.body['resolvedBy'],
+            remarks = req.body.remarks,
             resolvedDate = new Date(new Date().getTime()+330*60*1000).toISOString().slice(0, 10);
-
-    const q = `UPDATE complaints SET  _status = "Resolved", resolvedBy = "${resolvedBy}", resolvedDate="${resolvedDate}" WHERE (complaintId =  ${complaintId});`;
+    
+    const q = `UPDATE complaints SET  _status = "Resolved", remarks="${remarks}", resolvedBy = "${resolvedBy}", resolvedDate="${resolvedDate}" WHERE (complaintId =  ${complaintId});`;
     con.query(q, (err, result)=>{
         if(err)
             console.log(err)
