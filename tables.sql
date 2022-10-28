@@ -57,6 +57,8 @@ CREATE TABLE login_requests
 (
 	requestId int NOT NULL AUTO_INCREMENT,
     staffid VARCHAR(6),
+    staffname VARCHAR(40),
+    staffemail VARCHAR(80),
     class VARCHAR(5),
     daterequested DATETIME,
     dateneeded DATE,
