@@ -377,7 +377,7 @@ app.get("/exam-login", getCookie.getCookie, (req, res) => {
 });
 
 app.post("/update-login-info", getCookie.getCookie, (req, res) => {
-    if (res.locals.role === "admin")
+    if (res.locals.role === "lab_assistant")
         login_request_admin.update(req, res);
     else
         res.render("denial");
