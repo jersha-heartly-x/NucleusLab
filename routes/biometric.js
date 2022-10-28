@@ -32,7 +32,7 @@ function timeConversion(item) {
 
 exports.biometricStudent = (req, res) => {
 
-    const rno = "20PW13";
+    const rno = res.locals.userDetails.id;
 
     const month = req.body.month,
         fdate = req.body.fdate,
@@ -124,7 +124,6 @@ exports.biometric = (req, res) => {
             else {
                 data.forEach(item => {
                     item = timeConversion(item);
-                    item = rollNoConversion(item);
                 });
                 // console.log(data);
                 res.render('biometric', { title: "Biometric", table: data, menu: "" });
