@@ -32,7 +32,7 @@ function timeConversion(item) {
 
 exports.biometricStudent = (req, res) => {
 
-    const rno = "20PW13";
+    const rno = res.locals.userDetails.id;
 
     const month = req.body.month,
         fdate = req.body.fdate,
