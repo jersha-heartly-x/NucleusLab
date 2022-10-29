@@ -25,8 +25,10 @@ exports.postWifi = (req, res) => {
         name = res.locals.userDetails.firstName, 
         mobile = res.locals.userDetails.mobileNo;
 
-    const mac = req.body.mac, 
+    let mac = req.body.mac, 
         model = req.body.model;
+
+    mac = mac.replaceAll("-", ":")
 
     const q = `SELECT * FROM wifi WHERE rollNo = "${rollNo}"`;
 

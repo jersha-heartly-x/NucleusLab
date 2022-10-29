@@ -1,4 +1,8 @@
+<% if(role === "admin") { %>
 <%-include('partials/header_admin'); %>
+<% } else { %>
+<%-include('partials/header_lab'); %>  
+<% } %>
 
     <div class="main rounded col col-sm-11 col-md-11 col-lg-11 col-xl-11 mx-auto schedule">
         <h4 class="my-4">All Bookings</h4>
@@ -64,7 +68,7 @@
             <% } else { %>
                 <div class="text-center">
                     <img src="/images/nothing.png" class="nothingFull" alt="nothing">
-                    <div><p class="fs-5 text-purple fw-bold">No bookings foundk</p></div>
+                    <div><p class="fs-5 text-purple fw-bold">No bookings found!</p></div>
                 </div>
             <% } %>
         <% } %>
