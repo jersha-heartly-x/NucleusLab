@@ -54,6 +54,8 @@ app.get("/regular-schedule", getCookie.getCookie, (req, res) => {
     switch (res.locals.role) {
         case "admin":
 
+        case "lab_assistant":
+
         case "teacher":
             schedule.regularSchedule(req, res);
             break;
@@ -73,6 +75,8 @@ app.get("/check-availability", getCookie.getCookie, (req, res) => {
             }
             break;
         case "admin":
+
+        case "lab_assistant":
 
         case "teacher":
             res.render("check_available", { title: "Lab Booking", menu: "Check Availability", role: res.locals.role });
@@ -95,6 +99,8 @@ app.post("/check-availability", getCookie.getCookie, (req, res)=>{
             }
             break;
         case "admin":
+
+        case "lab_assistant":
 
         case "teacher":
             schedule.checkAvailability(req, res);
@@ -147,6 +153,8 @@ app.get("/to-book", getCookie.getCookie, (req, res) => {
             break;
         case "admin":
 
+        case "lab_assistant":
+
         case "teacher":
             res.render("to_book", { title: "Lab Booking", menu: "To Book", role: res.locals.role });
             break;
@@ -167,6 +175,9 @@ app.post("/to-book", getCookie.getCookie, (req, res)=>{
             }
             break;
         case "admin":
+
+        case "lab_assistant":
+
         case "teacher":
             booking.booking(req, res);
             break;
@@ -187,7 +198,11 @@ app.get("/view-booking", getCookie.getCookie, (req, res)=>{
                 res.render("denial");
             }
             break;
+        
         case "admin":
+
+        case "lab_assistant":
+        
         case "teacher":
             booking.view_booking(req, res);
             break;
@@ -207,7 +222,11 @@ app.get("/cancel-booking", getCookie.getCookie, (req, res)=>{
                 res.render("denial");
             }
             break;
+        
         case "admin":
+    
+        case "lab_assistant":
+
         case "teacher":
             booking.cancelBooking(req, res);
             break;
@@ -228,7 +247,11 @@ app.post("/cancel-booking", getCookie.getCookie, (req, res)=>{
                 res.render("denial");
             }
             break;
+        
         case "admin":
+    
+        case "lab_assistant":
+
         case "teacher":
             booking.toCancel(req, res);
             break;
@@ -264,6 +287,8 @@ app.get("/register-complaint", getCookie.getCookie, (req, res) => {
 
         case "admin":
 
+        case "lab_assistant":
+
         case "teacher":
             res.render("register_complaint", { title: "Complaints", menu: "Register Complaint", role: res.locals.role });
             break;
@@ -277,6 +302,8 @@ app.post("/register-complaint", getCookie.getCookie, (req, res) => {
         case "student":
 
         case "admin":
+
+        case "lab_assistant":
 
         case "teacher":
             complaint.registerComplaint(req, res);
@@ -377,7 +404,7 @@ app.get("/exam-login", getCookie.getCookie, (req, res) => {
 });
 
 app.post("/update-login-info", getCookie.getCookie, (req, res) => {
-    if (res.locals.role === "admin")
+    if (res.locals.role === "lab_assistant")
         login_request_admin.update(req, res);
     else
         res.render("denial");
@@ -421,7 +448,7 @@ app.get("/view-wifi", getCookie.getCookie, (req, res) => {
 })
 
 app.get("/booking-details", getCookie.getCookie, (req, res) => {
-    if (res.locals.role === "admin")
+    if (res.locals.role === "admin" || res.locals.role === "lab_assistant")
         res.render("booking_details", { title: "Lab Booking", menu: "Booking Details" });
     else
         res.render("denial");
@@ -429,7 +456,7 @@ app.get("/booking-details", getCookie.getCookie, (req, res) => {
 
 
 app.post("/booking-details", getCookie.getCookie, (req, res) => {
-    if (res.locals.role === "admin")
+    if (res.locals.role === "admin"  || res.locals.role === "lab_assistant")
         booking.bookingDetails(req, res);
     else
         res.render("denial");
@@ -489,6 +516,10 @@ app.post("/resolve-complaints", getCookie.getCookie, (req, res)=>{
         complaint.resolveComplaints(req, res);
     else
         res.render('denial');
+})
+
+app.get("*", (req, res)=>{
+    res.render("denial")
 })
 
 app.listen(3000, () => {
