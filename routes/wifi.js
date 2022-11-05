@@ -28,7 +28,7 @@ exports.postWifi = (req, res) => {
     let mac = req.body.mac, 
         model = req.body.model;
 
-    mac = mac.replaceAll("-", ":")
+//    mac = mac.replaceAll("-", ":")
 
     const q = `SELECT * FROM wifi WHERE rollNo = "${rollNo}"`;
 

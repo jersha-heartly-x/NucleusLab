@@ -37,7 +37,8 @@ exports.getCookie = (req, res, next) => {
                     id : response.data.data.id,
                     firstName: response.data.data.firstName,
                     lastName: response.data.data.lastName,
-                    mobileNo: response.data.data.mobileNo
+                    mobileNo: response.data.data.mobileNo,
+		   email: response.data.data.email,
                 };
                 if(response.data.data.id==="admin"){
                     res.locals.role = "admin"
