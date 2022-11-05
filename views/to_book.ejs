@@ -11,14 +11,14 @@
     <div class="main col-10 col-sm-8 col-lg-6 mx-auto rounded position-relative">
 
         <% if(locals.alert) { %>
-            <div class="alert alert-danger alert-dismissible fade show position-absolute top-10 start-50 translate-middle" role="alert" id="alert">
+            <div class="alert alert-danger alert-dismissible fade show position-absolute start-50 translate-middle" role="alert" id="alert">
                 <%= alert %>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <% } %>
 
         <% if(locals.success) { %>
-            <div class="alert alert-success alert-dismissible fade show position-absolute top-10 start-50 translate-middle" role="alert" id="alert">
+            <div class="alert alert-success alert-dismissible fade show position-absolute start-50 translate-middle" role="alert" id="alert">
                 <%= success %>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
