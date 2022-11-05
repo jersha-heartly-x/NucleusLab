@@ -46,3 +46,8 @@ body{
     outline: none;
     box-shadow: none;
 }
+
+.alert-dismissible{
+    top: 20px;
+    width: max-content;
+}
