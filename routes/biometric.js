@@ -55,6 +55,12 @@ exports.biometricStudent = (req, res) => {
         case "PC":
             userId += "4" + substr;
             break;
+        case "PA":
+            userId += "5" + substr;
+            break;
+        case "X0":
+            userId += "6" + substr;
+            break;
         default:
             break;
     }
