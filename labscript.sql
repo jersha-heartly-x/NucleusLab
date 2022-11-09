@@ -38,8 +38,6 @@ CREATE TABLE schedule
     PRIMARY KEY(_day, lab, period, academicYear, semester)
 );
 
-INSERT INTO schedule VALUES("2022 - 2023", "odd", 3, "MSc SS", "NSL", "Thursday", 7);
-
 CREATE TABLE login_requests
 (
     staffid VARCHAR(6),
@@ -144,3 +142,9 @@ CREATE TABLE master (
     ROLLNO VARCHAR(6),
     PRIMARY KEY(USERID, ROLLNO)
 );
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> c95bd0baa6b719d5b7a749773f1f73d7683ecf0b
