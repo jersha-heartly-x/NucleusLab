@@ -88,8 +88,6 @@ CREATE TABLE booking
 
 DROP TABLE booking;
 
-INSERT INTO booking VALUES("C3391", "2022 - 2023", "odd", "MSc SS", 3, "DSL", "2022-08-27", "2022-08-10", 5, 6, "Placement");
-
 SELECT * FROM booking;
 
 CREATE TABLE blocking
@@ -102,7 +100,6 @@ CREATE TABLE blocking
     toperiod INTEGER,
     PRIMARY KEY(academic_year, semester, lab, _day, fromperiod, toperiod)
 );
-
 
 SELECT * FROM blocking;
 
@@ -145,6 +142,9 @@ CREATE TABLE master (
     ROLLNO VARCHAR(6),
     PRIMARY KEY(USERID, ROLLNO)
 );
+<<<<<<< HEAD
+=======
 
 
 
+>>>>>>> c95bd0baa6b719d5b7a749773f1f73d7683ecf0b
