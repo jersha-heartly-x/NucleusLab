@@ -1,11 +1,11 @@
 <% if(role === "student") { %>
-<%-include('partials/header_student')%>
+<%- include('partials/header_student'); %>
 <% } else if(role === "teacher") { %>
-<%-include('partials/header')%>
-% } else if(role === "admin") { %>
-<%-include('partials/header_admin')%>
+<%- include('partials/header'); %>
+<% } else if(role === "admin") { %>
+<%- include('partials/header_admin'); %>
 <% } else { %>
-<%-include('partials/header_lab') %>
+<%- include('partials/header_lab'); %>
 <% } %>
 
 <div class="main rounded col col-md-8 col-lg-8 mx-auto">
