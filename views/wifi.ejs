@@ -32,8 +32,9 @@
             <div class="mb-3 row">
                 <label for="mac" class="col-sm-4 col-form-label">MAC Address (: delimiter) </label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="mac" name="mac" required>
+                    <input type="text" class="form-control" id="mac" name="mac" required onchange="check()">
                     <p class="text-danger mt-2">Provide Laptop MAC address only</p>
+                    <div class="my-2 p-2 fs-6 alert alert-danger d-none" id="invalidMAC"><span>Invalid MAC Address</span></div>
                 </div>
             </div>
 
@@ -46,6 +47,22 @@
 
 <script>
     $("#alert").delay(2500).fadeOut(500);
+
+    function check() {
+        var mac = /^([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2}$/;
+        invalidMAC = document.getElementById('invalidMAC'),
+        submitBtn = document.getElementById('submitBtn');
+
+        if(!mac.test(document.getElementById('mac').value)) {
+            invalidMAC.classList.remove('d-none');
+            submitBtn.disabled = true;
+        }
+        else {
+            invalidMAC.classList.add('d-none');
+            submitBtn.disabled = false;
+        }
+    }
+
 </script>
 
 <%-include ('partials/footer'); %>
