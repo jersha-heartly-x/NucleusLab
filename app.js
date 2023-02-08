@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cookieParser = require('cookie-parser')
 const schedule = require("./routes/schedule");
 const login_request = require("./routes/login_request");
 const login_request_admin = require("./routes/login_request_admin");
@@ -19,7 +18,6 @@ const app = express();
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser())
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
@@ -413,7 +411,7 @@ app.post("/update-login-info", getCookie.getCookie, (req, res) => {
 });
 
 app.post("/filter-login-requests", getCookie.getCookie, (req, res) => {
-    if (res.locals.role === "lab_assistant")
+    if (res.locals.role === "lab_assistant" || res.locals.role === "admin")
         login_request_admin.filter_requests(req, res);
     else
         res.render("denial");
@@ -524,7 +522,6 @@ app.get("*", (req, res)=>{
     res.render("denial")
 })
 
-app.listen(8017, () => {
-    console.log("App running on port 8017");
+app.listen(3000, () => {
+    console.log("App running on port 3000");
 })
-
