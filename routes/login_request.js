@@ -29,18 +29,21 @@ exports.make_request = (req, res)=>{
 exports.view_request = (req, res)=>{
     const staffid = res.locals.userDetails.id;
     const date = new Date().toISOString().slice(0, 10);
-    var q;
+    var q, filter = "";
+
     if(res.locals.role === "teacher")
-         q = `select * from login_requests where staffid = "${staffid}" order by daterequested desc;`;
-    else
+        q = `select * from login_requests where staffid = "${staffid}" order by daterequested desc;`;
+    else {
         q = `select * from login_requests order by daterequested desc;`;
+        filter = "All"
+    }
 
     db.query(q, (err, result)=>{
         if(err) {
             console.log(err);
         }
         else {
-            res.render("view_login_request", {title: "Login Request" , menu: "View Requests", requests: result});
+            res.render("view_login_request", {title: "Login Request" , menu: "View Requests", requests: result, filter: filter});
         }
     })
 }
