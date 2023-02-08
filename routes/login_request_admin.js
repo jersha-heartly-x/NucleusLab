@@ -68,7 +68,23 @@ exports.filter_requests = (req, res) =>{
     }
 
     else if(filter){
-        if(filter==="All"){
+        if(res.locals.role === "admin") {
+            if(filter === "All") {
+                res.redirect("/view-login-request");
+            }
+            else {
+                const q = `select * from login_requests where _status="${filter}" order by daterequested desc;`;
+                db.query(q, (err, result)=>{
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        res.render("view_login_request", {title: "Login Request" , menu: "View Requests", filter: filter, requests: result});
+                    }
+                })
+            }
+        }
+        else if(filter==="All"){
             res.redirect("/exam-login");
         }
         else{
