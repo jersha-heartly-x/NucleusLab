@@ -8,9 +8,7 @@ exports.blockLab = function (req, res) {
   db.query(q, (err, result) => {
     if (err) {
       console.log(err);
-    }
-    // console.log(result);
-    else {
+    } else {
       if (result[0]) {
         res.render("block_lab", {
           title: "Schedule",
@@ -98,7 +96,6 @@ exports.unblockLab = function (req, res) {
           if (err) {
             console.log(err);
           } else {
-            // console.log(result);
             res.render("unblock_lab", {
               title: "Schedule",
               menu: "Unblock Lab",

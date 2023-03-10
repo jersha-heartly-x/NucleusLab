@@ -66,7 +66,6 @@
 
                 dropdowns.forEach(dropdown => {
                     const uparr = dropdown.getElementsByTagName('i')[1];
-                    //console.log(uparr);
                     dropdown.addEventListener('click', () => {
                         // show navbar
                         if (!nav.classList.contains('show')) {
@@ -96,19 +95,6 @@
 
         showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
 
-        /*===== LINK ACTIVE =====*/
-        // const linkColor = document.querySelectorAll('.nav_link')
-
-        // function colorLink() {
-        //     if (linkColor) {
-        //         linkColor.forEach(l => l.classList.remove('active'))
-        //         this.classList.add('active')
-        //     }
-        // }
-        // linkColor.forEach(l => l.addEventListener('click', colorLink))
-
-        // Your code to run since DOM is loaded and ready
-        
     });
 </script>
 </body>

@@ -12,8 +12,6 @@ exports.registerComplaint = function (req, res) {
       .slice(0, 19)
       .replace("T", " ");
 
-  // console.log(dateTime);
-
   const sql = `INSERT INTO complaints (userId, lab, _row, _col, systemNo, requirement, date_time, _status) VALUES ("${userId}", "${lab}", "${row}", "${col}", "${sys}", "${desc}", "${dateTime}", "Pending");`;
 
   con.query(sql, function (err, result) {
@@ -38,9 +36,7 @@ exports.viewComplaints = function (req, res) {
   con.query(sql, function (err, result) {
     if (err) {
       console.log(err);
-    }
-    // console.log(result);
-    else {
+    } else {
       res.render("view_complaints", {
         title: "Complaints",
         menu: "View Complaints",
@@ -58,9 +54,7 @@ exports.viewComplaintsResolve = function (req, res) {
   con.query(sql, function (err, result) {
     if (err) {
       console.log(err);
-    }
-    // console.log(result);
-    else {
+    } else {
       res.render("resolve_complaints.ejs", {
         title: "Complaints",
         menu: "Resolve Complaints",
@@ -88,7 +82,6 @@ exports.resolveComplaints = function (req, res) {
 };
 
 exports.filter_complaints = (req, res) => {
-  //console.log(req.body);
   const filter = req.body["filter_status"];
 
   let q = "";
@@ -117,7 +110,6 @@ exports.filter_complaints = (req, res) => {
 };
 
 exports.filter_complaints_lab_assistant = (req, res) => {
-  //console.log(req.body);
   const filter = req.body["filter_status"];
 
   let q = "";
