@@ -64,42 +64,26 @@ exports.biometricStudent = (req, res) => {
 
   let sql;
 
-  if (fdate && tdate) {
-    sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between ? and ? AND USERID = ? ORDER BY DATE_ DESC;`;
+  if (fdate && tdate)
+    sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between "${fdate}" and "${tdate}" AND USERID = "${userId}" ORDER BY DATE_ DESC;`;
+  else if (month)
+    sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = "${month}" AND USERID = "${userId}" ORDER BY DATE_ DESC;`;
+  else res.redirect("/biometric");
 
-    db.query(sql, [fdate, tdate, userId], (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        data.forEach((item) => {
-          timeConversion(item);
-        });
-        res.render("biometric_student", {
-          title: "Biometric",
-          menu: "",
-          table: data,
-        });
-      }
-    });
-  } else if (month) {
-    sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = ? AND USERID = ? ORDER BY DATE_ DESC;`;
-    db.query(sql, [month, userId], (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        data.forEach((item) => {
-          timeConversion(item);
-        });
-        res.render("biometric_student", {
-          title: "Biometric",
-          menu: "",
-          table: data,
-        });
-      }
-    });
-  } else {
-    res.redirect("/biometric");
-  }
+  db.query(sql, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      data.forEach((item) => {
+        timeConversion(item);
+      });
+      res.render("biometric_student", {
+        title: "Biometric",
+        menu: "",
+        table: data,
+      });
+    }
+  });
 };
 
 //staff side
@@ -113,111 +97,32 @@ exports.biometric = (req, res) => {
 
   let sql;
 
-  if (fdate && tdate && batchyear && course) {
-    sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between ? and ? AND SUBSTRING(USERID, 2, 2) = ? AND SUBSTRING(USERID,1, 1) = ? ORDER BY DATE_ DESC;`;
+  if (fdate && tdate && batchyear && course)
+    sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between "${fdate}" and "${tdate}" AND SUBSTRING(USERID, 2, 2) = "${batchyear}" AND SUBSTRING(USERID,1, 1) = "${course}" ORDER BY DATE_ DESC;`;
+  else if (month && batchyear && course)
+    sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = "${month}" AND SUBSTRING(USERID, 2, 2) = "${batchyear}" AND SUBSTRING(USERID,1, 1) = "${course}" ORDER BY DATE_ DESC;`;
+  else if (fdate && tdate && batchyear)
+    sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between "${fdate}" and "${tdate}" AND SUBSTRING(USERID, 2, 2) = "${batchyear}" ORDER BY DATE_ DESC;`;
+  else if (fdate && tdate && course)
+    sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between "${fdate}" and "${tdate}" AND SUBSTRING(USERID, 1, 1) = "${course}" ORDER BY DATE_ DESC;`;
+  else if (month && batchyear)
+    sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = "${month}"  AND SUBSTRING(USERID, 2, 2) = "${batchyear}" ORDER BY DATE_ DESC;`;
+  else if (month && course)
+    sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = "${month}"  AND SUBSTRING(USERID, 1, 1) = "${course}" ORDER BY DATE_ DESC;`;
+  else if (fdate && tdate)
+    sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between "${fdate}" and "${tdate}" ORDER BY DATE_ DESC;`;
+  else if (month)
+    sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = "${month}" ORDER BY DATE_ DESC;`;
+  else res.redirect("/biometric");
 
-    db.query(sql, [fdate, tdate, batchyear, course], (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        data.forEach((item) => {
-          timeConversion(item);
-        });
-        res.render("biometric", { title: "Biometric", table: data, menu: "" });
-      }
-    });
-  } else if (month && batchyear && course) {
-    sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = ? AND SUBSTRING(USERID, 2, 2) = ? AND SUBSTRING(USERID,1, 1) = ? ORDER BY DATE_ DESC;`;
-
-    db.query(sql, [month, batchyear, course], (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        data.forEach((item) => {
-          timeConversion(item);
-        });
-
-        res.render("biometric", { title: "Biometric", table: data, menu: "" });
-      }
-    });
-  } else if (fdate && tdate && batchyear) {
-    sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between ? and ?  AND SUBSTRING(USERID, 2, 2) = ? ORDER BY DATE_ DESC;`;
-
-    db.query(sql, [fdate, tdate, batchyear], (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        data.forEach((item) => {
-          timeConversion(item);
-        });
-        res.render("biometric", { title: "Biometric", table: data, menu: "" });
-      }
-    });
-  } else if (fdate && tdate && course) {
-    sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between ? and ?  AND SUBSTRING(USERID, 1, 1) = ? ORDER BY DATE_ DESC;`;
-
-    db.query(sql, [fdate, tdate, course], (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        data.forEach((item) => {
-          timeConversion(item);
-        });
-        res.render("biometric", { title: "Biometric", table: data, menu: "" });
-      }
-    });
-  } else if (month && batchyear) {
-    sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = ?  AND SUBSTRING(USERID, 2, 2) = ? ORDER BY DATE_ DESC;`;
-
-    db.query(sql, [month, batchyear], (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        data.forEach((item) => {
-          timeConversion(item);
-        });
-        res.render("biometric", { title: "Biometric", table: data, menu: "" });
-      }
-    });
-  } else if (month && course) {
-    sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = ?  AND SUBSTRING(USERID, 1, 1) = ? ORDER BY DATE_ DESC;`;
-
-    db.query(sql, [month, course], (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        data.forEach((item) => {
-          timeConversion(item);
-        });
-        res.render("biometric", { title: "Biometric", table: data, menu: "" });
-      }
-    });
-  } else if (fdate && tdate) {
-    sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between ? and ? ORDER BY DATE_ DESC;`;
-
-    db.query(sql, [fdate, tdate], (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        data.forEach((item) => {
-          timeConversion(item);
-        });
-        res.render("biometric", { title: "Biometric", table: data, menu: "" });
-      }
-    });
-  } else if (month) {
-    sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = ? ORDER BY DATE_ DESC;`;
-    db.query(sql, [month], (err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        data.forEach((item) => {
-          timeConversion(item);
-        });
-        res.render("biometric", { title: "Biometric", table: data, menu: "" });
-      }
-    });
-  } else {
-    res.redirect("/biometric");
-  }
+  db.query(sql, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      data.forEach((item) => {
+        timeConversion(item);
+      });
+      res.render("biometric", { title: "Biometric", table: data, menu: "" });
+    }
+  });
 };
