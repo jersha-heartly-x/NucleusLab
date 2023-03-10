@@ -16,7 +16,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% for(var i=0; i<table.length; i++) { %>
+                    <% for(let i=0; i<table.length; i++) { %>
                     <form action="/unblock-lab" method="post" onsubmit="return confirm('Do you really want to unblock it?');">
                         <tr>
                             <td><%= i+1 %></td>
