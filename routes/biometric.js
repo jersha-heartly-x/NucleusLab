@@ -3,30 +3,28 @@ const db = require("../db");
 function timeConversion(item) {
   let [year, month, date] = item.DATE_.split("-");
   item.DATE_ = [date, month, year].join("/");
-  const itime_part_array = item.IN_TIME.split(":");
-  const otime_part_array = item.OUT_TIME.split(":");
 
   let ampm = "AM";
-  if (itime_part_array[0] >= 12) {
-    ampm = "PM";
+  if (item.IN_TIME != "None") {
+    const itime_array = item.IN_TIME.split(":");
+
+    if (itime_array[0] >= 12) {
+      ampm = "PM";
+      if (itime_array[0] > 12) itime_array[0] = itime_array[0] - 12;
+    }
+    item.IN_TIME = itime_array[0] + ":" + itime_array[1] + " " + ampm;
   }
-  if (itime_part_array[0] > 12) {
-    itime_part_array[0] = itime_part_array[0] - 12;
+  ampm = "AM";
+  if (item.OUT_TIME != "None") {
+    const otime_array = item.OUT_TIME.split(":");
+
+    if (otime_array[0] >= 12) {
+      ampm = "PM";
+      if (otime_array[0] > 12) otime_array[0] = otime_array[0] - 12;
+    }
+    item.OUT_TIME = otime_array[0] + ":" + otime_array[1] + " " + ampm;
   }
 
-  if (item.IN_TIME != "None")
-    item.IN_TIME = itime_part_array[0] + ":" + itime_part_array[1] + " " + ampm;
-
-  if (otime_part_array[0] >= 12) {
-    ampm = "PM";
-  }
-  if (otime_part_array[0] > 12) {
-    otime_part_array[0] = otime_part_array[0] - 12;
-  }
-
-  if (item.OUT_TIME != "None")
-    item.OUT_TIME =
-      otime_part_array[0] + ":" + otime_part_array[1] + " " + ampm;
   return item;
 }
 
@@ -74,7 +72,7 @@ exports.biometricStudent = (req, res) => {
         console.log(err);
       } else {
         data.forEach((item) => {
-          item = timeConversion(item);
+          timeConversion(item);
         });
         res.render("biometric_student", {
           title: "Biometric",
@@ -90,7 +88,7 @@ exports.biometricStudent = (req, res) => {
         console.log(err);
       } else {
         data.forEach((item) => {
-          item = timeConversion(item);
+          timeConversion(item);
         });
         res.render("biometric_student", {
           title: "Biometric",
@@ -123,7 +121,7 @@ exports.biometric = (req, res) => {
         console.log(err);
       } else {
         data.forEach((item) => {
-          item = timeConversion(item);
+          timeConversion(item);
         });
         res.render("biometric", { title: "Biometric", table: data, menu: "" });
       }
@@ -136,7 +134,7 @@ exports.biometric = (req, res) => {
         console.log(err);
       } else {
         data.forEach((item) => {
-          item = timeConversion(item);
+          timeConversion(item);
         });
 
         res.render("biometric", { title: "Biometric", table: data, menu: "" });
@@ -150,7 +148,7 @@ exports.biometric = (req, res) => {
         console.log(err);
       } else {
         data.forEach((item) => {
-          item = timeConversion(item);
+          timeConversion(item);
         });
         res.render("biometric", { title: "Biometric", table: data, menu: "" });
       }
@@ -163,7 +161,7 @@ exports.biometric = (req, res) => {
         console.log(err);
       } else {
         data.forEach((item) => {
-          item = timeConversion(item);
+          timeConversion(item);
         });
         res.render("biometric", { title: "Biometric", table: data, menu: "" });
       }
@@ -176,7 +174,7 @@ exports.biometric = (req, res) => {
         console.log(err);
       } else {
         data.forEach((item) => {
-          item = timeConversion(item);
+          timeConversion(item);
         });
         res.render("biometric", { title: "Biometric", table: data, menu: "" });
       }
@@ -189,7 +187,7 @@ exports.biometric = (req, res) => {
         console.log(err);
       } else {
         data.forEach((item) => {
-          item = timeConversion(item);
+          timeConversion(item);
         });
         res.render("biometric", { title: "Biometric", table: data, menu: "" });
       }
@@ -202,7 +200,7 @@ exports.biometric = (req, res) => {
         console.log(err);
       } else {
         data.forEach((item) => {
-          item = timeConversion(item);
+          timeConversion(item);
         });
         res.render("biometric", { title: "Biometric", table: data, menu: "" });
       }
@@ -214,7 +212,7 @@ exports.biometric = (req, res) => {
         console.log(err);
       } else {
         data.forEach((item) => {
-          item = timeConversion(item);
+          timeConversion(item);
         });
         res.render("biometric", { title: "Biometric", table: data, menu: "" });
       }

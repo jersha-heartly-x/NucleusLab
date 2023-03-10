@@ -67,7 +67,6 @@ exports.viewComplaintsResolve = function (req, res) {
 
 exports.resolveComplaints = function (req, res) {
   const complaintId = req.body["complaintId"],
-    staffId = req.body["staffId"],
     resolvedBy = req.body["resolvedBy"],
     remarks = req.body.remarks,
     resolvedDate = new Date(new Date().getTime() + 330 * 60 * 1000)

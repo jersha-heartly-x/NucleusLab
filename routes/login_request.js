@@ -17,7 +17,7 @@ exports.make_request = (req, res) => {
     noOfLogins = req.body.noOfLogins,
     tools = req.body.tools;
 
-  q = `insert into login_requests (staffid ,staffname, staffemail, class,daterequested,dateneeded,fromperiod,toperiod,_type,nooflogins,tools,series,_status) values("${staffid}", "${staffname}", "${staffemail}", "${_class}", "${dateRequested}", "${dateNeeded}", ${from}, ${to}, "${type}", ${noOfLogins}, "${tools}", "", "Pending");`;
+  const q = `insert into login_requests (staffid ,staffname, staffemail, class,daterequested,dateneeded,fromperiod,toperiod,_type,nooflogins,tools,series,_status) values("${staffid}", "${staffname}", "${staffemail}", "${_class}", "${dateRequested}", "${dateNeeded}", ${from}, ${to}, "${type}", ${noOfLogins}, "${tools}", "", "Pending");`;
   db.query(q, (err, res) => {
     if (err) {
       console.log(err);
@@ -31,7 +31,6 @@ exports.make_request = (req, res) => {
 
 exports.view_request = (req, res) => {
   const staffid = res.locals.userDetails.id;
-  const date = new Date().toISOString().slice(0, 10);
   let q,
     filter = "";
 

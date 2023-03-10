@@ -188,7 +188,7 @@ exports.cancelBooking = function (req, res) {
     .slice(0, 10)
     .replace("T", " ");
 
-  q = `SELECT * FROM booking WHERE staffId="${staffId}" AND bookingDate>="${tdyDate}";`;
+  let q = `SELECT * FROM booking WHERE staffId="${staffId}" AND bookingDate>="${tdyDate}";`;
 
   db.query(q, (err, result) => {
     if (err) {
