@@ -8,7 +8,7 @@ exports.regularSchedule = function (req, res) {
 
   let year, sem;
 
-  const q = `SELECT academic_year, semester from course_dates where '${new Date()
+  let q = `SELECT academic_year, semester from course_dates where '${new Date()
     .toISOString()
     .slice(0, 10)}' BETWEEN start_date and end_date;`;
 
@@ -53,7 +53,7 @@ exports.regularSchedule = function (req, res) {
               table[x][y] = result[i]._year + " yr " + result[i].programme;
             }
 
-            const q = `SELECT lab, fromperiod, toperiod from blocking where _day="${day}" and academic_year="${year}" and semester="${sem}";`;
+            q = `SELECT lab, fromperiod, toperiod from blocking where _day="${day}" and academic_year="${year}" and semester="${sem}";`;
 
             db.query(q, (err, result) => {
               if (err) {
@@ -104,6 +104,7 @@ exports.add_schedule = (req, res) => {
   const q = `SELECT academic_year, semester from course_dates where '${new Date()
     .toISOString()
     .slice(0, 10)}' BETWEEN start_date and end_date;`;
+
   db.query(q, (err, result) => {
     if (err) {
       console.log(err);
