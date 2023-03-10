@@ -29,7 +29,7 @@ exports.update = (req, res) => {
       }
     });
   } else {
-    let q = ``;
+    let q;
     if (req.body["series"] != "") {
       q = `UPDATE login_requests SET series = "${req.body["series"]}", _status = "Confirmed" WHERE (requestId =  ${req.body["id"]});`;
     } else {
@@ -50,7 +50,7 @@ exports.filter_requests = (req, res) => {
   const date = req.body["_date"];
 
   if (date && filter) {
-    let q = "";
+    let q;
     if (filter === "All") {
       q = `select * from login_requests where dateneeded="${date}" order by daterequested desc;`;
     } else {
