@@ -82,8 +82,8 @@ exports.resolveComplaints = function (req, res) {
 
 exports.filter_complaints = (req, res) => {
   const filter = req.body["filter_status"];
-
-  let q = "";
+  const userId = res.locals.userDetails.id;
+  let q;
   if (filter === "All") {
     res.redirect("/view-complaints");
   } else {

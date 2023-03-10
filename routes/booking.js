@@ -118,7 +118,6 @@ exports.booking = function (req, res) {
           from = req.body.from,
           to = req.body.to,
           purpose = req.body.purpose,
-          day = weekday[new Date(date).getDay()],
           tdyDate = new Date(new Date().getTime() + 330 * 60 * 1000)
             .toISOString()
             .slice(0, 10)
@@ -216,7 +215,7 @@ exports.toCancel = function (req, res) {
     to = req.body.to,
     purpose = req.body.purpose;
 
-  q = `DELETE FROM booking WHERE staffId="${staffId}" AND _year=${year} AND programme="${programme}" AND lab="${lab}" AND bookingDate="${date}" AND fromperiod=${from} AND toperiod=${to} AND purpose="${purpose}";`;
+  const q = `DELETE FROM booking WHERE staffId="${staffId}" AND _year=${year} AND programme="${programme}" AND lab="${lab}" AND bookingDate="${date}" AND fromperiod=${from} AND toperiod=${to} AND purpose="${purpose}";`;
 
   db.query(q, (err, result) => {
     if (err) {
