@@ -18,7 +18,6 @@ exports.getCookie = (req, res, next) => {
       if (response.request._redirectable._isRedirect) {
         res.redirect(response.request._redirectable._currentUrl);
       } else {
-        // console.log(response.data.data);
         res.locals.userDetails = {
           id: response.data.data.id,
           firstName: response.data.data.firstName,
@@ -26,7 +25,6 @@ exports.getCookie = (req, res, next) => {
           email: response.data.data.email,
           mobileNo: response.data.data.mobileNo,
         };
-        // console.log(res.locals.userDetails)
         if (response.data.data.id === "admin") {
           res.locals.role = "admin";
         } else {

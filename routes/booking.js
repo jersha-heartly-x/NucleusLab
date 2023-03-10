@@ -194,7 +194,6 @@ exports.cancelBooking = function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      // console.log(result);
       res.render("cancel_booking", {
         title: "Lab Booking",
         menu: "Cancel Booking",

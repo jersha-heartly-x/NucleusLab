@@ -148,8 +148,6 @@ exports.delete_schedule = (req, res) => {
 };
 
 exports.deleteSchedule = (req, res) => {
-  // console.log(req.body);
-
   const day = req.body.day,
     lab = req.body.lab,
     from = req.body.from,
@@ -226,7 +224,6 @@ exports.checkAvailability = function (req, res) {
         if (err) {
           console.log(err);
         } else {
-          // console.log(result);
           for (let i = 0; i < result.length; i++) {
             const x = labs.indexOf(result[i].lab);
             let f = Math.max(result[i].fromperiod, from),
@@ -246,7 +243,6 @@ exports.checkAvailability = function (req, res) {
             role: res.locals.role,
             isPR: res.locals.isPR,
           };
-          // console.log(table);
           res.render("check_available", data);
         }
       });
