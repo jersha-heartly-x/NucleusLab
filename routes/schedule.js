@@ -53,7 +53,7 @@ exports.regularSchedule = function (req, res) {
               table[x][y] = result[i]._year + " yr " + result[i].programme;
             }
 
-            q = `SELECT lab, fromperiod, toperiod from blocking where _day="${day}" and academic_year="${year}" and semester="${sem}";`;
+            const q = `SELECT lab, fromperiod, toperiod from blocking where _day="${day}" and academic_year="${year}" and semester="${sem}";`;
 
             db.query(q, (err, result) => {
               if (err) {
@@ -63,7 +63,7 @@ exports.regularSchedule = function (req, res) {
                   const x = labs.indexOf(result[i].lab);
 
                   for (
-                    const j = result[i].fromperiod;
+                    let j = result[i].fromperiod;
                     j <= result[i].toperiod;
                     j++
                   ) {
