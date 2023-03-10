@@ -413,7 +413,7 @@ app.post("/update-login-info", getCookie.getCookie, (req, res) => {
 });
 
 app.post("/filter-login-requests", getCookie.getCookie, (req, res) => {
-    if (res.locals.role === "lab_assistant")
+    if (res.locals.role === "lab_assistant" || res.locals.role === "admin")
         login_request_admin.filter_requests(req, res);
     else
         res.render("denial");

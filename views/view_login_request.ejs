@@ -10,8 +10,29 @@
         <div class="mb-3 col-sm-6">
             <h4 class="text-center float-sm-start">Login Requests</h4>
         </div>
-
     </div>
+
+    <% if(role === "admin") { %>
+        <div class="row">
+            <div class="p-3 mb-5">
+                <form class="col-sm-7 col-md-5 col-lg-4 mx-auto" action="/filter-login-requests" method="post">
+                    <div class="d-flex m-3 ">
+                        <label for="filter_status" class="col-form-label me-2">View</label>
+                        <select name="filter_status" class="form-select">
+                            <option <%= filter=="All" && "selected" %> >All</option>
+                            <option <%= filter=="Pending" && "selected" %> >Pending</option>
+                            <option <%= filter=="Confirmed" && "selected" %> >Confirmed</option>
+                            <option <%= filter=="Rejected" && "selected" %> >Rejected</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <input class="btn btn-sm btn-block request" type="submit" name="Submit" value="Filter" id="submitBtn">
+                    </div>
+                </form>
+            </div>
+        </div>
+    <% } %>
+
     <div class="table-responsive">
         <table class="table text-center">
             <thead>
@@ -33,7 +54,7 @@
                 </tr>
             </thead>
             <tbody>
-                <% for(var i=0; i<requests.length; i++) { %>
+                <% for(let i=0; i<requests.length; i++) { %>
                 <% if(requests[i]._status == "Rejected") {%>
                     <tr class="bg-lightred">
                 <% } else { %>
