@@ -6,7 +6,6 @@
 <%-include('partials/header_admin') %>
 <% } %>
 
-<% if(complaints.length != 0) { %>
 <div class="schedule rounded p-3 mx-lg-6">
     <div class="m-3 row">
         <div class="mb-3 col-sm-6">
@@ -32,6 +31,7 @@
             </form>
         </div>
     </div>
+    <% if(complaints.length != 0) { %>
     <div class="table-responsive">
         <table class="table text-center">
             <thead>

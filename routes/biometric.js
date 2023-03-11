@@ -87,7 +87,6 @@ exports.biometricStudent = (req, res) => {
 };
 
 //staff side
-
 exports.biometric = (req, res) => {
   const month = req.body.month,
     fdate = req.body.fdate,
