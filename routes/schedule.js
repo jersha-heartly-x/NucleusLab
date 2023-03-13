@@ -35,7 +35,7 @@ exports.regularSchedule = function (req, res) {
 
         const table = [];
 
-        for (let i = 0; i < labs.length; i++) {
+        for (let i of labs) {
           const row = Array(10);
           row.fill("free");
           table.push(row);
@@ -47,10 +47,10 @@ exports.regularSchedule = function (req, res) {
           if (err) {
             console.log(err);
           } else {
-            for (let i = 0; i < result.length; i++) {
-              const x = labs.indexOf(result[i].lab);
-              const y = result[i].period - 1;
-              table[x][y] = result[i]._year + " yr " + result[i].programme;
+            for (let i of result) {
+              const x = labs.indexOf(i.lab);
+              const y = i.period - 1;
+              table[x][y] = i._year + " yr " + i.programme;
             }
 
             q = `SELECT lab, fromperiod, toperiod from blocking where _day="${day}" and academic_year="${year}" and semester="${sem}";`;
@@ -59,12 +59,12 @@ exports.regularSchedule = function (req, res) {
               if (err) {
                 console.log(err);
               } else {
-                for (let i = 0; i < result.length; i++) {
-                  const x = labs.indexOf(result[i].lab);
+                for (let i of result) {
+                  const x = labs.indexOf(i.lab);
 
                   for (
-                    let j = result[i].fromperiod;
-                    j <= result[i].toperiod;
+                    let j = i.fromperiod;
+                    j <= i.toperiod;
                     j++
                   ) {
                     const y = j - 1;
@@ -201,7 +201,7 @@ exports.checkAvailability = function (req, res) {
     ],
     table = [];
 
-  for (let i = 0; i < labs.length; i++) {
+  for (let i of labs) {
     const row = Array(10);
     row.fill("free");
     table.push(row);
@@ -213,10 +213,10 @@ exports.checkAvailability = function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      for (let i = 0; i < result.length; i++) {
-        const x = labs.indexOf(result[i].lab);
-        const y = result[i].period - 1;
-        table[x][y] = result[i]._year + " yr " + result[i].programme;
+      for (let i of result) {
+        const x = labs.indexOf(i.lab);
+        const y = i.period - 1;
+        table[x][y] = i._year + " yr " + i.programme;
       }
 
       sql = `SELECT * FROM booking WHERE bookingDate="${date}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
@@ -225,13 +225,13 @@ exports.checkAvailability = function (req, res) {
         if (err) {
           console.log(err);
         } else {
-          for (let i = 0; i < result.length; i++) {
-            const x = labs.indexOf(result[i].lab);
-            let f = Math.max(result[i].fromperiod, from),
-              t = Math.min(result[i].toperiod, to);
+          for (let i of result) {
+            const x = labs.indexOf(i.lab);
+            let f = Math.max(i.fromperiod, from),
+              t = Math.min(i.toperiod, to);
             for (let j = f - 1; j < t; j++) {
               const y = j;
-              table[x][y] = result[i]._year + " yr " + result[i].programme;
+              table[x][y] = i._year + " yr " + i.programme;
             }
           }
 
