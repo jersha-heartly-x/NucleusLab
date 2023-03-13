@@ -35,10 +35,12 @@ exports.regularSchedule = function (req, res) {
 
         const table = [];
 
-        for (let _ of labs) {
+        let i = 0;
+        while (i < labs.length) {
           const row = Array(10);
           row.fill("free");
           table.push(row);
+          i++;
         }
 
         q = `select lab, period, _year, programme from schedule where _day="${day}" and academicYear="${year}" and semester="${sem}";`;
@@ -200,11 +202,13 @@ exports.checkAvailability = function (req, res) {
       "CL",
     ],
     table = [];
-
-  for (let _ of labs) {
+  
+  let i = 0;
+  while(i < labs.length) {
     const row = Array(10);
     row.fill("free");
     table.push(row);
+    i++;
   }
 
   let sql = `SELECT * FROM schedule WHERE period >= "${from}" AND period <= "${to}" AND _day = "${day}";`;
