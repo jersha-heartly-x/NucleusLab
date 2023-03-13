@@ -18,9 +18,7 @@ exports.booking = function (req, res) {
     .slice(0, 10)}' BETWEEN start_date and end_date;`;
 
   db.query(q, (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
+    if (!err) {
       if (result[0]) {
         const academicYear = result[0].academic_year,
           semester = result[0].semester,
@@ -40,9 +38,7 @@ exports.booking = function (req, res) {
         q = `SELECT * FROM schedule WHERE academicYear="${academicYear}" AND semester="${semester}" AND lab="${lab}" AND _day="${day}" AND period>=${from} AND period<=${to};`;
 
         db.query(q, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
+          if (!err) {
             if (result.length != 0) {
               console.log("Already Scheduled");
               res.render("to_book", {
@@ -56,9 +52,7 @@ exports.booking = function (req, res) {
               q = `SELECT * FROM blocking WHERE academic_year="${academicYear}" AND semester="${semester}" AND lab="${lab}" AND _day="${day}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
 
               db.query(q, (err, result) => {
-                if (err) {
-                  console.log(err);
-                } else {
+                if (!err) {
                   if (result.length != 0) {
                     console.log("Already Blocked");
                     res.render("to_book", {
@@ -72,9 +66,7 @@ exports.booking = function (req, res) {
                     q = `SELECT * FROM booking WHERE lab="${lab}" AND bookingDate="${date}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
 
                     db.query(q, (err, result) => {
-                      if (err) {
-                        console.log(err);
-                      } else {
+                      if (!err) {
                         if (result.length != 0) {
                           console.log("Already Booked");
                           res.render("to_book", {
@@ -88,9 +80,7 @@ exports.booking = function (req, res) {
                           q = `INSERT INTO booking VALUES("${staffId}", "${programme}", ${year}, "${lab}", "${date}", "${tdyDate}", ${from}, ${to}, "${purpose}");`;
 
                           db.query(q, (err, result) => {
-                            if (err) {
-                              console.log(err);
-                            } else {
+                            if (!err) {
                               console.log("Booked Successfully");
                               res.render("to_book", {
                                 title: "Lab Booking",
@@ -125,9 +115,7 @@ exports.booking = function (req, res) {
         q = `INSERT INTO booking VALUES("${staffId}", "${programme}", ${year}, "${lab}", "${date}", "${tdyDate}", ${from}, ${to}, "${purpose}");`;
 
         db.query(q, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
+          if (!err) {
             console.log("Booked Successfully");
             res.render("to_book", {
               title: "Lab Booking",

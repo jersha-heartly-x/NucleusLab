@@ -13,9 +13,7 @@ exports.regularSchedule = function (req, res) {
     .slice(0, 10)}' BETWEEN start_date and end_date;`;
 
   db.query(q, (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
+    if (!err) {
       if (result.length != 0) {
         year = result[0].academic_year;
         sem = result[0].semester;
@@ -46,9 +44,7 @@ exports.regularSchedule = function (req, res) {
         q = `select lab, period, _year, programme from schedule where _day="${day}" and academicYear="${year}" and semester="${sem}";`;
 
         db.query(q, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
+          if (!err) {
             for (let i of result) {
               const x = labs.indexOf(i.lab);
               const y = i.period - 1;
@@ -58,9 +54,7 @@ exports.regularSchedule = function (req, res) {
             q = `SELECT lab, fromperiod, toperiod from blocking where _day="${day}" and academic_year="${year}" and semester="${sem}";`;
 
             db.query(q, (err, result) => {
-              if (err) {
-                console.log(err);
-              } else {
+              if (!err) {
                 for (let i of result) {
                   const x = labs.indexOf(i.lab);
 
@@ -214,9 +208,7 @@ exports.checkAvailability = function (req, res) {
   let sql = `SELECT * FROM schedule WHERE period >= "${from}" AND period <= "${to}" AND _day = "${day}";`;
 
   db.query(sql, (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
+    if (!err) {
       for (let i of result) {
         const x = labs.indexOf(i.lab);
         const y = i.period - 1;
@@ -226,9 +218,7 @@ exports.checkAvailability = function (req, res) {
       sql = `SELECT * FROM booking WHERE bookingDate="${date}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
 
       db.query(sql, (err, result) => {
-        if (err) {
-          console.log(err);
-        } else {
+        if (!err) {
           for (let i of result) {
             const x = labs.indexOf(i.lab);
             let f = Math.max(i.fromperiod, from),
@@ -268,9 +258,7 @@ exports.addSchedule = function (req, res) {
   let q = `SELECT * FROM schedule WHERE academicYear="${academicYear}" AND semester="${sem}" AND lab="${lab}" AND _day="${day}" AND period>=${from} AND period<=${to};`;
 
   db.query(q, (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
+    if (!err) {
       if (result.length != 0) {
         console.log("Already Scheduled");
         res.render("add_regular_schedule", {
@@ -283,9 +271,7 @@ exports.addSchedule = function (req, res) {
         q = `SELECT * FROM blocking WHERE academic_year="${academicYear}" AND semester="${sem}" AND lab="${lab}" AND _day="${day}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
 
         db.query(q, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
+          if (!err) {
             if (result.length != 0) {
               console.log("Already Blocked");
               res.render("add_regular_schedule", {
@@ -299,9 +285,7 @@ exports.addSchedule = function (req, res) {
                 const sql = `INSERT INTO schedule VALUES("${academicYear}", "${sem}", ${year}, "${programme}", "${lab}", "${day}", ${i});`;
 
                 db.query(sql, (err, res) => {
-                  if (err) {
-                    console.log(err);
-                  } else {
+                  if (!err) {
                     console.log("Schedule added!");
                   }
                 });

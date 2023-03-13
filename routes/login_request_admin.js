@@ -57,9 +57,7 @@ exports.filter_requests = (req, res) => {
       q = `select * from login_requests where dateneeded="${date}" and _status="${filter}" order by daterequested desc;`;
     }
     db.query(q, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
+      if (!err) {
         res.render("exam_login_admin", {
           title: "Exam Login",
           menu: "",
@@ -76,9 +74,7 @@ exports.filter_requests = (req, res) => {
       } else {
         const q = `select * from login_requests where _status="${filter}" order by daterequested desc;`;
         db.query(q, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
+          if (!err) {
             res.render("view_login_request", {
               title: "Login Request",
               menu: "View Requests",
@@ -93,9 +89,7 @@ exports.filter_requests = (req, res) => {
     } else {
       const q = `select * from login_requests where _status="${filter}" order by daterequested desc;`;
       db.query(q, (err, result) => {
-        if (err) {
-          console.log(err);
-        } else {
+        if (!err) {
           res.render("exam_login_admin", {
             title: "Exam Login",
             menu: "",
