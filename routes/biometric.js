@@ -86,7 +86,7 @@ exports.biometricStudent = (req, res) => {
   });
 };
 
-function getSQL(fdate, tdate, batchyear, course) {
+function getSQL(fdate, tdate, batchyear, course, month) {
   let sql = null;
   if (fdate && tdate && batchyear && course)
     sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between "${fdate}" and "${tdate}" AND SUBSTRING(USERID, 2, 2) = "${batchyear}" AND SUBSTRING(USERID,1, 1) = "${course}" ORDER BY DATE_ DESC;`;
@@ -116,7 +116,7 @@ exports.biometric = (req, res) => {
     batchyear = req.body.batchyear.substring(2, 4),
     course = req.body.course;
 
-  let sql = getSQL(fdate, tdate, batchyear, course);
+  let sql = getSQL(fdate, tdate, batchyear, course, month);
 
   if(sql == null) {
    res.redirect("/biometric");
