@@ -86,16 +86,7 @@ exports.biometricStudent = (req, res) => {
   });
 };
 
-//staff side
-exports.biometric = (req, res) => {
-  const month = req.body.month,
-    fdate = req.body.fdate,
-    tdate = req.body.tdate,
-    batchyear = req.body.batchyear.substring(2, 4),
-    course = req.body.course;
-
-  let sql;
-
+function getSQL(fdate, tdate, batchyear, course) {
   if (fdate && tdate && batchyear && course)
     sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between "${fdate}" and "${tdate}" AND SUBSTRING(USERID, 2, 2) = "${batchyear}" AND SUBSTRING(USERID,1, 1) = "${course}" ORDER BY DATE_ DESC;`;
   else if (month && batchyear && course)
@@ -112,16 +103,35 @@ exports.biometric = (req, res) => {
     sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between "${fdate}" and "${tdate}" ORDER BY DATE_ DESC;`;
   else if (month)
     sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = "${month}" ORDER BY DATE_ DESC;`;
-  else res.redirect("/biometric");
+  else
+    sql = null;
 
-  db.query(sql, (err, data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      data.forEach((item) => {
-        timeConversion(item);
-      });
-      res.render("biometric", { title: "Biometric", table: data, menu: "" });
-    }
-  });
+  return sql;
+}
+
+//staff side
+exports.biometric = (req, res) => {
+  const month = req.body.month,
+    fdate = req.body.fdate,
+    tdate = req.body.tdate,
+    batchyear = req.body.batchyear.substring(2, 4),
+    course = req.body.course;
+
+  let sql = getSQL(fdate, tdate, batchyear, course);
+
+  if(sql == null) {
+   res.redirect("/biometric");
+  }
+  else {
+    db.query(sql, (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        data.forEach((item) => {
+          timeConversion(item);
+        });
+        res.render("biometric", { title: "Biometric", table: data, menu: "" });
+      }
+    });
+  }
 };
