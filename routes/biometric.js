@@ -104,7 +104,7 @@ function getSQL(fdate, tdate, batchyear, course, month) {
     sql = `SELECT * FROM attendance NATURAL JOIN master where DATE_ between "${fdate}" and "${tdate}" ORDER BY DATE_ DESC;`;
   else if (month)
     sql = `SELECT * FROM attendance NATURAL JOIN master where MONTHNAME(DATE_) = "${month}" ORDER BY DATE_ DESC;`;
-  
+
   return sql;
 }
 
