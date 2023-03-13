@@ -35,7 +35,7 @@ exports.regularSchedule = function (req, res) {
 
         const table = [];
 
-        for (let i of labs) {
+        for (let _ of labs) {
           const row = Array(10);
           row.fill("free");
           table.push(row);
@@ -201,7 +201,7 @@ exports.checkAvailability = function (req, res) {
     ],
     table = [];
 
-  for (let i of labs) {
+  for (let _ of labs) {
     const row = Array(10);
     row.fill("free");
     table.push(row);
