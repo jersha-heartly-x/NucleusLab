@@ -1,15 +1,15 @@
 exports.getCookie = (req, res, next) => {
   const axios = require("axios");
 
-  const admin =
-    "x-amcs-auth=U2FsdGVkX19FgZm%2BPniAY75J6JoSurD8HAs3IjhKBb0l6vg%2FxF1oVi1%2BUuBKrQ0nz4Pu7V2kBUE2f%2FRJyPqy7yzmWvGj26QzoR3PR%2FVAt0JNas7YuFGopsqzc%2BAj1ZhogQSttouvFA7fkxLxP0W7UCZqKT3LA3pUEIKXIFM%2BW0DbawVXjKVbFKP83NQ%2B1Orl2tKhE1kElpZOgXRp7BjFCoxmnimRbavNWAygz0JM3xwpyrA98WggS%2BBmGJItpwIJa%2Fzu3otVYndVq1Fu9xAYcJE8rEQHMXrFNkb1xNWYSrRK2PgvGb%2Bild1xlAVxqYt1%2BjtG0Xc7xXbyudUKaMHURiy1y8NHw4gMRQFkyGZVBOdidlIh9VEAA16o1%2BvIU2pUej%2F9ExAVDDVbSLn1bw8%2FEJslg9uGcWYFb01%2F3eLlfz%2BhUkeygkCWxLkWmDSvuTA6%2FCKSmz%2Fugq284EsXx31%2FRL9n7LQMKtHBxseDYVC05tg1QFB8oaZuR%2Fu4FdE144lt7%2BEG%2B9lxKe5pZ3hXBop9GxR2QFwVVZldsmjhvrdKoguw4LizrWDDUjtrWhypqPLwAB1s5Jyy8P6ZFQ7RiJddtxQ1YY57FYUc7tpHFa8DuHBPhBaiZBg4bk2bP0ebPGiOduyunIZbLwBa1ZOKnA66zEg80EBjdoGwQB3gZIrYfQs%3D; x-amcs-refresh=U2FsdGVkX18MfwzPaK3FrsOAgwwetsx4ocVdH7CJiPB%2BLTAoAPTLDzJI6CDhkVkZQMKy8LeHEOo0tw%2BDm2Gb7POaf5zfXC5EDJvvdKh6411ungDU%2Flmf8%2FLnGyALrI7DgAl89ReVxp0XpKBSX7XTFiA8m40D70Ujk87zpK74sojoP8XguVsFedpcQCcwE0z%2BtSWqRmIInZuGmBT5MDCRSHxCkrw7wSFprymxSYZqmtGZV8E5HVWjlwkWPrLevd7w";
+  const lab_assistant = 
+    "x-amcs-auth=U2FsdGVkX1%2FtSBgV0YgkHsU0A0ZwxU69d22JNKxVgEI9CG%2FYLeLsuUqmER1jXwpybbsIIH8D9HKXKaONLlk0EI4fo46UAPgxIpsOiJQbR80m6%2FXyUGTUKxcZm%2BHrJ04HnsEQVE1fvFglbkFdUAdVQRa20qbUE77pO8JE2A14m%2F9c%2BI5QHgKuX7XeetwimNcixP2%2BISglSM6BQCYMEPZ%2Bk6QppC8HWcECY4JY7rBK6MBvq4emIFcbcQ71VrMms501v%2FQAnoFk4VWnDx71xAoUy%2FLPEGw09XMI0siLYBnH5RCwyYqZ2ZkvVKHnIirHXMEKqO2lRX3aebQsU8IXUqqWe8umVD7gD7O8dPJRQ4RtMLxaMrHDA5O%2BNA8Lg3VjfVcTwXS4e8YShjxCkYeVflIPtFFTDnsB8uEMB84FkTSkh1b7YPKKtxhvjUKRDYEGq4HnHIxu1K6cDBZuevgQ0Igd2ks14jturolAt%2FA674tGwjguACEzxQwn4vd8dV9c4sk4LjcJZBf49pta85DrsAvtXD7Zwzg8cvMb8O1ykaGAhMnOH7c2gpXy%2BPGy4VDwxA7Xo941tYw2gZ3%2FjSQ3Gytv%2BlDGdK8u4OwHCsVsNK1hKUyp2m31h7TCWrml8iIoGj3G; x-amcs-refresh=U2FsdGVkX1%2BqVYKdZM4ZaOj7xh5cjCSWcmHAReYloq5QjVytVV5S4%2Bj9nNsM65lme2aVpaUk9Cx8ql2HbOzkEIdxLLsQzh6%2BFCKEzFwphTEKYUc6SLTFXTngJrOGYxQsRIKfpBQTA%2BezgFBeIzTAVno%2FRkhL0yClF7JLuR9ZIcs4wmx993ObY%2FTJfmH2j2V1jiWXrjAjagPQ7zE7L%2F5dQmTT2c8baOoLnFe4dDpv8VKrg9dFHJC1%2BFkX22Yka8np"
 
   const config = {
     method: "get",
     url: "https://nucleus.amcspsgtech.in/server",
     headers: {
       path: "/profile",
-      cookie: admin,
+      cookie: lab_assistant,
     },
   };
 

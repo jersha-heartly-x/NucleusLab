@@ -12,8 +12,12 @@ exports.registerComplaint = function (req, res) {
       .slice(0, 19)
       .replace("T", " ");
 
-  const sql = `INSERT INTO complaints (userId, lab, _row, _col, systemNo, requirement, date_time, _status) VALUES ("${userId}", "${lab}", "${row}", "${col}", "${sys}", "${desc}", "${dateTime}", "Pending");`;
-
+  let sql = `INSERT INTO complaints (userId, lab, _row, _col, systemNo, requirement, date_time, _status) VALUES ("${userId}", "${lab}", ${
+    row == "NA" ? "NULL" : row
+  }, ${col == "NA" ? "NULL" : col}, ${
+    sys == "NA" ? "NULL" : sys
+  }, "${desc}", "${dateTime}", "Pending");`;
+  //   console.log(sql);
   con.query(sql, function (err, result) {
     if (err) {
       console.log(err);
@@ -36,7 +40,8 @@ exports.viewComplaints = function (req, res) {
   con.query(sql, function (err, result) {
     if (err) {
       console.log(err);
-    } else {
+    }
+    else {
       res.render("view_complaints", {
         title: "Complaints",
         menu: "View Complaints",
@@ -49,12 +54,13 @@ exports.viewComplaints = function (req, res) {
 };
 
 exports.viewComplaintsResolve = function (req, res) {
-  const sql = `SELECT * FROM complaints order by date_time desc`;
+  let sql = `SELECT * FROM complaints order by date_time desc`;
 
   con.query(sql, function (err, result) {
     if (err) {
       console.log(err);
-    } else {
+    }
+    else {
       res.render("resolve_complaints.ejs", {
         title: "Complaints",
         menu: "Resolve Complaints",
@@ -81,8 +87,10 @@ exports.resolveComplaints = function (req, res) {
 };
 
 exports.filter_complaints = (req, res) => {
+  //console.log(req.body);
   const filter = req.body["filter_status"];
   const userId = res.locals.userDetails.id;
+
   let q;
   if (filter === "All") {
     res.redirect("/view-complaints");
@@ -109,9 +117,10 @@ exports.filter_complaints = (req, res) => {
 };
 
 exports.filter_complaints_lab_assistant = (req, res) => {
+  //console.log(req.body);
   const filter = req.body["filter_status"];
 
-  let q = "";
+  let q;
   if (filter === "All") {
     res.redirect("/resolve-complaints");
   } else {
