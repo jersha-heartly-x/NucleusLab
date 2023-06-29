@@ -15,7 +15,6 @@ const wifi = require("./routes/wifi");
 const getCookie = require("./middlewares/getcookie");
 
 const app = express();
-app.disable("x-powered-by");
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -400,7 +399,7 @@ app.post("/update-login-info", getCookie.getCookie, (req, res) => {
 });
 
 app.post("/filter-login-requests", getCookie.getCookie, (req, res) => {
-  if (res.locals.role === "lab_assistant" || res.locals.role === "admin")
+  if (res.locals.role === "lab_assistant")
     login_request_admin.filter_requests(req, res);
   else res.render("denial");
 });
@@ -494,6 +493,6 @@ app.get("*", (req, res) => {
   res.render("denial");
 });
 
-app.listen(3000, () => {
-  console.log("App running on port 3000");
+app.listen(8017, () => {
+  console.log("App running on port 8017");
 });
