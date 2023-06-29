@@ -147,8 +147,19 @@
                     <% } }) %>
                 </tr>
                 <tr>
-                    <th scope="row" class="rhead">CL</th>
+                    <th scope="row" class="rhead">OSL</th>
                     <% table[9].forEach(entry=>{ %>
+                    <% if(entry == "free") { %>
+                        <td><p class="text-purple m-0"><%= entry %></p></td>
+                    <% } else if(entry == "blocked") { %>
+                        <td><p class="text-danger m-0"><%= entry %></p></td>
+                    <% } else { %>
+                        <td><%= entry %></td>
+                    <% } }) %>
+                </tr>
+                <tr>
+                    <th scope="row" class="rhead">SIL</th>
+                    <% table[10].forEach(entry=>{ %>
                     <% if(entry == "free") { %>
                         <td><p class="text-purple m-0"><%= entry %></p></td>
                     <% } else if(entry == "blocked") { %>
