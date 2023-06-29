@@ -28,7 +28,8 @@ exports.regularSchedule = function (req, res) {
           "OCL",
           "SKAVA",
           "SCL",
-          "CL",
+          "OSL",
+          "SIL",
         ];
 
         const table = [];
@@ -58,11 +59,7 @@ exports.regularSchedule = function (req, res) {
                 for (let i of result) {
                   const x = labs.indexOf(i.lab);
 
-                  for (
-                    let j = i.fromperiod;
-                    j <= i.toperiod;
-                    j++
-                  ) {
+                  for (let j = i.fromperiod; j <= i.toperiod; j++) {
                     const y = j - 1;
                     table[x][y] = "blocked";
                   }
@@ -193,12 +190,13 @@ exports.checkAvailability = function (req, res) {
       "OCL",
       "SKAVA",
       "SCL",
-      "CL",
+      "OSL",
+      "SIL",
     ],
     table = [];
-  
+
   let i = 0;
-  while(i < labs.length) {
+  while (i < labs.length) {
     const row = Array(10);
     row.fill("free");
     table.push(row);

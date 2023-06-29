@@ -177,12 +177,22 @@
                     </tr>
 
                     <tr>
-                        <th scope="row" class="rhead">CL</th>
+                        <th scope="row" class="rhead">OSL</th>
                         <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
                         <% if(table[9][i] == "free") { %>
                             <td><strong class="text-purple"><%= table[9][i] %></strong></td>
                         <% }else{ %>
                             <td><%= table[9][i] %></td>
+                        <% } } %>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" class="rhead">SIL</th>
+                        <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
+                        <% if(table[10][i] == "free") { %>
+                            <td><strong class="text-purple"><%= table[10][i] %></strong></td>
+                        <% }else{ %>
+                            <td><%= table[10][i] %></td>
                         <% } } %>
                     </tr>
 
