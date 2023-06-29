@@ -40,8 +40,7 @@ exports.viewComplaints = function (req, res) {
   con.query(sql, function (err, result) {
     if (err) {
       console.log(err);
-    }
-    else {
+    } else {
       res.render("view_complaints", {
         title: "Complaints",
         menu: "View Complaints",
@@ -59,8 +58,7 @@ exports.viewComplaintsResolve = function (req, res) {
   con.query(sql, function (err, result) {
     if (err) {
       console.log(err);
-    }
-    else {
+    } else {
       res.render("resolve_complaints.ejs", {
         title: "Complaints",
         menu: "Resolve Complaints",

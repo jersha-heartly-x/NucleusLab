@@ -118,10 +118,9 @@ exports.biometric = (req, res) => {
 
   let sql = getSQL(fdate, tdate, batchyear, course, month);
 
-  if(sql == null) {
-   res.redirect("/biometric");
-  }
-  else {
+  if (sql == null) {
+    res.redirect("/biometric");
+  } else {
     db.query(sql, (err, data) => {
       if (err) {
         console.log(err);
