@@ -5,7 +5,7 @@ function timeConversion(item) {
   item.DATE_ = [date, month, year].join("/");
 
   let ampm = "AM";//fgh
-  if (item.IN_TIME != "None") {
+  if (item.IN_TIME != "None") {//xcvb
     const itime_array = item.IN_TIME.split(":");
 
     if (itime_array[0] >= 12) {
