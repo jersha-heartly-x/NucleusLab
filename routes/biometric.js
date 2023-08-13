@@ -4,7 +4,7 @@ function timeConversion(item) {
   let [year, month, date] = item.DATE_.split("-");
   item.DATE_ = [date, month, year].join("/");
 
-  let ampm = "AM";
+  let ampm = "AM";//fgh
   if (item.IN_TIME != "None") {
     const itime_array = item.IN_TIME.split(":");
 
