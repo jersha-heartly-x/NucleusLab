@@ -1,10 +1,4 @@
-<% if(role === "lab_assistant") { %>
-    <%-include('partials/header_lab') %>
-  <% } else { %>
-    <%-include('partials/header')%>
-  <% } %>
-  <% var rowCount =0; %>
-      
+<%-include('partials/header_lab') %>   
   <% if(locals.alert) { %>
     <div class="alert alert-danger alert-dismissible fade show position-absolute start-50 translate-middle" role="alert" id="alert">
         <%= alert %>
@@ -20,68 +14,67 @@
   <% } %>    
   
     <form action="/addstock" method="post" class="mx-auto">
-        <div class="mb-3 row">
-            <label for="Inv_no" class="col-sm-3 col-form-label">Invoice Number</label>
-            <div class="col">
-                <input type="text" class="form-control" id="Inv_no" name="Inv_no">
-            </div>
+      <div class="mb-3 row">
+        <label for="Inv_no" class="col-sm-3 col-form-label">Invoice Number</label>
+        <div class="col">
+            <input type="text" class="form-control" id="Inv_no" name="Inv_no">
         </div>
-        <div>
-  
-        <div class="mb-3 row">
-            <label for="fdate" class="col-sm-3 col-form-label">Invoice Date</label>
-            <div class="col">
-                <input type="date" class="form-control" id="fdate" name="fdate" onchange="check(); dateSelect();">
-            </div>
+      </div>
+
+      <div class="mb-3 row">
+        <label for="fdate" class="col-sm-3 col-form-label">Invoice Date</label>
+        <div class="col">
+            <input type="date" class="form-control" id="fdate" name="fdate" onchange="check(); dateSelect();">
         </div>
-        <form action="/add_device" method="post" class="mx-5">      
-          <div class="mb-3 row">
-            <div class="text-left">
-              <input class="btn btn-block request" type="button" value="Add Device" onclick="showPopup()">
-            </div>
+      </div>
+        
+      <form action="/add_device" method="post" class="mx-5">      
+        <div class="mb-3 row">
+          <div class="text-left">
+            <input class="btn btn-block request" type="button" value="Add Device" onclick="showPopup()">
           </div>
-        </form>
-  
-        <div class="table-responsive mt-5">
-          <table class="table text-center table-striped" id="myTable">
-            <tr style="color: #5853BC;">
-              <th>Serial no.</th>
-              <th>Device Type</th> 
-              <th>Make and Model</th>
-              <th>Specification</th>
-            </tr>
-            <tr> 
-              <td>
-                <input type="text" class="form-control" name="serial_no[]" autocomplete="off" required>
-              </td>
-              <td>
-                <select class="form-select" name="devicetype[]" required>
-                  <option value=""></option>
-                  <% for(let i=0; i<devices.length; i++) { %>
-                    <option value="<%= devices[i] %>"><%= devices[i] %></option>
-                  <% } %>
-                </select>
-  
-              </td>
-              <td>
-                <input type="text" class="form-control" name="Model[]" required>
-              </td>
-              <td>
-                <input type="text" class="form-control" name="Specification[]" required>
-              </td>
-            </tr>
-          </table>
-        </div>
-  
-        <div class="text-left">
-          <input class="btn btn-block request" type="button" value="Add Row" id="addRowBtn" onclick="addRow()">
-        </div>
-  
-        <div class="text-center">
-          <input class="btn btn-block request" type="submit" name="Submit" value="Submit" id="submitBtn" onclick="handleSubmit()">
         </div>
       </form>
-    </div>
+  
+      <div class="table-responsive mt-5">
+        <table class="table text-center table-striped" id="myTable">
+          <tr style="color: #5853BC;">
+            <th>Serial no.</th>
+            <th>Device Type</th> 
+            <th>Make and Model</th>
+            <th>Specification</th>
+          </tr>
+          <tr> 
+            <td>
+              <input type="text" class="form-control" name="serial_no[]" autocomplete="off" required>
+            </td>
+            <td>
+              <select class="form-select" name="devicetype[]" required>
+                <option value=""></option>
+                <% for(let i=0; i<devices.length; i++) { %>
+                  <option value="<%= devices[i] %>"><%= devices[i] %></option>
+                <% } %>
+              </select>
+
+            </td>
+            <td>
+              <input type="text" class="form-control" name="Model[]" required>
+            </td>
+            <td>
+              <input type="text" class="form-control" name="Specification[]" required>
+            </td>
+          </tr>
+        </table>
+      </div>
+  
+      <div class="text-left">
+        <input class="btn btn-block request" type="button" value="Add Row" id="addRowBtn" onclick="addRow()">
+      </div>
+  
+      <div class="text-center">
+        <input class="btn btn-block request" type="submit" name="Submit" value="Submit" id="submitBtn" onclick="handleSubmit()">
+      </div>
+    </form>
   
     <div id="popupBox" class="popup">
       <div class="popup-content">
@@ -92,8 +85,7 @@
         </div>
       </div>
     </div>
-  </div>
-  
+
     <style>
       .popup {
         display: none;
