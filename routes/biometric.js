@@ -4,8 +4,8 @@ function timeConversion(item) {
   let [year, month, date] = item.DATE_.split("-");
   item.DATE_ = [date, month, year].join("/");
 
-  let ampm = "AM";//fgh
-  if (item.IN_TIME != "None") {//xcvb
+  let ampm = "AM";
+  if (item.IN_TIME != "None") {
     const itime_array = item.IN_TIME.split(":");
 
     if (itime_array[0] >= 12) {
