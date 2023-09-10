@@ -4,10 +4,14 @@ exports.status = function(req, res) {
   const serialno = req.body["serialno"].toUpperCase();
   const status = req.body["deviceStatus"];
   const checkQuery = `SELECT COUNT(*) AS count FROM device_master WHERE serialno = "${serialno}"`;
-
   db.query(checkQuery, (checkErr, checkResult) => {
     if (checkErr) {
       console.log(checkErr);
+      res.render("status", {
+        title: "Update Status",
+        menu: "Update Status",
+        alert: "Error occurred while checking the serial number",
+      });
     } else {
       const count = checkResult[0].count;
       if (count === 0) {
@@ -29,10 +33,66 @@ exports.status = function(req, res) {
             });
           } else {
             console.log("Updated status successfully");
-            res.render("status", {
-              title: "Update Status",
-              menu: "Update Status",
-              success: "Status Updated Successfully!",
+            
+            const computerCheckQuery = `
+              SELECT COUNT(*) AS compCount
+              FROM computer_master
+              WHERE monitorsno = "${serialno}"
+                OR mousesno = "${serialno}"
+                OR keyboardsno = "${serialno}"
+                OR cpusno = "${serialno}"
+            `;
+
+            db.query(computerCheckQuery, (compCheckErr, compCheckResult) => {
+              if (compCheckErr) {
+                console.log(compCheckErr);
+                res.render("status", {
+                  title: "Update Status",
+                  menu: "Update Status",
+                  alert: "Error occurred while checking computer_master",
+                });
+              } else {
+                const compCount = compCheckResult[0].compCount;
+                if (compCount > 0) {
+                  const deleteQuery = `
+                    UPDATE computer_master 
+                    SET 
+                        mousesno = CASE WHEN mousesno = "${serialno}" THEN NULL ELSE mousesno END,
+                        keyboardsno = CASE WHEN keyboardsno = "${serialno}" THEN NULL ELSE keyboardsno END,
+                        monitorsno = CASE WHEN monitorsno = "${serialno}" THEN NULL ELSE monitorsno END,
+                        cpusno = CASE WHEN cpusno = "${serialno}" THEN NULL ELSE cpusno END
+                    WHERE 
+                        monitorsno = "${serialno}"
+                        OR mousesno = "${serialno}"
+                        OR keyboardsno = "${serialno}"
+                        OR cpusno = "${serialno}"
+                  `;
+
+                  db.query(deleteQuery, (deleteErr, deleteResult) => {
+                    if (deleteErr) {
+                      console.log(deleteErr);
+                      res.render("status", {
+                        title: "Update Status",
+                        menu: "Update Status",
+                        alert: "Failed to update computer_master",
+                      });
+                    } else {
+                      console.log("Updated computer_master successfully");
+                      res.render("status", {
+                        title: "Update Status",
+                        menu: "Update Status",
+                        success: "Status Updated",
+                      });
+                    }
+                  });
+                } else {
+                  res.render("status", {
+                    title: "Update Status",
+                    menu: "Update Status",
+                    success: "Status Updated Successfully!",
+                  });
+                }
+              }
             });
           }
         });
@@ -40,6 +100,7 @@ exports.status = function(req, res) {
     }
   });
 };
+
 
 
 exports.getLocationDropdown = function(callback) {
@@ -72,12 +133,12 @@ exports.location = function(req, res) {
         title: "Location",
         menu: "Location",
         alert: "An error occurred while fetching locations. Please try again later.",
-        location: [], // Add an empty array as the default value
+        location: [],
       });
     } else {
       const locationDropdown = locations
         .map((item) => item.lab)
-        .filter((lab) => lab && lab.trim() !== ''); // Filter out empty and null values
+        .filter((lab) => lab && lab.trim() !== ''); 
 
       db.query(checkQuery, (checkErr, checkResult) => {
         if (checkErr) {
@@ -116,8 +177,8 @@ exports.location = function(req, res) {
 
 
 exports.addLocation = function(req, res) {
-  const lab = req.body.newlocation.toUpperCase(); // Convert device name to lowercase
-  const q = `SELECT * FROM location WHERE UPPER(lab) = ?`; // Query to check if device already exists
+  const lab = req.body.newlocation.toUpperCase(); 
+  const q = `SELECT * FROM location WHERE UPPER(lab) = ?`; 
 
   db.query(q, [lab], (err, result) => {
     if (err) {
