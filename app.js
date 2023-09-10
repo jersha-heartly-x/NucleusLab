@@ -17,11 +17,10 @@ const assemble = require("./routes/assemble");
 const authorize= require("./routes/authorize");
 const dump = require("./routes/dump");
 const report= require("./routes/report");
-const db = require("./db.js");
-
 const getCookie = require("./middlewares/getcookie");
-
+const db = require("./db.js");
 const app = express();
+app.disable("x-powered-by");
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
