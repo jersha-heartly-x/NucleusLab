@@ -17,34 +17,24 @@ exports.assemble = function(req, res) {
     const monitorsno = monitorsnoArr[i].toUpperCase();
     const cpusno = cpusnoArr[i].toUpperCase();
     const keyboardsno = keyboardsnoArr[i].toUpperCase();
-
+    
     const selectQuery = `
       SELECT mousesno, monitorsno, cpusno, keyboardsno
       FROM computer_master
-      WHERE systemno = "${systemno}" AND location = "${location}"
+      WHERE systemno = ${systemno} AND location = "${location}"
     `;
+
     db.query(selectQuery, (selectErr, selectResult) => {
       if (selectErr) {
-        console.log(selectErr);
+        console.log("error1");
       } else {
         if (selectResult.length > 0) {
           const existingValues = selectResult[0];
-        const updatedMousesno = mousesno || existingValues.mousesno;
-        const updatedMonitorsno = monitorsno || existingValues.monitorsno;
-        const updatedCpusno = cpusno || existingValues.cpusno;
-        const updatedKeyboardsno = keyboardsno || existingValues.keyboardsno;
+          const updatedMousesno = mousesno || existingValues.mousesno;
+          const updatedMonitorsno = monitorsno || existingValues.monitorsno;
+          const updatedCpusno = cpusno || existingValues.cpusno;
+          const updatedKeyboardsno = keyboardsno || existingValues.keyboardsno;
 
-        const isSingleSerialInput = (
-          (existingValues.mousesno === null || existingValues.mousesno === "") &&
-          (existingValues.monitorsno === null || existingValues.monitorsno === "") &&
-          (existingValues.cpusno === null || existingValues.cpusno === "") &&
-          (existingValues.keyboardsno === null || existingValues.keyboardsno === "") &&
-          (updatedMousesno !== "" || updatedMonitorsno !== "" || updatedCpusno !== "" || updatedKeyboardsno !== "")
-        );
-
-        if (isSingleSerialInput) {
-          console.log("Error: New entry requires all serial numbers to be provided.");
-        } else {
           const updateQuery = `
             UPDATE computer_master 
             SET 
@@ -52,54 +42,54 @@ exports.assemble = function(req, res) {
               monitorsno = "${updatedMonitorsno}",
               cpusno = "${updatedCpusno}",
               keyboardsno = "${updatedKeyboardsno}"
-            WHERE systemno = "${systemno}" AND location = "${location}"
+            WHERE systemno = ${systemno} AND location = "${location}"
           `;
 
           db.query(updateQuery, (updateErr, updateResult) => {
             if (updateErr) {
-              console.log(updateErr);
+              res.redirect("/assemble");
+
             } else {
-              if (updateResult.affectedRows > 0) {
-                console.log("Updated successfully in Computer Master");
-              } else {
-                console.log("No matching record found in Computer Master. Inserting a new row instead.");
-                const insertQuery = `
-                  INSERT INTO computer_master (systemno, location, mousesno, monitorsno, cpusno, keyboardsno)
-                  VALUES ("${systemno}", "${location}", "${updatedMousesno}", "${updatedMonitorsno}", "${updatedCpusno}", "${updatedKeyboardsno}")
-                `;
-                db.query(insertQuery, (insertErr, insertResult) => {
-                  if (insertErr) {
-                    console.log(insertErr);
-                  } else {
-                    console.log("Inserted successfully in Computer Master");
-                  }
-                });
+              const updateLocationQuery = `
+                UPDATE device_master
+                SET location = "${location}"
+                WHERE serialno IN ("${updatedMousesno}", "${updatedMonitorsno}", "${updatedCpusno}", "${updatedKeyboardsno}")
+              `;
 
-                const updateLocationQuery = `
-                  UPDATE device_master
-                  SET location = "${location}"
-                  WHERE serialno IN ("${updatedMousesno}", "${updatedMonitorsno}", "${updatedCpusno}", "${updatedKeyboardsno}")
-                `;
+              db.query(updateLocationQuery, (updateLocationErr, updateLocationResult) => {
+                count++;
+                if (count === totalRecords) {
+                  res.redirect("/assemble");
+                }
+              });
+            }
+          });
+        } else {
+          const insertQuery = `
+            INSERT INTO computer_master (systemno, location, mousesno, monitorsno, cpusno, keyboardsno)
+            VALUES (${systemno}, "${location}", "${mousesno}", "${monitorsno}", "${cpusno}", "${keyboardsno}")
+          `;
 
-                db.query(updateLocationQuery, (updateLocationErr, updateLocationResult) => {
-                  if (updateLocationErr) {
-                    console.log(updateLocationErr);
-                  } else {
-                    console.log("Updated location successfully in Device Master");
-                  }
-                });
-              }
-              count++;
+          db.query(insertQuery, (insertErr, insertResult) => {
+            if (insertErr) {
+              res.redirect("/assemble");
+            } else {
+              const updateLocationQuery = `
+                UPDATE device_master
+                SET location = "${location}"
+                WHERE serialno IN ("${mousesno}", "${monitorsno}", "${cpusno}", "${keyboardsno}")
+              `;
 
-              if (count === totalRecords) {
-                res.redirect("/assemble");
-              }
+              db.query(updateLocationQuery, (updateLocationErr, updateLocationResult) => {
+                count++;
+                if (count === totalRecords) {
+                  res.redirect("/assemble");
+                }
+              });
             }
           });
         }
       }
-    
+    });
   }
-  });
-}
 }
