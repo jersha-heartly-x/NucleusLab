@@ -48,7 +48,7 @@ exports.authorize_dumpList = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      const updateDeviceQ = `UPDATE device_master SET location = "dump" WHERE serialno IN (SELECT serialno FROM dump WHERE verify = "verified")`;
+      const updateDeviceQ = `UPDATE device_master SET location = "Dump" WHERE serialno IN (SELECT serialno FROM dump WHERE verify = "verified")`;
 
       db.query(updateDeviceQ, (err, deviceResult) => {
         if (err) {
@@ -72,8 +72,6 @@ exports.authorize_dumpList = (req, res) => {
             if (err) {
               console.log(err);
             } else {
-              console.log("Serial numbers deleted from computer_master");
-              console.log("Serial number locations updated to 'dump' in device_master");
               res.redirect("/authorize_dump");
             }
           });
