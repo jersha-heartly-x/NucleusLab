@@ -1,26 +1,6 @@
 const db = require("../db");
 const fs = require("fs");
 
-exports.report = (req, res) => {
-  const q = `SELECT * FROM device_master WHERE verify = "verified" ORDER BY devicetype`;
-
-  db.query(q, (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("report", {
-        title: "Report",
-        menu: "Report",
-        stock: result,
-        filter: "All",
-        status: "All",
-        location: "All",
-        locationDropdowns: locationDropdown,
-      });
-    }
-  });
-};
-
 exports.filterRequest = (req, res) => {
 
   const reportBy = req.body.reportBy || "All";
@@ -52,10 +32,10 @@ exports.filterRequest = (req, res) => {
              FROM device_master 
              WHERE verify = 'verified' AND status = 'Working' 
              ORDER BY devicetype`;
-      } else if (status === 'notworking') {
+      } else if (status === 'Not Working') {
         q = `SELECT serialno, devicetype, location 
              FROM device_master 
-             WHERE verify = 'verified' AND status = 'notworking' 
+             WHERE verify = 'verified' AND status = 'Not Working' 
              ORDER BY devicetype`;
       } else if (location !== 'All') {
         q = `SELECT * 
@@ -64,7 +44,7 @@ exports.filterRequest = (req, res) => {
              ORDER BY systemno`;
         params.push(location);
       } else if (reportBy === 'All' || status === 'All' || location === 'All') {        
-        q = `SELECT * FROM device_master`;
+        q = `SELECT * FROM device_master WHERE verify = 'verified' ORDER BY location`;
       }
 
       db.query(q, params, (err, result) => {
@@ -109,10 +89,10 @@ exports.downloadReport = (req, res) => {
              FROM device_master
              WHERE verify = 'verified' AND status = 'Working'
              ORDER BY devicetype`;
-      } else if (status === 'notworking') {
+      } else if (status === 'Not Working') {
         q = `SELECT serialno, devicetype, location
              FROM device_master
-             WHERE verify = 'verified' AND status = 'notworking'
+             WHERE verify = 'verified' AND status = 'Not Working'
              ORDER BY devicetype`;
       } else if (location !== 'All') {
         q = `SELECT *
@@ -128,9 +108,8 @@ exports.downloadReport = (req, res) => {
       }
       function convertToCSV(data) {
         if (data.length === 0) {
-          return ""; // Return an empty string if the data array is empty
+          return ""; 
         }
-      
         const headers = Object.keys(data[0]).join(",") + "\n";
         const rows = data.map((row) => Object.values(row).join(",") + "\n");
         return headers + rows.join("");
@@ -139,15 +118,12 @@ exports.downloadReport = (req, res) => {
       db.query(q, params, (err, result) => {
         if (err) {
           console.log(err);
-        } else {
-          console.log('Query Result:', result); // Add this line to check the query result
-    
+        } else {    
           const csvData = convertToCSV(result);
           const fileName = "report.csv";
           res.setHeader("Content-Type", "text/csv");
           res.setHeader("Content-Disposition", `attachment; filename=report.csv`);
              
-          // Send the CSV data as a response
           res.send(csvData);
         }
       });
