@@ -4,42 +4,37 @@ exports.dump = (req, res) => {
   const serialNos = Array.isArray(req.body["serialno"]) ? req.body["serialno"] : [req.body["serialno"]];
   const dumpDate = req.body["fdate"];
 
-  const successSerialNos = []; 
+  const successSerialNos = [];
   const errorMessages = [];
 
   const promises = serialNos.map((serialNo, index) => {
-    const checkQuery = `SELECT * FROM dump WHERE serialno = "${serialNo}"`;
+    const checkStatusQuery = `SELECT status FROM device_master WHERE serialno = "${serialNo}"`;
 
     return new Promise((resolve, reject) => {
-      db.query(checkQuery, (checkErr, checkResult) => {
-        if (checkErr) {
-          console.log(checkErr);
-          reject(checkErr);
-        } else if (checkResult.length > 0) {
-          const errorMsg = `Serial number ${serialNo} already exists in row ${index + 1}`;
-          console.log(errorMsg);
+      db.query(checkStatusQuery, (statusErr, statusResult) => {
+        if (statusErr) {
+          console.log(statusErr);
+          reject(statusErr);
+        } else if (statusResult.length === 0) {
           errorMessages.push(errorMsg);
           resolve();
         } else {
-          const insertQuery = `INSERT INTO dump (serialno, disposaldate) VALUES ('${serialNo}', '${dumpDate}')`;
-          db.query(insertQuery, (insertErr) => {
-            if (insertErr) {
-              console.log(`Error inserting serial number ${serialNo}: ${insertErr}`);
-              reject(insertErr);
-            } else {
-              const updateLocationQuery = `UPDATE device_master SET location = 'dump' WHERE serialno = '${serialNo}'`;
-              db.query(updateLocationQuery, (updateErr) => {
-                if (updateErr) {
-                  console.log(`Error updating location for serial number ${serialNo}: ${updateErr}`);
-                  reject(updateErr);
-                } else {
-                  console.log(`Inserted serial number ${serialNo} successfully and updated location`);
-                  successSerialNos.push(serialNo);
-                  resolve();
-                }
-              });
-            }
-          });
+          const status = statusResult[0].status;
+          if (status === 'Not Working') {
+            const insertQuery = `INSERT INTO dump (serialno, disposaldate) VALUES ('${serialNo}', '${dumpDate}')`;
+            db.query(insertQuery, (insertErr) => {
+              if (insertErr) {
+                reject(insertErr);
+              } else {
+                successSerialNos.push(serialNo);
+                resolve();
+              }
+            });
+          } else {
+            const errorMsg = `Serial number ${serialNo} has status '${status}' and cannot be sent to dump`;
+            errorMessages.push(errorMsg);
+            resolve();
+          }
         }
       });
     });
@@ -48,12 +43,7 @@ exports.dump = (req, res) => {
   Promise.all(promises)
     .then(() => {
       if (errorMessages.length > 0) {
-        const notInsertedSerialNumbers = errorMessages.map((errorMsg) => {
-          const match = /Serial number (\S+) already exists in/.exec(errorMsg);
-          return match ? match[1] : null;
-        });
-        const alert = `Serial numbers ${notInsertedSerialNumbers.join(", ")} are already inserted, others inserted successfully`;
-
+        const alert = errorMessages.join(", ");
         res.render("dump", {
           title: "Dump",
           alert,
@@ -63,7 +53,6 @@ exports.dump = (req, res) => {
         });
       } else {
         const success = "Serial numbers sent to dump successfully";
-
         res.render("dump", {
           title: "Dump",
           success,
@@ -73,7 +62,6 @@ exports.dump = (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
       res.render("dump", {
         title: "Dump",
         alert: "Insertion unsuccessful",
