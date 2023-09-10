@@ -19,6 +19,7 @@ exports.displayDevice = function(req, res) {
 };
 
 exports.addstock = function (req, res) {
+  
   const invoiceNo = req.body["Inv_no"];
   const invoiceDate = req.body["fdate"];
   const deviceTypes = Array.isArray(req.body["devicetype"]) ? req.body["devicetype"] : [req.body["devicetype"]];
@@ -31,6 +32,7 @@ exports.addstock = function (req, res) {
 
   Promise.all(
     serialNos.map((serialNo, index) => {
+      serialNo = serialNo.toUpperCase();
       const deviceType = deviceTypes[index];
       const model = models[index];
       const specification = specifications[index];
@@ -93,7 +95,7 @@ exports.addstock = function (req, res) {
             const devices = devicesFromDB.map(device => device.devicetype);
             res.render("addstock", {
               title: "Add Stock",
-              devices: devices,
+              devices: devices, 
               success: "Inserted Successfully!",
               successSerialNumbers,
             });
