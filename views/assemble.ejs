@@ -70,12 +70,12 @@
             var cell4 = row.insertCell(3);
             var cell5 = row.insertCell(4);
             var cell6 = row.insertCell(5);
-            cell1.innerHTML = "<input type='text' name='systemno[]' class='form-control' required>";
+            cell1.innerHTML = "<input type='text' name='systemno[]' class='form-control' autocomplete='off' required>";
             cell2.innerHTML = "<select class='form-select' name='location[]' required></select>";   
-            cell3.innerHTML = "<input type='text' name='monitorsno[]' class='form-control' required>";
-            cell4.innerHTML = "<input type='text' name='cpusno[]' class='form-control' required>";
-            cell5.innerHTML = "<input type='text' name='keyboardsno[]' class='form-control' required>";
-            cell6.innerHTML = "<input type='text' name='mousesno[]' class='form-control' required>";
+            cell3.innerHTML = "<input type='text' name='monitorsno[]' class='form-control' autocomplete='off'>";
+            cell4.innerHTML = "<input type='text' name='cpusno[]' class='form-control' autocomplete='off'>";
+            cell5.innerHTML = "<input type='text' name='keyboardsno[]' class='form-control' autocomplete='off'>";
+            cell6.innerHTML = "<input type='text' name='mousesno[]' class='form-control' autocomplete='off'>";
         
             var select = cell2.querySelector("select");
             var prevSelect = document.querySelector("select[name='location']");

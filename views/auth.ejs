@@ -1,85 +1,59 @@
-<% if(role === "lab_assistant") { %>
-    <%-include('partials/header_lab') %>
+<%-include('partials/header_admin'); %> 
+    
+    <div class="schedule rounded p-3 mx-lg-1">
+    
+        <h4 class="m-5">Devices List</h4>
+ 
+    
+        <% if(stock.length != 0) { %>
+        <div class="table-responsive">
+        <table class="table text-center">
+                
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">serialno</th>
+                    <th scope="col">devicetype</th>
+                    <th scope="col">model</th>
+                    <th scope="col">invoiceno</th>
+                    <th scope="col">invoicedate</th>
+                    <th scope="col">specification</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <% for(let i=0; i<stock.length; i++) { %>
+                <tr>
+                    <td><%= i+1 %></td>
+                    <td><%= stock[i].serialno %></td>
+                    <td><%= stock[i].devicetype %></td>
+                    <td><%= stock[i].model %></td>
+                    <td><%= stock[i].invoiceno %></td>
+                    <td><%= new Date(stock[i].invoicedate).toLocaleDateString("en-IN") %></td>
+                    <td><%= stock[i].specification%></td>
+
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+        <form action="/verify-stock" method="post">
+
+            <div class="text-center ">
+                    <input class="btn rounded-pill btn-block update w-25" type="submit" name="submit" value="VERIFY" id="submitBtn">
+            </div>
+        </form>
+    </div>
     <% } else { %>
-    <%-include('partials/header')%>
+        <div class="col-sm-5 col-md-5 col-lg-5 mt-5 mx-auto d-flex align-items-center row">
+            <img src="images/nothing.png" class="w-75 w-md-50 mx-auto" alt="">
+            <p class="fw-bold text-center">No stock to authorize!</p>
+        </div>
     <% } %>
-     
-    <% var rowCount = 1; %>
-    <form action="/assemble" method="post" class="mx-auto">
-    
-    <table class="table text-center table-striped" id="myTable">
-    <div class="table-responsive mt-5"  >
-        <tr style="color: #5853BC;">
-            <th>System no.</th>
-            <th>Location</th>
-            <th>Monitor SNo</th>
-            <th>CPU SNo</th>
-            <th>Keyboard SNo</th>
-            <th>Mouse SNo</th>
-        </tr>
-    </div>
-    
-    <tr>
-        <td><label for="systemno" class="col-sm-3 col-form-label"></label>
-        <input type="text" class="form-control" id="systemno" name="systemno" autocomplete="off"></td>
-    
-    
-        <td><label for="location" class="col-sm-3 col-form-label"></label>
-            <div class="col">
-                <select class="form-select" aria-label="Default select example" id="location" name="location" 
-                    onchange="">
-                    <option value=""></option>
-                    <% for(let i=0; i<location.length; i++) { %>
-                        <option value="<%= location[i] %>"><%= location[i] %></option>
-                    <% } %>
-            </div></td>
-            <td><label for="monitorsno" class="col-sm-3 col-form-label"></label>
-            <input type="text" class="form-control" id="monitorsno" name="monitorsno" autocomplete="off"></td> 
-            <td><label for="cpusno" class="col-sm-3 col-form-label"></label>
-            <input type="text" class="form-control" id="cpusno" name="cpusno" autocomplete="off"></td> 
-            <td><label for="keyboardsno" class="col-sm-3 col-form-label"></label>
-            <input type="text" class="form-control" id="keyboardsno" name="keyboardsno" autocomplete="off"></td>
-            <td><label for="mousesno" class="col-sm-3 col-form-label"></label>
-            <input type="text" class="form-control" id="mousesno" name="mousesno" autocomplete="off"></td>
-    </tr></div>
-    
-    </table>
-    <div class="text-left">
-    <input class="btn btn-block request" type="button" value="Add Row" id="submitBtn" onclick="addRow()">
-    </div>
-    <div class="text-center">
-        <input class="btn btn-block request" type="submit" name="Submit" value="Submit" id="submitBtn">
-      </div>
-    </form>
-    
-    <%-include('partials/footer')%>
+
+    <%-include ('partials/footer'); %>
     <style>  
         #submitBtn{
             background-color: #5853BC;
             color:white;
         }
     </style>
-    <script>
-        function addRow() {
-            var table = document.getElementById("myTable");
-            var rowCount = table.rows.length;
-            var row = table.insertRow(rowCount);
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-            var cell3 = row.insertCell(2);
-            var cell4 = row.insertCell(3);
-            var cell5 = row.insertCell(4);
-            var cell6 = row.insertCell(5);
-            cell1.innerHTML = "<input type='text' name='systemno[]' class='form-control' required>";
-            cell2.innerHTML = "<select class='form-select' name='location[]' required></select>";   
-            cell3.innerHTML = "<input type='text' name='monitorsno[]' class='form-control' required>";
-            cell4.innerHTML = "<input type='text' name='cpusno[]' class='form-control' required>";
-            cell5.innerHTML = "<input type='text' name='keyboardsno[]' class='form-control' required>";
-            cell6.innerHTML = "<input type='text' name='mousesno[]' class='form-control' required>";
-        
-            var select = cell2.querySelector("select");
-            var prevSelect = document.querySelector("select[name='location']");
-            select.innerHTML = prevSelect.innerHTML;
-          }
-    
-        </script>
