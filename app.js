@@ -17,10 +17,10 @@ const assemble = require("./routes/assemble");
 const authorize= require("./routes/authorize");
 const dump = require("./routes/dump");
 const report= require("./routes/report");
-
 const getCookie = require("./middlewares/getcookie");
-
+const db = require("./db.js");
 const app = express();
+app.disable("x-powered-by");
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -494,34 +494,18 @@ app.post("/resolve-complaints", getCookie.getCookie, (req, res) => {
   if (res.locals.role == "lab_assistant") complaint.resolveComplaints(req, res);
   else res.render("denial");
 });
-app.get("/addstock", getCookie.getCookie, (req, res) => {
-  if (res.locals.role === "lab_assistant") {
-    addstock.displayDevice(req, res);
-  } else {
-    res.render("denial");
-  }
-});
-app.post("/addstock", getCookie.getCookie, (req, res) => {
-  if (res.locals.role === "lab_assistant") {
-    addstock.displayDevice(req, res);
-  } else {
-    res.render("denial");
-  }
-});
-app.get("/addstock", getCookie.getCookie, (req, res) => {
 
-  switch (res.locals.role) {
-    case "lab_assistant":
-      addstock.addstock(req, res);
-      break;
-    default:
-      res.render("denial");
-  }
-});
 app.post("/addstock", getCookie.getCookie, (req, res) => {
-  console.log("addstock");
   if (res.locals.role === "lab_assistant") {
     addstock.addstock(req, res);
+  } else {
+    res.render("denial");
+  }
+});
+
+app.post("/addstock", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant") {
+    addstock.displayDevice(req, res);
   } else {
     res.render("denial");
   }
@@ -614,9 +598,9 @@ app.get("/location", getCookie.getCookie, (req, res) => {
 
 app.get("/assemble", getCookie.getCookie, (req, res) => {
   switch (res.locals.role) {
-    case "admin":
+    
     case "lab_assistant":
-    case "teacher":
+    
       status.getLocationDropdown((err, locationDropdown) => {
         if (err) {
           console.log(err);
@@ -629,7 +613,7 @@ app.get("/assemble", getCookie.getCookie, (req, res) => {
           });
         }
       });
-      break;
+      break; 
     default:
       res.render("denial");
   }
@@ -637,9 +621,9 @@ app.get("/assemble", getCookie.getCookie, (req, res) => {
 
 app.post("/assemble", getCookie.getCookie, (req, res) => {
   switch (res.locals.role) {
-    case "admin":
+    
     case "lab_assistant":
-    case "teacher":
+    
       assemble.assemble(req, res);
       break;
     default:
@@ -693,6 +677,7 @@ app.post("/dump", getCookie.getCookie, (req, res) => {
   }
 });
 
+
 app.get("/report", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "lab_assistant" || res.locals.role === "admin") {
     status.getLocationDropdown((err, locationDropdown) => {
@@ -702,14 +687,14 @@ app.get("/report", getCookie.getCookie, (req, res) => {
       } else {
         res.render("report", {
           title: "Report",
-          menu: "",
+          menu: "Report",
+          filter: req.query.reportBy || "All",
+          status: req.query.status || "All",
+          location: req.query.location || "All",
+          locationDropdown: locationDropdown,
           location: locationDropdown,
           stock: [], 
-          filter: "All",
-          status: "All",
-          lab: "All",
           locationDropdowns: locationDropdown,
-
         });
       }
     });
@@ -719,38 +704,6 @@ app.get("/report", getCookie.getCookie, (req, res) => {
 });
 
 app.post("/report", getCookie.getCookie, (req, res) => {
-  if (res.locals.role === "admin" || res.locals.role === "lab_assistant") {
-    report.filterRequest(req, res);
-  } else {
-    res.render("denial");
-  }
-});
-
-// app.js
-app.get("/filter", getCookie.getCookie, (req, res) => {
-  if (res.locals.role === "lab_assistant") {
-    status.getLocationDropdown((err, locationDropdown) => {
-      if (err) {
-        console.log(err);
-        res.render("error", { errorMessage: "An error occurred" });
-      } else {
-        // Render the filter page and pass the current filter values and location dropdown
-        res.render("filter", {
-          title: "Filter",
-          menu: "Filter",
-          filter: req.query.reportBy || "All",
-          status: req.query.status || "All",
-          location: req.query.location || "All",
-          locationDropdown: locationDropdown,
-        });
-      }
-    });
-  } else {
-    res.render("denial");
-  }
-});
-
-app.post("/filter", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "admin" || res.locals.role === "lab_assistant") {
     report.filterRequest(req, res);
   } else {
