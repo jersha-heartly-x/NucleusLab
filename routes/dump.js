@@ -31,7 +31,7 @@ exports.dump = (req, res) => {
               }
             });
           } else {
-            const errorMsg = `Serial number ${serialNo} has status '${status}' and cannot be sent to dump`;
+            const errorMsg = `Serial number ${serialNo} has status '${status}'`;
             errorMessages.push(errorMsg);
             resolve();
           }
