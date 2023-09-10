@@ -1,11 +1,18 @@
-<%- include('partials/header_lab'); %> 
+<% if(role === "lab_assistant") { %>
+  <%-include('partials/header_lab') %>
+  <% }else { %>
+  <%-include('partials/header_admin') %>
+  <% } %>
     
-<div class="schedule rounded p-3 mx-lg-1">
+  <div class="schedule rounded p-3 mx-lg-6">
+    <div class="m-3 row">
+        <div class="mb-3 col-sm-6">
+            <h4 class="text-center float-sm-start">View Report</h4>
+        </div>
     
-    <h4 class="m-5">Devices List</h4>
-    <form action="/filter" method="post" class="mx-5">
+    <form action="/report" method="post" class="mx-auto">
 
-        <div class="mb-3 row">
+        <div class="mb-2 row">
             <label for="reportBy" class="col-sm-3 col-form-label">Report By</label>
             <div class="col-sm-5">
                 <select class="form-select" id="reportBy" name="reportBy" placeholder="reportBy" onchange="">
@@ -22,7 +29,7 @@
                 <select class="form-select" id="status" name="status" placeholder="status" onchange="">
                     <option value="All" <%= status === "All" ? "selected" : "" %> >All</option>
                     <option value="working" <%= status === "working" ? "selected" : "" %> >Working</option>
-                    <option value="notworking" <%= status === "notworking" ? "selected" : "" %> >Not Working</option>
+                    <option value="Not Working" <%= status === "Not Working" ? "selected" : "" %> >Not Working</option>
                 </select>
             </div>
         </div>
@@ -39,7 +46,7 @@
         </div>
         
         <div class="text-center mb-5">
-            <input class="btn btn-block request" type="submit" name="submit" value="View" id="submitBtn" onclick="formCheck(event)">
+            <input class="btn btn-block request" type="submit" name="submit" value="View" id="submitBtn" >
         </div>
     </form>
     <% if (stock.length > 0) { %>
@@ -69,7 +76,7 @@
                 <th scope="col">Serial No.</th>
                 <th scope="col">Device Type</th>
                 <th scope="col">Location</th>
-              <% } else if (status === 'notworking') { %>
+              <% } else if (status === 'Not Working') { %>
                 <th scope="col">Serial No.</th>
                 <th scope="col">Device Type</th>
                 <th scope="col">Location</th>
@@ -115,7 +122,7 @@
                   <td><%= device.devicetype %></td>
                   <td><%= device.location %></td>
                 </tr>
-              <% } else if (status === 'notworking') { %>
+              <% } else if (status === 'Not Working') { %>
                 <tr>
                   <td><%= device.serialno %></td>
                   <td><%= device.devicetype %></td>
@@ -149,7 +156,7 @@
         </table>
       </div>
     <% }%>
-
+    <%-include ('partials/footer')%>
 <style>
   #submitBtn{
     background-color: #5853BC;
