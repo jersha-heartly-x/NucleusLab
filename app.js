@@ -495,6 +495,34 @@ app.post("/resolve-complaints", getCookie.getCookie, (req, res) => {
   else res.render("denial");
 });
 
+
+app.get("/addstock", getCookie.getCookie, (req, res) => {
+  switch (res.locals.role) {
+    case "lab_assistant":
+      db.query("SELECT DISTINCT devicetype FROM device", (err, result) => {
+        if(err){
+          console.log(err);
+        }
+        else{
+          const deviceTypes = [];
+          for (let i = 0; i < result.length; i++) {
+            deviceTypes.push(result[i].devicetype);
+          }  
+          res.render("addstock", {
+            title: "Add Stock",
+            devices: deviceTypes,
+            role: res.locals.role,
+            isPR: res.locals.isPR,
+          });
+        }
+      })
+     
+      break;
+    default:
+      res.render("denial");
+  }
+});
+
 app.post("/addstock", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "lab_assistant") {
     addstock.addstock(req, res);
