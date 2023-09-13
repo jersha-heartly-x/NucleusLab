@@ -1,5 +1,7 @@
 <% if(role === "admin") { %>
 <%-include('partials/header_admin')%>
+<% } else if(role === "lab_assistant") { %>
+<%-include('partials/header_lab')%>
 <% } else { %>
 <%-include('partials/header')%>
 <% } %>

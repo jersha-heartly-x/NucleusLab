@@ -14,9 +14,9 @@ const wifi = require("./routes/wifi");
 const addstock = require("./routes/addstock");
 const status = require("./routes/status");
 const assemble = require("./routes/assemble");
-const authorize= require("./routes/authorize");
+const authorize = require("./routes/authorize");
 const dump = require("./routes/dump");
-const report= require("./routes/report");
+const report = require("./routes/report");
 const getCookie = require("./middlewares/getcookie");
 const db = require("./db.js");
 const app = express();
@@ -495,19 +495,17 @@ app.post("/resolve-complaints", getCookie.getCookie, (req, res) => {
   else res.render("denial");
 });
 
-
 app.get("/addstock", getCookie.getCookie, (req, res) => {
   switch (res.locals.role) {
     case "lab_assistant":
       db.query("SELECT DISTINCT devicetype FROM device", (err, result) => {
-        if(err){
+        if (err) {
           console.log(err);
-        }
-        else{
+        } else {
           const deviceTypes = [];
           for (let i = 0; i < result.length; i++) {
             deviceTypes.push(result[i].devicetype);
-          }  
+          }
           res.render("addstock", {
             title: "Add Stock",
             devices: deviceTypes,
@@ -515,8 +513,8 @@ app.get("/addstock", getCookie.getCookie, (req, res) => {
             isPR: res.locals.isPR,
           });
         }
-      })
-     
+      });
+
       break;
     default:
       res.render("denial");
@@ -546,6 +544,7 @@ app.post("/add_device", getCookie.getCookie, (req, res) => {
     res.render("denial");
   }
 });
+
 app.get("/addcomputer", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "lab_assistant")
     res.render("addcomputer", {
@@ -554,6 +553,7 @@ app.get("/addcomputer", getCookie.getCookie, (req, res) => {
     });
   else res.render("denial");
 });
+
 app.post("/addcomputer", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "lab_assistant") {
     addstock.addcomputer(req, res);
@@ -561,22 +561,27 @@ app.post("/addcomputer", getCookie.getCookie, (req, res) => {
     res.render("denial");
   }
 });
+
 app.get("/auth", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "admin") authorize.auth(req, res);
   else res.render("denial");
 });
+
 app.post("/auth", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "admin") authorize.auth(req, res);
   else res.render("denial");
 });
+
 app.post("/verify-stock", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "admin") authorize.authorizeStock(req, res);
   else res.render("denial");
 });
+
 app.get("/authorize_dump", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "admin") authorize.authorize_dump(req, res);
   else res.render("denial");
 });
+
 app.post("/authorize_dump", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "admin") authorize.authorize_dump(req, res);
   else res.render("denial");
@@ -595,6 +600,7 @@ app.get("/status", getCookie.getCookie, (req, res) => {
     });
   else res.render("denial");
 });
+
 app.post("/status", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "lab_assistant") {
     status.status(req, res);
@@ -614,7 +620,7 @@ app.get("/location", getCookie.getCookie, (req, res) => {
           res.render("location", {
             location: locationDropdown,
             title: "Location",
-            menu: "Location"
+            menu: "Location",
           });
         }
       });
@@ -626,9 +632,7 @@ app.get("/location", getCookie.getCookie, (req, res) => {
 
 app.get("/assemble", getCookie.getCookie, (req, res) => {
   switch (res.locals.role) {
-    
     case "lab_assistant":
-    
       status.getLocationDropdown((err, locationDropdown) => {
         if (err) {
           console.log(err);
@@ -637,11 +641,11 @@ app.get("/assemble", getCookie.getCookie, (req, res) => {
           res.render("assemble", {
             title: "Assemble Computer",
             menu: "",
-            location: locationDropdown
+            location: locationDropdown,
           });
         }
       });
-      break; 
+      break;
     default:
       res.render("denial");
   }
@@ -649,22 +653,20 @@ app.get("/assemble", getCookie.getCookie, (req, res) => {
 
 app.post("/assemble", getCookie.getCookie, (req, res) => {
   switch (res.locals.role) {
-    
     case "lab_assistant":
-    
       assemble.assemble(req, res);
       break;
     default:
       res.render("denial");
   }
 });
+
 app.get("/location", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "lab_assistant")
     res.render("location", {
       title: "Location",
       menu: "Location",
       location: labLoc,
-
     });
   else res.render("denial");
 });
@@ -685,13 +687,11 @@ app.post("/add_location", getCookie.getCookie, (req, res) => {
   }
 });
 
-
-
 app.get("/dump", getCookie.getCookie, (req, res) => {
   switch (res.locals.role) {
     case "lab_assistant":
       res.render("dump", { title: "DUMP", menu: "" });
-      break; 
+      break;
     default:
       res.render("denial");
   }
@@ -704,7 +704,6 @@ app.post("/dump", getCookie.getCookie, (req, res) => {
     res.render("denial");
   }
 });
-
 
 app.get("/report", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "lab_assistant" || res.locals.role === "admin") {
@@ -721,7 +720,7 @@ app.get("/report", getCookie.getCookie, (req, res) => {
           location: req.query.location || "All",
           locationDropdown: locationDropdown,
           location: locationDropdown,
-          stock: [], 
+          stock: [],
           locationDropdowns: locationDropdown,
         });
       }
@@ -739,12 +738,11 @@ app.post("/report", getCookie.getCookie, (req, res) => {
   }
 });
 
-
-app.post('/download', getCookie.getCookie, (req, res) => {
-  if (res.locals.role === 'admin' || res.locals.role === 'lab_assistant') {
+app.post("/download", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "admin" || res.locals.role === "lab_assistant") {
     report.downloadReport(req, res);
   } else {
-    res.render('denial');
+    res.render("denial");
   }
 });
 
