@@ -1,0 +1,127 @@
+<%-include('partials/header_lab') %>        
+<% if(locals.alert) { %>
+  <div class="alert alert-danger alert-dismissible fade show position-absolute start-50 translate-middle" role="alert" id="alert">
+      <%= alert %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+<% if(locals.success) { %>
+  <div class="alert alert-success alert-dismissible fade show position-absolute start-50 translate-middle" role="alert" id="alert">
+      <%= success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>    
+  <form action="/addcomputer" method="post" class="mx-auto">
+    <div class="mb-3 row">
+    <label for="Inv_no" class="col-sm-3 col-form-label">Invoice Number</label>
+    <div class="col">
+      <input type="text" class="form-control" id="Inv_no" name="Inv_no">
+    </div>
+  </div>
+  
+  <div class="mb-3 row">
+    <label for="fdate" class="col-sm-3 col-form-label">Invoice Date</label>
+    <div class="col">
+      <input type="date" class="form-control" id="fdate" name="fdate" onchange=" dateSelect();">
+    </div>
+  </div>
+  
+  <div class="table-responsive mt-5">
+    <table class="table text-center table-striped" id="myTable">
+      <tr style="color: #5853BC;">
+        <th>Serial no.</th>
+        <th>Device Type</th>
+        <th>MAC</th>
+        <th>RAM</th>
+        <th>Make and Model</th>
+        <th>Specification</th>
+      </tr>
+      <tr>
+        <td>
+          <label for="serial_no" class="col-sm-3 col-form-label"></label>
+          <input type="text" class="form-control" id="serial_no" name="serial_no[]" autocomplete="off" required>
+        </td>
+        <td>
+          <label for="devicetype" class="col-sm-3 col-form-label"></label>
+          <div class="col">
+            <select class="form-select" aria-label="Default select example" id="devicetype" name="devicetype[]">
+              <option value=""></option>
+              <option value="CPU">CPU</option>
+              <option value="Keyboard">Keyboard</option>
+              <option value="Monitor">Monitor</option>
+              <option value="Mouse">Mouse</option>
+            </select>
+          </div>
+        </td>
+        <td>
+            <label for="mac" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="form-control" id="mac" name="mac[]" autocomplete="off">
+        </td>
+        <td>
+            <label for="ram" class="col-sm-3 col-form-label"></label>
+            <input type="text" class="form-control" id="ram" name="ram">
+
+        </td>
+        <td>
+          <label for="Model" class="col-sm-3 col-form-label"></label>
+          <input type="text" class="form-control" id="Model" name="Model[]">
+        </td>
+        <td>
+          <label for="Specification" class="col-sm-3 col-form-label"></label>
+          <input type="text" class="form-control" id="Specification" name="Specification[]">
+        </td>
+
+      </tr>
+    </table>
+  </div>
+  
+  <div class="text-left">
+    <input class="btn btn-block request" type="button" value="Add Row" id="submitBtn" onclick="addRow()">
+  </div>
+
+  <div class="text-center">
+    <input class="btn btn-block request" type="submit" name="Submit" value="Submit" id="submitBtn">
+  </div>
+</form>
+</div>
+  
+<%- include('partials/footer') %>
+<style>  
+  #submitBtn{
+      background-color: #5853BC;
+      color:white;
+  }
+</style>
+<script>  
+function dateSelect() {
+  var fdateInput = document.getElementById("fdate");
+  
+  if (fdateInput && fdateInput.value) {
+    var selectedDate = fdateInput.value;
+  }
+}
+  function addRow() {
+  var table = document.getElementById("myTable");
+  var rowCount = table.rows.length;
+  var row = table.insertRow(rowCount);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+  var cell4 = row.insertCell(3);
+  var cell5 = row.insertCell(4);
+  var cell6 = row.insertCell(5);
+  cell1.innerHTML = "<input type='text' name='serial_no[]' class='form-control' autocomplete='off' >";
+  cell2.innerHTML = "<select class='form-select' name='devicetype[]'></select>";
+  cell3.innerHTML = "<input type='text' name='mac[]' class='form-control'autocomplete='off' >";
+  cell4.innerHTML = "<input type='text' name='ram[]' class='form-control'>";
+  cell5.innerHTML = "<input type='text' name='Model[]' class='form-control'>";
+  cell6.innerHTML = "<input type='text' name='Specification[]' class='form-control'>";
+
+  var select = cell2.querySelector("select"); 
+  var prevSelect = document.getElementById("devicetype");
+  select.innerHTML = prevSelect.innerHTML;
+}
+
+</script>
+</body>

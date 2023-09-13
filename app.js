@@ -11,10 +11,16 @@ const booking = require("./routes/booking");
 const blocking = require("./routes/blocking");
 const biometric = require("./routes/biometric");
 const wifi = require("./routes/wifi");
-
+const addstock = require("./routes/addstock");
+const status = require("./routes/status");
+const assemble = require("./routes/assemble");
+const authorize = require("./routes/authorize");
+const dump = require("./routes/dump");
+const report = require("./routes/report");
 const getCookie = require("./middlewares/getcookie");
-
+const db = require("./db.js");
 const app = express();
+app.disable("x-powered-by");
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -487,6 +493,257 @@ app.get("/resolve-complaints", getCookie.getCookie, (req, res) => {
 app.post("/resolve-complaints", getCookie.getCookie, (req, res) => {
   if (res.locals.role == "lab_assistant") complaint.resolveComplaints(req, res);
   else res.render("denial");
+});
+
+app.get("/addstock", getCookie.getCookie, (req, res) => {
+  switch (res.locals.role) {
+    case "lab_assistant":
+      db.query("SELECT DISTINCT devicetype FROM device", (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          const deviceTypes = [];
+          for (let i = 0; i < result.length; i++) {
+            deviceTypes.push(result[i].devicetype);
+          }
+          res.render("addstock", {
+            title: "Add Stock",
+            devices: deviceTypes,
+            role: res.locals.role,
+            isPR: res.locals.isPR,
+          });
+        }
+      });
+
+      break;
+    default:
+      res.render("denial");
+  }
+});
+
+app.post("/addstock", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant") {
+    addstock.addstock(req, res);
+  } else {
+    res.render("denial");
+  }
+});
+
+app.post("/addstock", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant") {
+    addstock.displayDevice(req, res);
+  } else {
+    res.render("denial");
+  }
+});
+
+app.post("/add_device", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant") {
+    addstock.addDevice(req, res);
+  } else {
+    res.render("denial");
+  }
+});
+
+app.get("/addcomputer", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant")
+    res.render("addcomputer", {
+      title: "Add Computer",
+      menu: "Add computer",
+    });
+  else res.render("denial");
+});
+
+app.post("/addcomputer", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant") {
+    addstock.addcomputer(req, res);
+  } else {
+    res.render("denial");
+  }
+});
+
+app.get("/auth", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "admin") authorize.auth(req, res);
+  else res.render("denial");
+});
+
+app.post("/auth", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "admin") authorize.auth(req, res);
+  else res.render("denial");
+});
+
+app.post("/verify-stock", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "admin") authorize.authorizeStock(req, res);
+  else res.render("denial");
+});
+
+app.get("/authorize_dump", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "admin") authorize.authorize_dump(req, res);
+  else res.render("denial");
+});
+
+app.post("/authorize_dump", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "admin") authorize.authorize_dump(req, res);
+  else res.render("denial");
+});
+
+app.post("/verify-dump", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "admin") authorize.authorize_dumpList(req, res);
+  else res.render("denial");
+});
+
+app.get("/status", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant")
+    res.render("status", {
+      title: "Update Status",
+      menu: "Update Status",
+    });
+  else res.render("denial");
+});
+
+app.post("/status", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant") {
+    status.status(req, res);
+  } else {
+    res.render("denial");
+  }
+});
+
+app.get("/location", getCookie.getCookie, (req, res) => {
+  switch (res.locals.role) {
+    case "lab_assistant":
+      status.getLocationDropdown((err, locationDropdown) => {
+        if (err) {
+          console.log(err);
+          res.render("error", { errorMessage: "An error occurred" });
+        } else {
+          res.render("location", {
+            location: locationDropdown,
+            title: "Location",
+            menu: "Location",
+          });
+        }
+      });
+      break;
+    default:
+      res.render("denial");
+  }
+});
+
+app.get("/assemble", getCookie.getCookie, (req, res) => {
+  switch (res.locals.role) {
+    case "lab_assistant":
+      status.getLocationDropdown((err, locationDropdown) => {
+        if (err) {
+          console.log(err);
+          res.render("error", { errorMessage: "An error occurred" });
+        } else {
+          res.render("assemble", {
+            title: "Assemble Computer",
+            menu: "",
+            location: locationDropdown,
+          });
+        }
+      });
+      break;
+    default:
+      res.render("denial");
+  }
+});
+
+app.post("/assemble", getCookie.getCookie, (req, res) => {
+  switch (res.locals.role) {
+    case "lab_assistant":
+      assemble.assemble(req, res);
+      break;
+    default:
+      res.render("denial");
+  }
+});
+
+app.get("/location", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant")
+    res.render("location", {
+      title: "Location",
+      menu: "Location",
+      location: labLoc,
+    });
+  else res.render("denial");
+});
+
+app.post("/location", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant") {
+    status.location(req, res);
+  } else {
+    res.render("denial");
+  }
+});
+
+app.post("/add-location", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant") {
+    status.addLocation(req, res);
+  } else {
+    res.render("denial");
+  }
+});
+
+app.get("/dump", getCookie.getCookie, (req, res) => {
+  switch (res.locals.role) {
+    case "lab_assistant":
+      res.render("dump", { title: "Dump", menu: "" });
+      break;
+    default:
+      res.render("denial");
+  }
+});
+
+app.post("/dump", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant") {
+    dump.dump(req, res);
+  } else {
+    res.render("denial");
+  }
+});
+
+app.get("/report", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "lab_assistant" || res.locals.role === "admin") {
+    status.getLocationDropdown((err, locationDropdown) => {
+      if (err) {
+        console.log(err);
+        res.render("error", { errorMessage: "An error occurred" });
+      } else {
+        res.render("report", {
+          title: "Report",
+          menu: "Report",
+          filter: req.query.reportBy || "All",
+          status: req.query.status || "All",
+          location: req.query.location || "All",
+          locationDropdown: locationDropdown,
+          location: locationDropdown,
+          stock: [],
+          locationDropdowns: locationDropdown,
+        });
+      }
+    });
+  } else {
+    res.render("denial");
+  }
+});
+
+app.post("/report", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "admin" || res.locals.role === "lab_assistant") {
+    report.filterRequest(req, res);
+  } else {
+    res.render("denial");
+  }
+});
+
+app.post("/download", getCookie.getCookie, (req, res) => {
+  if (res.locals.role === "admin" || res.locals.role === "lab_assistant") {
+    report.downloadReport(req, res);
+  } else {
+    res.render("denial");
+  }
 });
 
 app.get("*", (req, res) => {

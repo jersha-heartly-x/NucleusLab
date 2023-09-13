@@ -1,0 +1,52 @@
+<%-include('partials/header_lab') %>
+
+    <% if(locals.alert) { %>
+        <div class="alert alert-danger alert-dismissible fade show position-absolute start-50 translate-middle" role="alert" id="alert">
+            <%= alert %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% } %>
+    
+    <% if(locals.success) { %>
+        <div class="alert alert-success alert-dismissible fade show position-absolute start-50 translate-middle" role="alert" id="alert">
+            <%= success %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>   
+            <div class="main rounded col col-md-9 col-lg-10 mx-auto schedule">
+                
+                <h4 class="my-4">Update Status</h4>
+                
+                <div class="status col-md-10 col-lg-7 mx-auto">
+                    <form action="/status" method="post" class="mx-auto">
+        
+                        <div class="mb-3 row">
+                            <label for="serialno" class="col-sm-4 col-form-label">Serial Number</label>
+                            <div class="col">
+                                <input type="text" class="form-control" id="serialno" name="serialno" autocomplete="off">
+                            </div>
+                        </div>
+
+                         <div class="mb-3 row">
+                            <label for="deviceStatus" class="col-sm-4 col-form-label"> Status</label>
+                            <div class="col">
+                                <select class="form-select" aria-label="Default select example" id="deviceStatus" name="deviceStatus" 
+                                    onchange="">
+                                    <option value="Select device type"></option>
+                                    <option value="Working">Working</option>
+                                    <option value="Not Working">Not Working</option>
+                                </select>
+                            </div>
+
+                        <div class="text-center">
+                            <input class="btn btn-block request" type="submit" name="Submit" value="Submit" id="submitBtn" >
+                        </div>
+                    </form>
+                </div>
+<%-include('partials/footer')%> 
+<style>  
+    #submitBtn{
+        background-color: #5853BC;
+        color:white;
+    }
+</style>

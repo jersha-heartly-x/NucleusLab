@@ -1,0 +1,52 @@
+<%-include('partials/header_admin'); %> 
+    
+<div class="schedule rounded p-3 mx-lg-1">
+    <h4 class="m-5">Disposal List</h4>
+
+    <% if(dump.length != 0) { %>
+    <div class="table-responsive">
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">serialno</th>
+                    <th scope="col">Devicetype</th>
+                    <th scope="col">Disposal Date</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <% for(let i=0; i<dump.length; i++) { %>
+                <tr>
+                    <td><%= i+1 %></td>
+                    <td><%= dump[i].serialno %></td>
+                    <td><%= dump[i].devicetype %></td>
+                    <td><%= new Date(dump[i].disposaldate).toLocaleDateString("en-IN") %></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+     
+    <form action="/verify-dump" method="post">
+        <div class="text-center">
+            <input class="btn rounded-pill btn-block update w-25" type="submit" name="submit" value="VERIFY" id="submitBtn">
+        </div>
+    </form>
+
+    <% } else { %>
+    <div class="col-sm-5 col-md-5 col-lg-5 mt-5 mx-auto d-flex align-items-center row">
+        <img src="images/nothing.png" class="w-75 w-md-50 mx-auto" alt="">
+        <p class="fw-bold text-center">No disposal items to verify!</p>
+    </div>
+    <% } %>
+
+</div>
+
+<%-include ('partials/footer'); %>
+<style>  
+    #submitBtn{
+        background-color: #5853BC;
+        color:white;
+    }
+</style>
