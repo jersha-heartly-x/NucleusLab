@@ -1,4 +1,4 @@
-const db = require("../db");
+const db = require("../db"); // Make sure to import your database configuration here
 
 exports.dump = (req, res) => {
   const serialNos = Array.isArray(req.body["serialno"]) ? req.body["serialno"] : [req.body["serialno"]];
@@ -8,22 +8,24 @@ exports.dump = (req, res) => {
   const errorMessages = [];
 
   const promises = serialNos.map((serialNo, index) => {
-    const checkStatusQuery = `SELECT status FROM device_master WHERE serialno = "${serialNo}"`;
+    const checkStatusQuery = `SELECT status FROM device_master WHERE serialno = ?`;
 
     return new Promise((resolve, reject) => {
-      db.query(checkStatusQuery, (statusErr, statusResult) => {
+      db.query(checkStatusQuery, [serialNo], (statusErr, statusResult) => {
         if (statusErr) {
-          console.log(statusErr);
+          console.error(statusErr);
           reject(statusErr);
         } else if (statusResult.length === 0) {
+          const errorMsg = `Serial number ${serialNo} not found`;
           errorMessages.push(errorMsg);
           resolve();
         } else {
           const status = statusResult[0].status;
           if (status === 'Not Working') {
-            const insertQuery = `INSERT INTO dump (serialno, disposaldate) VALUES ('${serialNo}', '${dumpDate}')`;
-            db.query(insertQuery, (insertErr) => {
+            const insertQuery = "INSERT INTO dump (serialno, disposaldate) VALUES (?, ?)";
+            db.query(insertQuery, [serialNo, dumpDate], (insertErr) => {
               if (insertErr) {
+                console.error(insertErr);
                 reject(insertErr);
               } else {
                 successSerialNos.push(serialNo);
