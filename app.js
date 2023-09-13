@@ -679,7 +679,7 @@ app.post("/location", getCookie.getCookie, (req, res) => {
   }
 });
 
-app.post("/add_location", getCookie.getCookie, (req, res) => {
+app.post("/add-location", getCookie.getCookie, (req, res) => {
   if (res.locals.role === "lab_assistant") {
     status.addLocation(req, res);
   } else {
