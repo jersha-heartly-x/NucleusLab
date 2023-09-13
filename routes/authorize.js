@@ -8,7 +8,7 @@ exports.auth = (req, res) => {
       console.log(err);
     } else {
       res.render("auth", {
-        title: "AUTHORIZE STOCK",
+        title: "Authorize Stock",
         menu: "Authorize Stock",
         stock: result,
       });
