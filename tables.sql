@@ -88,59 +88,81 @@ CREATE TABLE WIFI (
   PRIMARY KEY(ROLLNO)
 );
 
-CREATE TABLE `device_master` (
-  `model` varchar(50) DEFAULT NULL,
-  `status` varchar(20) NOT NULL DEFAULT 'Working',
-  `invoiceno` varchar(50) NOT NULL,
-  `invoicedate` date NOT NULL,
-  `location` varchar(10) NOT NULL DEFAULT 'Store',
-  `devicetype` varchar(30) NOT NULL,
-  `mac` varchar(20) DEFAULT NULL,
-  `ram` varchar(4) DEFAULT NULL,
-  `serialno` varchar(50) NOT NULL,
-  `specification` varchar(150) DEFAULT NULL,
-  PRIMARY KEY (`serialno`)
+CREATE TABLE `DEVICE_MASTER` (
+  `MODEL` VARCHAR(50) DEFAULT NULL,
+  `STATUS` VARCHAR(20) NOT NULL DEFAULT 'Working',
+  `INVOICENO` VARCHAR(50) NOT NULL,
+  `INVOICEDATE` VARCHAR(10) DEFAULT NULL,
+  `LOCATION` VARCHAR(10) NOT NULL DEFAULT 'Store',
+  `DEVICETYPE` VARCHAR(30) NOT NULL,
+  `MAC` VARCHAR(20) DEFAULT NULL,
+  `RAM` VARCHAR(8) DEFAULT NULL,
+  `SERIALNO` VARCHAR(50) NOT NULL,
+  `SPECIFICATION` VARCHAR(150) DEFAULT NULL,
+  `VERIFY` VARCHAR(50) DEFAULT 'not verified',
+  PRIMARY KEY (`SERIALNO`)
 );
 
-CREATE TABLE `computer_master`(
-  `location` varchar(10) DEFAULT NULL,
-  `mousesno` varchar(50) DEFAULT NULL,
-  `keyboardsno` varchar(50) DEFAULT NULL,
-  `monitorsno` varchar(50) DEFAULT NULL,
-  `cpusno` varchar(50) DEFAULT NULL,
-  `systemno` int DEFAULT NULL,
-  KEY `monitorsno` (`monitorsno`),
-  KEY `mousesno` (`mousesno`),
-  KEY `keyboardsno` (`keyboardsno`),
-  KEY `cpusno` (`cpusno`),
-  CONSTRAINT `computer_master_ibfk_1` FOREIGN KEY (`monitorsno`) REFERENCES `device_master` (`serialno`),
-  CONSTRAINT `computer_master_ibfk_2` FOREIGN KEY (`mousesno`) REFERENCES `device_master` (`serialno`),
-  CONSTRAINT `computer_master_ibfk_3` FOREIGN KEY (`keyboardsno`) REFERENCES `device_master` (`serialno`),
-  CONSTRAINT `computer_master_ibfk_4` FOREIGN KEY (`cpusno`) REFERENCES `device_master` (`serialno`)
+CREATE TABLE `DUMP` (
+  `DUMPID` INT NOT NULL AUTO_INCREMENT,
+  `DISPOSALDATE` VARCHAR(10) DEFAULT NULL,
+  `VERIFY` VARCHAR(15) DEFAULT 'not verified',
+  `SERIALNO` VARCHAR(50) DEFAULT NULL,
+  PRIMARY KEY (`DUMPID`),
+  UNIQUE KEY `UNIQUE_SERIALNO` (`SERIALNO`),
+  KEY `SERIALNO` (`SERIALNO`),
+  CONSTRAINT `DUMP_IBFK_1` FOREIGN KEY (`SERIALNO`) REFERENCES `DEVICE_MASTER`(`SERIALNO`)
 );
 
-CREATE TABLE  `dump` (
-  `dumpid` int NOT NULL AUTO_INCREMENT,
-  `disposaldate` varchar(10) DEFAULT NULL,
-  `verify` varchar(15) DEFAULT 'not verified',
-  `serialno` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`dumpid`),
-  KEY `serialno` (`serialno`),
-  CONSTRAINT `dump_ibfk_1` FOREIGN KEY (`serialno`) REFERENCES `device_master` (`serialno`)
-) ;
-
-CREATE TABLE `location` (
-  `lab` varchar(20) DEFAULT NULL
+CREATE TABLE `COMPUTER_MASTER` (
+  `LOCATION` VARCHAR(10) NOT NULL,
+  `MOUSESNO` VARCHAR(50) DEFAULT NULL,
+  `KEYBOARDSNO` VARCHAR(50) DEFAULT NULL,
+  `MONITORSNO` VARCHAR(50) DEFAULT NULL,
+  `CPUSNO` VARCHAR(50) DEFAULT NULL,
+  `SYSTEMNO` INT NOT NULL,
+  KEY `MONITORSNO` (`MONITORSNO`),
+  KEY `MOUSESNO` (`MOUSESNO`),
+  KEY `KEYBOARDSNO` (`KEYBOARDSNO`),
+  KEY `CPUSNO` (`CPUSNO`),
+  CONSTRAINT `COMPUTER_MASTER_IBFK_1` FOREIGN KEY (`MONITORSNO`) REFERENCES `DEVICE_MASTER` (`SERIALNO`),
+  CONSTRAINT `COMPUTER_MASTER_IBFK_2` FOREIGN KEY (`MOUSESNO`) REFERENCES `DEVICE_MASTER` (`SERIALNO`),
+  CONSTRAINT `COMPUTER_MASTER_IBFK_3` FOREIGN KEY (`KEYBOARDSNO`) REFERENCES `DEVICE_MASTER` (`SERIALNO`),
+  CONSTRAINT `COMPUTER_MASTER_IBFK_4` FOREIGN KEY (`CPUSNO`) REFERENCES `DEVICE_MASTER` (`SERIALNO`)
 );
 
-CREATE TABLE `device` (
-  `devicetype` varchar(20) DEFAULT NULL
+CREATE TABLE `DEVICE` (
+  `DEVICETYPE` VARCHAR(20) DEFAULT NULL
 );
 
-SELECT DATE_FORMAT(disposaldate, '%d/%m/%Y') AS disposaldate_formatted FROM dump;
-ALTER TABLE dump MODIFY disposaldate VARCHAR(10);
-UPDATE dump SET disposaldate = DATE_FORMAT(str_to_date(disposaldate, '%Y-%m-%d'), '%d/%m/%Y');
+CREATE TABLE `LOCATION` (
+  `LAB` VARCHAR(20) DEFAULT NULL
+);
 
-SELECT DATE_FORMAT(invoicedate, '%d/%m/%Y') AS invoicedate_formatted FROM device_master;
-ALTER TABLE device_master MODIFY invoicedate VARCHAR(10);
-UPDATE device_master SET invoicedate = DATE_FORMAT(str_to_date(invoicedate, '%Y-%m-%d'), '%d/%m/%Y');
+SELECT
+  DATE_FORMAT(DISPOSALDATE, '%d/%m/%Y') AS DISPOSALDATE_FORMATTED
+FROM
+  DUMP;
+
+ALTER TABLE DUMP MODIFY DISPOSALDATE VARCHAR(10);
+
+UPDATE DUMP
+SET
+  DISPOSALDATE = DATE_FORMAT(
+    STR_TO_DATE(DISPOSALDATE, '%Y-%m-%d'),
+    '%d/%m/%Y'
+  );
+
+SELECT
+  DATE_FORMAT(INVOICEDATE, '%d/%m/%Y') AS INVOICEDATE_FORMATTED
+FROM
+  DEVICE_MASTER;
+
+ALTER TABLE DEVICE_MASTER MODIFY INVOICEDATE VARCHAR(10);
+
+UPDATE DEVICE_MASTER
+SET
+  INVOICEDATE = DATE_FORMAT(
+    STR_TO_DATE(INVOICEDATE, '%Y-%m-%d'),
+    '%d/%m/%Y'
+  );

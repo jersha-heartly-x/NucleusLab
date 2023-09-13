@@ -1,46 +1,49 @@
 const db = require("../db");
 
 exports.auth = (req, res) => {
+  const q = `SELECT * FROM device_master WHERE verify = "not verified"`;
 
-    const q = `SELECT * FROM device_master WHERE verify = "not verified"`;
-  
-    db.query(q, (err, result)=>{
-        if(err) {
-            console.log(err);
-        }
-        else {
-            res.render("auth", {title: "AUTHORIZE STOCK", menu: "Authorize Stock", stock: result});
-        }
-    })
-  }
-  exports.authorizeStock = (req, res) => {
-    const q = `UPDATE device_master SET verify = "verified" WHERE  verify = "not verified"`;
-  
-    db.query(q, (err, result) => {
-      if (err) {
-        console.log(err);
-      } else {
-          console.log("Stock verification updated successfully");
-          res.redirect("/auth");
-         
-      }
-    });
-  }; 
-  
-  exports.authorize_dump = (req, res) => {
+  db.query(q, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("auth", {
+        title: "AUTHORIZE STOCK",
+        menu: "Authorize Stock",
+        stock: result,
+      });
+    }
+  });
+};
+exports.authorizeStock = (req, res) => {
+  const q = `UPDATE device_master SET verify = "verified" WHERE  verify = "not verified"`;
 
-    const q = `SELECT d.*, dm.devicetype FROM dump AS d
+  db.query(q, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Stock verification updated successfully");
+      res.redirect("/auth");
+    }
+  });
+};
+
+exports.authorize_dump = (req, res) => {
+  const q = `SELECT d.*, dm.devicetype FROM dump AS d
     LEFT JOIN device_master AS dm ON d.serialno = dm.serialno
-    WHERE d.verify = "not verified"`;  
-    db.query(q, (err, result)=>{
-      if(err) {
-          console.log(err);
-      }
-      else {
-          res.render("authorize_dump", {title: "AUTHORIZE DUMP", menu: "Authorize Dump", dump: result});
-      }
-  })
-}
+    WHERE d.verify = "not verified"`;
+  db.query(q, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("authorize_dump", {
+        title: "Authorize Dump",
+        menu: "Authorize Dump",
+        dump: result,
+      });
+    }
+  });
+};
 exports.authorize_dumpList = (req, res) => {
   const updateDumpQ = `UPDATE dump SET verify = "verified" WHERE verify = "not verified"`;
 
@@ -67,7 +70,7 @@ exports.authorize_dumpList = (req, res) => {
               OR monitorsno IN (SELECT serialno FROM dump WHERE verify = "verified")
               OR cpusno IN (SELECT serialno FROM dump WHERE verify = "verified")
       `;
-      
+
           db.query(deleteComputerQ, (err, computerResult) => {
             if (err) {
               console.log(err);

@@ -690,7 +690,7 @@ app.post("/add-location", getCookie.getCookie, (req, res) => {
 app.get("/dump", getCookie.getCookie, (req, res) => {
   switch (res.locals.role) {
     case "lab_assistant":
-      res.render("dump", { title: "DUMP", menu: "" });
+      res.render("dump", { title: "Dump", menu: "" });
       break;
     default:
       res.render("denial");
