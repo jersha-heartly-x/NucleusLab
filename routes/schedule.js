@@ -216,7 +216,7 @@ exports.checkAvailability = function (req, res) {
     sem = result[0].semester;
     console.log(year, sem);
 
-    let sql = `SELECT * FROM schedule WHERE academicYear="2023 - 2024" AND semester="odd" AND period >= "${from}" AND period <= "${to}" AND _day = "${day}";`;
+    let sql = `SELECT * FROM schedule WHERE academicYear="${year}" AND semester="${sem}" AND period >= "${from}" AND period <= "${to}" AND _day = "${day}";`;
 
     db.query(sql, (err, result) => {
       if (err) res.redirect("/denial");
