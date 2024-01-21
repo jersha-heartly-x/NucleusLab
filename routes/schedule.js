@@ -26,10 +26,11 @@ exports.regularSchedule = function (req, res) {
           "NSL",
           "IIL",
           "OCL",
-          "SKAVA",
+          "UG Lab",
           "SCL",
           "OSL",
           "SIL",
+          "CSRL",
         ];
 
         const table = [];
@@ -188,10 +189,11 @@ exports.checkAvailability = function (req, res) {
       "NSL",
       "IIL",
       "OCL",
-      "SKAVA",
+      "UG Lab",
       "SCL",
       "OSL",
       "SIL",
+      "CSRL",
     ],
     table = [];
 

@@ -157,7 +157,7 @@
                     </tr>
 
                     <tr>
-                        <th scope="row" class="rhead">SKAVA</th>
+                        <th scope="row" class="rhead">UG Lab</th>
                         <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
                         <% if(table[7][i] == "free") { %>
                             <td><strong class="text-purple"><%= table[7][i] %></strong></td>
@@ -193,6 +193,16 @@
                             <td><strong class="text-purple"><%= table[10][i] %></strong></td>
                         <% }else{ %>
                             <td><%= table[10][i] %></td>
+                        <% } } %>
+                    </tr>
+
+                    <tr>
+                        <th scope="row" class="rhead">CSRL</th>
+                        <% for(let i=parseInt(from)-1; i < parseInt(to); i++) { %>
+                        <% if(table[11][i] == "free") { %>
+                            <td><strong class="text-purple"><%= table[11][i] %></strong></td>
+                        <% }else{ %>
+                            <td><%= table[11][i] %></td>
                         <% } } %>
                     </tr>
 
