@@ -210,7 +210,7 @@ exports.checkAvailability = function (req, res) {
     .slice(0, 10)}' BETWEEN start_date and end_date;`;
 
   db.query(q, (err, result) => {
-    if (err || result.length == 0) res.render("denial");
+    if (err || result.length == 0) res.redirect("/denial");
 
     year = result[0].academic_year;
     sem = result[0].semester;
@@ -219,7 +219,7 @@ exports.checkAvailability = function (req, res) {
     let sql = `SELECT * FROM schedule WHERE academicYear="2023 - 2024" AND semester="odd" AND period >= "${from}" AND period <= "${to}" AND _day = "${day}";`;
 
     db.query(sql, (err, result) => {
-      if (err) res.render("denial");
+      if (err) res.redirect("/denial");
 
       for (let i of result) {
         const x = labs.indexOf(i.lab);
@@ -230,7 +230,7 @@ exports.checkAvailability = function (req, res) {
       sql = `SELECT * FROM booking WHERE bookingDate="${date}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
 
       db.query(sql, (err, result) => {
-        if (err) res.render("denial");
+        if (err) res.redirect("/denial");
 
         for (let i of result) {
           const x = labs.indexOf(i.lab);
