@@ -210,52 +210,51 @@ exports.checkAvailability = function (req, res) {
     .slice(0, 10)}' BETWEEN start_date and end_date;`;
 
   db.query(q, (err, result) => {
-    if (!err) {
-      if (result.length != 0) {
-        year = result[0].academic_year;
-        sem = result[0].semester;
-        console.log(year, sem);
+    if (err || result.length == 0) res.render("denial");
 
-        let sql = `SELECT * FROM schedule WHERE academicYear="2023 - 2024" AND semester="odd" AND period >= "${from}" AND period <= "${to}" AND _day = "${day}";`;
+    year = result[0].academic_year;
+    sem = result[0].semester;
+    console.log(year, sem);
 
-        db.query(sql, (err, result) => {
-          if (!err) {
-            for (let i of result) {
-              const x = labs.indexOf(i.lab);
-              const y = i.period - 1;
-              table[x][y] = i._year + " yr " + i.programme;
-            }
+    let sql = `SELECT * FROM schedule WHERE academicYear="2023 - 2024" AND semester="odd" AND period >= "${from}" AND period <= "${to}" AND _day = "${day}";`;
 
-            sql = `SELECT * FROM booking WHERE bookingDate="${date}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
+    db.query(sql, (err, result) => {
+      if (err) res.render("denial");
 
-            db.query(sql, (err, result) => {
-              if (!err) {
-                for (let i of result) {
-                  const x = labs.indexOf(i.lab);
-                  let f = Math.max(i.fromperiod, from),
-                    t = Math.min(i.toperiod, to);
-                  for (let j = f - 1; j < t; j++) {
-                    const y = j;
-                    table[x][y] = i._year + " yr " + i.programme;
-                  }
-                }
-
-                const data = {
-                  title: "Lab Booking",
-                  menu: "Check Availability",
-                  table: table,
-                  from: from,
-                  to: to,
-                  role: res.locals.role,
-                  isPR: res.locals.isPR,
-                };
-                res.render("check_available", data);
-              }
-            });
-          }
-        });
+      for (let i of result) {
+        const x = labs.indexOf(i.lab);
+        const y = i.period - 1;
+        table[x][y] = i._year + " yr " + i.programme;
       }
-    }
+
+      sql = `SELECT * FROM booking WHERE bookingDate="${date}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
+
+      db.query(sql, (err, result) => {
+        if (err) res.render("denial");
+
+        for (let i of result) {
+          const x = labs.indexOf(i.lab);
+          let f = Math.max(i.fromperiod, from),
+            t = Math.min(i.toperiod, to);
+          for (let j = f - 1; j < t; j++) {
+            const y = j;
+            table[x][y] = i._year + " yr " + i.programme;
+          }
+        }
+
+        const data = {
+          title: "Lab Booking",
+          menu: "Check Availability",
+          table: table,
+          from: from,
+          to: to,
+          role: res.locals.role,
+          isPR: res.locals.isPR,
+        };
+
+        res.render("check_available", data);
+      });
+    });
   });
 };
 
