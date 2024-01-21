@@ -210,16 +210,29 @@ exports.checkAvailability = function (req, res) {
     .slice(0, 10)}' BETWEEN start_date and end_date;`;
 
   db.query(q, (err, result) => {
-    if (err || result.length == 0) res.redirect("/denial");
+    if (err || result.length == 0)
+      return res.render("check_available", {
+        title: "Lab Booking",
+        menu: "Check Availability",
+        status: "Not yet scheduled for this date",
+        role: res.locals.role,
+        isPR: res.locals.isPR,
+      });
 
     year = result[0].academic_year;
     sem = result[0].semester;
-    console.log(year, sem);
 
     let sql = `SELECT * FROM schedule WHERE academicYear="${year}" AND semester="${sem}" AND period >= "${from}" AND period <= "${to}" AND _day = "${day}";`;
 
     db.query(sql, (err, result) => {
-      if (err) res.redirect("/denial");
+      if (err)
+        return res.render("check_available", {
+          title: "Lab Booking",
+          menu: "Check Availability",
+          status: "Not yet scheduled for this date",
+          role: res.locals.role,
+          isPR: res.locals.isPR,
+        });
 
       for (let i of result) {
         const x = labs.indexOf(i.lab);
@@ -230,7 +243,14 @@ exports.checkAvailability = function (req, res) {
       sql = `SELECT * FROM booking WHERE bookingDate="${date}" AND (((${from} BETWEEN fromperiod AND toperiod) OR (${to} BETWEEN fromperiod AND toperiod)) OR (fromperiod>=${from} AND toperiod<=${to}));`;
 
       db.query(sql, (err, result) => {
-        if (err) res.redirect("/denial");
+        if (err)
+          return res.render("check_available", {
+            title: "Lab Booking",
+            menu: "Check Availability",
+            status: "Not yet scheduled for this date",
+            role: res.locals.role,
+            isPR: res.locals.isPR,
+          });
 
         for (let i of result) {
           const x = labs.indexOf(i.lab);

@@ -40,7 +40,6 @@ exports.booking = function (req, res) {
         db.query(q, (err, result) => {
           if (!err) {
             if (result.length != 0) {
-              console.log("Already Scheduled");
               res.render("to_book", {
                 title: "Lab Booking",
                 menu: "To Book",
@@ -54,7 +53,6 @@ exports.booking = function (req, res) {
               db.query(q, (err, result) => {
                 if (!err) {
                   if (result.length != 0) {
-                    console.log("Already Blocked");
                     res.render("to_book", {
                       title: "Lab Booking",
                       menu: "To Book",
@@ -68,7 +66,6 @@ exports.booking = function (req, res) {
                     db.query(q, (err, result) => {
                       if (!err) {
                         if (result.length != 0) {
-                          console.log("Already Booked");
                           res.render("to_book", {
                             title: "Lab Booking",
                             menu: "To Book",
@@ -81,7 +78,6 @@ exports.booking = function (req, res) {
 
                           db.query(q, (err, result) => {
                             if (!err) {
-                              console.log("Booked Successfully");
                               res.render("to_book", {
                                 title: "Lab Booking",
                                 menu: "To Book",
@@ -116,7 +112,6 @@ exports.booking = function (req, res) {
 
         db.query(q, (err, result) => {
           if (!err) {
-            console.log("Booked Successfully");
             res.render("to_book", {
               title: "Lab Booking",
               menu: "To Book",

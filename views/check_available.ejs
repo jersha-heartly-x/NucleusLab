@@ -9,6 +9,13 @@
 <% } %>
 
     <div class="main schedule rounded p-3 mx-lg-5 ">
+        <% if(locals.status) { %>
+            <div class="alert alert-danger alert-dismissible fade show position-absolute top-10 start-50 translate-middle" role="alert" id="alert">
+                <%= locals.status %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
+
         <div class="m-3 row">
             <div class="mb-3  text-center">
                 <h4 class="text-center float-sm-start">Check Availability</h4>
@@ -16,7 +23,6 @@
         </div>
         <div class="check_available mb-3 d-flex justify-content-center ">
             <form action="/check-availability" method="post" style="width: 30%;">
-
 
                 <div class="mb-3 row">
                     <label for="date" class="col-xl-5 col-form-label">Date</label>
