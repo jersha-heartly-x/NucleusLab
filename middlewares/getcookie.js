@@ -7,8 +7,8 @@ exports.getCookie = (req, res, next) => {
   const formattedCookie =
     xamcsAuthCookie && xamcsRefreshCookie
       ? `x-amcs-auth=${encodeURIComponent(
-          xamcsAuthCookie
-        )}; x-amcs-refresh=${encodeURIComponent(xamcsRefreshCookie)}`
+        xamcsAuthCookie
+      )}; x-amcs-refresh=${encodeURIComponent(xamcsRefreshCookie)}`
       : "";
 
   var config = {
@@ -22,31 +22,28 @@ exports.getCookie = (req, res, next) => {
 
   axios(config)
     .then(function (response) {
-      if (response.request._redirectable._isRedirect) {
-        res.redirect(response.request._redirectable._currentUrl);
+      res.locals.userDetails = {
+        id: response.data.data.id,
+        firstName: response.data.data.firstName,
+        lastName: response.data.data.lastName,
+        mobileNo: response.data.data.mobileNo,
+        email: response.data.data.email,
+      };
+      if (response.data.data.id === "admin") {
+        res.locals.role = "admin";
       } else {
-        res.locals.userDetails = {
-          id: response.data.data.id,
-          firstName: response.data.data.firstName,
-          lastName: response.data.data.lastName,
-          mobileNo: response.data.data.mobileNo,
-          email: response.data.data.email,
-        };
-        if (response.data.data.id === "admin") {
-          res.locals.role = "admin";
-        } else {
-          res.locals.role = response.data.data.roles[0];
-          if (
-            response.data.data.roles[1] &&
-            response.data.data.roles[1] == "pr"
-          )
-            res.locals.isPR = true;
-          else res.locals.isPR = false;
-        }
-        next();
+        res.locals.role = response.data.data.roles[0];
+        if (
+          response.data.data.roles[1] &&
+          response.data.data.roles[1] == "pr"
+        )
+          res.locals.isPR = true;
+        else res.locals.isPR = false;
       }
+      next();
     })
     .catch(function (error) {
       console.log(error);
+      next(error);
     });
 };
