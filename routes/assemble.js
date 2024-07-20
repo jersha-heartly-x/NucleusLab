@@ -1,6 +1,6 @@
 const db = require("../db");
 
-exports.assemble = function(req, res) {
+exports.assemble = function (req, res) {
   const systemnoArr = Array.isArray(req.body["systemno"]) ? req.body["systemno"] : [req.body["systemno"]];
   const locationArr = Array.isArray(req.body["location"]) ? req.body["location"] : [req.body["location"]];
   const mousesnoArr = Array.isArray(req.body["mousesno"]) ? req.body["mousesno"] : [req.body["mousesno"]];
@@ -17,7 +17,7 @@ exports.assemble = function(req, res) {
     const monitorsno = monitorsnoArr[i].toUpperCase();
     const cpusno = cpusnoArr[i].toUpperCase();
     const keyboardsno = keyboardsnoArr[i].toUpperCase();
-    
+
     const selectQuery = `
       SELECT mousesno, monitorsno, cpusno, keyboardsno
       FROM computer_master

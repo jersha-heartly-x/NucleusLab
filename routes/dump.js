@@ -11,7 +11,7 @@ exports.dump = (req, res) => {
     const checkStatusQuery = `SELECT status FROM device_master WHERE serialno = ?`;
 
     return new Promise((resolve, reject) => {
-      db.query(checkStatusQuery, [serialNo], (statusErr, statusResult) => {
+      db.query(checkStatusQuery, (statusErr, statusResult) => {
         if (statusErr) {
           console.error(statusErr);
           reject(statusErr);
@@ -23,7 +23,7 @@ exports.dump = (req, res) => {
           const status = statusResult[0].status;
           if (status === 'Not Working') {
             const insertQuery = "INSERT INTO dump (serialno, disposaldate) VALUES (?, ?)";
-            db.query(insertQuery, [serialNo, dumpDate], (insertErr) => {
+            db.query(insertQuery, (insertErr) => {
               if (insertErr) {
                 console.error(insertErr);
                 reject(insertErr);
@@ -31,14 +31,14 @@ exports.dump = (req, res) => {
                 successSerialNos.push(serialNo);
                 resolve();
               }
-            });
+            }, [serialNo, dumpDate]);
           } else {
             const errorMsg = `Serial number ${serialNo} has status '${status}'`;
             errorMessages.push(errorMsg);
             resolve();
           }
         }
-      });
+      }, [serialNo]);
     });
   });
 

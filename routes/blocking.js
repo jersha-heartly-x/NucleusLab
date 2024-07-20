@@ -28,7 +28,7 @@ exports.toBlock = function (req, res) {
     .slice(0, 10)}' BETWEEN start_date and end_date;`;
 
   db.query(q, (err, result) => {
-    if(!err) {
+    if (!err) {
       const defaultOptions = result[0];
 
       const academicYear = req.body.academic_year,
@@ -41,7 +41,7 @@ exports.toBlock = function (req, res) {
       q = `SELECT * FROM schedule WHERE academicYear="${academicYear}" AND semester="${semester}" AND lab="${lab}" AND _day="${day}" AND period>=${from} AND period<=${to};`;
 
       db.query(q, (err, result) => {
-        if(!err) {
+        if (!err) {
           if (result.length != 0) {
             console.log("Already Scheduled");
             res.render("block_lab", {

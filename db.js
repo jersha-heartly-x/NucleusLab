@@ -1,34 +1,39 @@
 require("dotenv").config();
 const mysql = require("mysql");
 
-let con;
+const pool = mysql.createPool({
+  connectionLimit: 10,
+  host: process.env.DATABASE_HOST,
+  port: process.env.PORT,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE,
+});
 
-function connectToDatabase() {
-  con = mysql.createConnection({
-    host: process.env.DATABASE_HOST,
-    port: process.env.PORT,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE,
-  });
-
-  con.connect(function (err) {
+function queryDatabase(query, callback, params = []) {
+  pool.getConnection((err, connection) => {
     if (err) {
-      console.error("Error connecting to database:", err.message);
-      console.log("Attempting to reconnect...");
-      connectToDatabase();
-    } else {
-      console.log("Connected to database");
+      if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        console.error('Database connection was closed.');
+      } else if (err.code === 'ER_CON_COUNT_ERROR') {
+        console.error('Database has too many connections.');
+      } else if (err.code === 'ECONNREFUSED') {
+        console.error('Database connection was refused.');
+      } else {
+        console.error('Database connection error:', err);
+      }
+      return callback(err);
     }
-  });
 
-  con.on("error", function (err) {
-    console.error("Unexpected database error:", err.message);
-    console.log("Attempting to reconnect...");
-    connectToDatabase();
+    connection.query(query, params, (error, results) => {
+      connection.release(); // Always release the connection back to the pool
+      if (error) {
+        console.error('Query error:', error);
+        return callback(error);
+      }
+      callback(null, results);
+    });
   });
 }
 
-connectToDatabase();
-
-module.exports = con;
+module.exports = { query: queryDatabase };

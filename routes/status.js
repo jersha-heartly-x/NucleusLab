@@ -1,6 +1,6 @@
 const db = require("../db");
 
-exports.status = function(req, res) {
+exports.status = function (req, res) {
   const serialno = req.body["serialno"].toUpperCase();
   const status = req.body["deviceStatus"];
   const checkQuery = `SELECT COUNT(*) AS count FROM device_master WHERE serialno = "${serialno}"`;
@@ -33,7 +33,7 @@ exports.status = function(req, res) {
             });
           } else {
             console.log("Updated status successfully");
-            
+
             const computerCheckQuery = `
               SELECT COUNT(*) AS compCount
               FROM computer_master
@@ -103,7 +103,7 @@ exports.status = function(req, res) {
 
 
 
-exports.getLocationDropdown = function(callback) {
+exports.getLocationDropdown = function (callback) {
   db.query("SELECT DISTINCT lab FROM location", (err, result) => {
     if (err) {
       console.log(err);
@@ -118,7 +118,7 @@ exports.getLocationDropdown = function(callback) {
   });
 };
 
-exports.location = function(req, res) {
+exports.location = function (req, res) {
   const serialno = req.body["serialno"].toUpperCase();
   const location = req.body["location"];
   const checkQuery = `SELECT COUNT(*) AS count FROM device_master WHERE serialno = "${serialno}"`;
@@ -126,7 +126,7 @@ exports.location = function(req, res) {
 
   console.log("Received Serial Number:", serialno);
   console.log("Received Location:", location);
-    db.query(locationDropdownQuery, (err, locations) => {
+  db.query(locationDropdownQuery, (err, locations) => {
     if (err) {
       console.log(err);
       res.render("location", {
@@ -138,7 +138,7 @@ exports.location = function(req, res) {
     } else {
       const locationDropdown = locations
         .map((item) => item.lab)
-        .filter((lab) => lab && lab.trim() !== ''); 
+        .filter((lab) => lab && lab.trim() !== '');
 
       db.query(checkQuery, (checkErr, checkResult) => {
         if (checkErr) {
@@ -153,7 +153,7 @@ exports.location = function(req, res) {
               alert: "Serial Number Not Found",
               location: locationDropdown,
             });
-          } else { 
+          } else {
             const updateQuery = `UPDATE device_master SET location = "${location}" WHERE serialno = "${serialno}"`;
             db.query(updateQuery, (updateErr, updateResult) => {
               if (updateErr) {
@@ -176,11 +176,11 @@ exports.location = function(req, res) {
 };
 
 
-exports.addLocation = function(req, res) {
-  const lab = req.body.newlocation.toUpperCase(); 
-  const q = `SELECT * FROM location WHERE UPPER(lab) = ?`; 
+exports.addLocation = function (req, res) {
+  const lab = req.body.newlocation.toUpperCase();
+  const q = `SELECT * FROM location WHERE UPPER(lab) = ?`;
 
-  db.query(q, [lab], (err, result) => {
+  db.query(q, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -190,16 +190,16 @@ exports.addLocation = function(req, res) {
 
       } else {
         const insertQuery = `INSERT INTO location (lab) VALUES (?)`;
-        db.query(insertQuery, [lab], (insertErr, insertResult) => {
+        db.query(insertQuery, (insertErr, insertResult) => {
           if (insertErr) {
             console.log(insertErr);
           } else {
             console.log("Inserted successfully");
             res.redirect("/location");
           }
-        });
+        }, [lab]);
       }
     }
-  });
+  }, [lab]);
 };
 

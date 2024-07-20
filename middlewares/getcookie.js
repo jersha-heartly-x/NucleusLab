@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 exports.getCookie = (req, res, next) => {
   var axios = require("axios");
 
@@ -22,25 +24,30 @@ exports.getCookie = (req, res, next) => {
 
   axios(config)
     .then(function (response) {
-      res.locals.userDetails = {
-        id: response.data.data.id,
-        firstName: response.data.data.firstName,
-        lastName: response.data.data.lastName,
-        mobileNo: response.data.data.mobileNo,
-        email: response.data.data.email,
-      };
-      if (response.data.data.id === "admin") {
-        res.locals.role = "admin";
+      if (response.request._redirectable._isRedirect) {
+        res.redirect(response.request._redirectable._currentUrl);
       } else {
-        res.locals.role = response.data.data.roles[0];
-        if (
-          response.data.data.roles[1] &&
-          response.data.data.roles[1] == "pr"
-        )
-          res.locals.isPR = true;
-        else res.locals.isPR = false;
+
+        res.locals.userDetails = {
+          id: response.data.data.id,
+          firstName: response.data.data.firstName,
+          lastName: response.data.data.lastName,
+          mobileNo: response.data.data.mobileNo,
+          email: response.data.data.email,
+        };
+        if (response.data.data.id === "admin") {
+          res.locals.role = "admin";
+        } else {
+          res.locals.role = response.data.data.roles[0];
+          if (
+            response.data.data.roles[1] &&
+            response.data.data.roles[1] == "pr"
+          )
+            res.locals.isPR = true;
+          else res.locals.isPR = false;
+        }
+        next();
       }
-      next();
     })
     .catch(function (error) {
       console.log(error);

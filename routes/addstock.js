@@ -1,7 +1,7 @@
 //js
 const db = require("../db");
 
-exports.displayDevice = function(req, res) {
+exports.displayDevice = function (req, res) {
   db.query("SELECT DISTINCT devicetype FROM device", (err, result) => {
     if (err) {
       console.log(err);
@@ -9,9 +9,9 @@ exports.displayDevice = function(req, res) {
       const deviceTypes = [];
       for (let i = 0; i < result.length; i++) {
         deviceTypes.push(result[i].devicetype);
-      }  
-      res.render("addstock", { 
-        title: "Add Device", 
+      }
+      res.render("addstock", {
+        title: "Add Device",
         devices: deviceTypes,
         menu: "Add device",
       });
@@ -20,11 +20,11 @@ exports.displayDevice = function(req, res) {
 };
 
 exports.addstock = function (req, res) {
-  
+
   const invoiceNo = req.body["Inv_no"];
   const invoiceDate = req.body["fdate"];
   const deviceTypes = Array.isArray(req.body["devicetype"]) ? req.body["devicetype"] : [req.body["devicetype"]];
-  const serialNos = Array.isArray(req.body["serial_no"]) ? req.body["serial_no"]: [req.body["serial_no"]];
+  const serialNos = Array.isArray(req.body["serial_no"]) ? req.body["serial_no"] : [req.body["serial_no"]];
   const models = Array.isArray(req.body["Model"]) ? req.body["Model"] : [req.body["Model"]];
   const specifications = Array.isArray(req.body["Specification"]) ? req.body["Specification"] : [req.body["Specification"]];
 
@@ -116,11 +116,11 @@ exports.addstock = function (req, res) {
     });
 };
 
-exports.addDevice = function(req, res) {
-  const device = req.body.newdevice.toLowerCase(); 
-  const q = `SELECT * FROM device WHERE LOWER(devicetype) = ?`; 
+exports.addDevice = function (req, res) {
+  const device = req.body.newdevice.toLowerCase();
+  const q = `SELECT * FROM device WHERE LOWER(devicetype) = ?`;
 
-  db.query(q, [device], (err, result) => {
+  db.query(q, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -131,19 +131,19 @@ exports.addDevice = function(req, res) {
       } else {
         const insertQuery = `INSERT INTO device (devicetype) VALUES (?)`;
 
-        db.query(insertQuery, [device], (insertErr, insertResult) => {
+        db.query(insertQuery, (insertErr, insertResult) => {
           if (insertErr) {
             console.log(insertErr);
           } else {
             console.log("Inserted successfully");
             res.redirect("/addstock");
           }
-        });
+        }, [device]);
       }
     }
-  });
+  }, [device]);
 };
-exports.addcomputer = function(req, res) {
+exports.addcomputer = function (req, res) {
   const invoiceNo = req.body["Inv_no"];
   const invoiceDate = req.body["fdate"];
   const serialNos = Array.isArray(req.body["serial_no"]) ? req.body["serial_no"] : [req.body["serial_no"]];
@@ -167,7 +167,7 @@ exports.addcomputer = function(req, res) {
   let errorMessages = [];
   let successSerialNumbers = [];
   let invalidSerialNumbers = [];
-  let isValidationError = false; 
+  let isValidationError = false;
 
   Promise.all(
     serialNos.map((serialNo, index) => {
@@ -198,7 +198,7 @@ exports.addcomputer = function(req, res) {
             const errorMsg = `Serial number ${serialNo} already exists in row ${index + 1}`;
             console.log(errorMsg);
             errorMessages.push(errorMsg);
-            resolve(); 
+            resolve();
           } else {
             db.query(q, (inserterr) => {
               if (inserterr) {
@@ -215,17 +215,17 @@ exports.addcomputer = function(req, res) {
       });
     })
   )
-          .then(() => {
+    .then(() => {
       if (isValidationError) {
-          const alertMessage = `Invalid MAC address for serial number ${invalidSerialNumbers.join(", ")}`;
-          res.render("addcomputer", {
-            title: "Add computer",
-            alert: alertMessage,
-            role: res.locals.role,
-            isPR: res.locals.isPR,
-            errors: errorMessages,
-          });
-      }else if (errorMessages.length > 0) {
+        const alertMessage = `Invalid MAC address for serial number ${invalidSerialNumbers.join(", ")}`;
+        res.render("addcomputer", {
+          title: "Add computer",
+          alert: alertMessage,
+          role: res.locals.role,
+          isPR: res.locals.isPR,
+          errors: errorMessages,
+        });
+      } else if (errorMessages.length > 0) {
         const notInsertedSerialNumbers = errorMessages.map((errorMsg) => {
           const match = /Serial number (\S+) already exists in/.exec(errorMsg);
           return match ? match[1] : null;
